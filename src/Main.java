@@ -20,14 +20,32 @@ public class Main {
         //calling the parSer method of the TestClass within the obj instance of the class
         obj.parSer();
 
-        //Stuff for fiddling- move in a bit
+        //Stuff for fiddling- move in a bit- to create the File object for the vcf
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\160916_M00766_0079_000000000-ATNNU_16M13176_filtered_meta_annotated.vcf";
+        //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
+
+        //Verifying type is correct and the absolute filepath is correct
+        String type = ((Object)vcf_file).getClass().getName();
+        System.out.println(type);
+        System.out.println(vcf_file);
 
         //Instantiate second class
         OpenVEPVCF obj2 = new OpenVEPVCF(vcf_file);
-        obj2.openFiles();
+
+        //Open the file
+        obj2.openFiles(); //removed (vcf_file)
 
 
+    }
+
+    //Method probably not needed- delete later
+    public static File getAbsoluteFile(File root, String path)  {
+        File file = new File(path);
+        if (file.isAbsolute())
+                return file;
+        if (root == null)
+                return null;
+        return new File(root, path);
     }
 }

@@ -24,11 +24,11 @@ public class ParseVEPVCF {
 
         String line;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(vcfFilePath))) {
-            while ((line = reader.readLine()) != null) {
-                System.out.println("line");
-            }
-        }
+        //try (BufferedReader reader = new BufferedReader(new FileReader(vcfFilePath))) {
+            //while ((line = reader.readLine()) != null) {
+                //System.out.println("line");
+            //}
+        //}
     }
 
 }
