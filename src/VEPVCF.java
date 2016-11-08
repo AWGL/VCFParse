@@ -2,6 +2,13 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import htsjdk.samtools.*;
+import htsjdk.tribble.*;
+import htsjdk.tribble.readers.*;
+import htsjdk.variant.*;
+import htsjdk.variant.variantcontext.*;
+import htsjdk.variant.variantcontext.writer.*;
+import htsjdk.variant.vcf.*;
+
 import java.util.List;
 
 /**
@@ -15,19 +22,27 @@ public class VepVcf {
     public VepVcf(File vcfFilePath) {
         this.vcfFilePath = vcfFilePath;
     }
-    public void openFiles()   { 
+    public void openFiles()   {
 
         Log.log(Level.INFO, "Opening VEP VCF file");
 
         String line;
 
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(vcfFilePath));
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+        //final File inputFile = new File(vcfFilePath); //How to input a file
+        //final File outputFile = args.length >= 2 ? new File(args[1]) : null; //for output
+
+        //Need theses temporarily for the code below to execute- find a better solution later
+        File inputFile = vcfFilePath;
+        File outputFile = null;
+
+        try(final VariantContextWriter writer = outputFile == null ? null : new VariantContextWriterBuilder().setOutputFile(outputFile).setOutputFileType(VariantContextWriterBuilder.OutputType.VCF).unsetOption(Options.INDEX_ON_THE_FLY).build();
+            final AbstractFeatureReader<VariantContext, LineIterator> reader = AbstractFeatureReader.getFeatureReader(inputFile.getAbsolutePath(), new VCFCodec(), false)){
+            //while ((line = reader.readLine()) != null) {
+                //System.out.println(line);
+
             }
 
-        }catch(Exception e) { //(IOException e) {
+        }catch(Exception e) {
 
             Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
         }
