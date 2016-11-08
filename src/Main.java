@@ -31,10 +31,13 @@ public class Main {
         System.out.println(vcf_file);
 
         //Instantiate second class
-        OpenVEPVCF obj2 = new OpenVEPVCF(vcf_file);
+        VepVcf obj2 = new VepVcf(vcf_file);
 
         //Open the file
         obj2.openFiles(); //removed (vcf_file)
+
+        //Parse the file
+
 
 
     }

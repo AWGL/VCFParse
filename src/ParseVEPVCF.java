@@ -20,7 +20,7 @@ public class ParseVEPVCF {
 
     public void parseFile() {
 
-        Log.log(Level.INFO, "Parsing GTF file");
+        Log.log(Level.INFO, "Parsing VEP VCF file");
 
         String line;
 
