@@ -88,16 +88,19 @@ public class VepVcf {
 
 
                 ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
-                String CSQ = vc.getAttributeAsString("CSQ","null"); //Fix this variable name
+                String CSQ = vc.getAttributeAsString("CSQ", "null"); //Fix this variable name
                 //System.out.print(CSQ); //Not needed for now
-                for (String splitVal: CSQ.split("\\,")){ //Splits multiple records per entry
+                for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
                     System.out.println(splitVal); //Prints out the individual records
                     //for (String splitEntries: splitVal.split("\\|")){ //Need to escape the string because it's regex
-                        //System.out.print(splitEntries);
-                        //System.out.print("\n");
+                    //System.out.print(splitEntries);
+                    //System.out.print("\n");
                     //}
                 }
                 System.out.print("\n");
+
+                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(), "A", "G"); //test
+                System.out.print(variantObject);
             }
 
         }catch(Exception e) {
