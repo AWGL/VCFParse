@@ -29,12 +29,12 @@ public class VepVcf {
 
         Log.log(Level.INFO, "Opening VEP VCF file");
 
-        String line;
+        //String line; //Not required
 
         //final File inputFile = new File(vcfFilePath); //How to input a file
         //final File outputFile = args.length >= 2 ? new File(args[1]) : null; //for output
 
-        //Need theses temporarily for the code below to execute- find a better solution later
+        //Need these temporarily for the code below to execute- find a better solution later
         File inputFile = vcfFilePath;
         File outputFile = null;
 
@@ -48,43 +48,51 @@ public class VepVcf {
                 if (writer != null) {
                     writer.add(vc);
                 }
-                System.out.print(vc.getContig());
-                System.out.print("\t");
-                System.out.print(vc.getStart());
-                System.out.print("\t");
-                System.out.print(vc.getEnd()); //Could be useful for indels etc.
-                System.out.print("\t");
-                System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
-                System.out.print("\t");
-                System.out.print(vc.getReference()); //Reference allele
-                System.out.print("\t");
-                System.out.print(vc.getAlleles()); //Returns all the potential alternate alleles- test with an indel
-                System.out.print("\t");
-                System.out.print(vc.getID());
-                System.out.print("\t");
-                System.out.print(vc.getPhredScaledQual());
-                System.out.print("\t");
-                System.out.print(vc.isFiltered());
-                System.out.print("\t");
-                System.out.print(vc.getAttribute("DP")); //Depth
-                System.out.print("\t");
-                //System.out.print(vc.getAttribute("CSQ")); //Long- commented out for now
-                System.out.print("\t");
+                //System.out.print(vc.getContig());
+                //System.out.print("\t");
+                //System.out.print(vc.getStart());
+                //System.out.print("\t");
+                //System.out.print(vc.getEnd()); //Could be useful for indels etc.
+                //System.out.print("\t");
+                //System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
+                //System.out.print("\t");
+                //System.out.print(vc.getReference()); //Reference allele
+                //System.out.print("\t");
+                //System.out.print(vc.getAlleles()); //Returns all the potential alternate alleles- test with an indel
+                //System.out.print("\t");
+                //System.out.print(vc.getID());
+                //System.out.print("\t");
+                //System.out.print(vc.getPhredScaledQual());
+                //System.out.print("\t");
+                //System.out.print(vc.isFiltered());
+                //System.out.print("\t");
+                //System.out.print(vc.getAttribute("DP")); //Depth
+                //System.out.print("\t");
+                ///System.out.print(vc.getAttribute("CSQ")); //Long- commented out for now
+                //System.out.print("\t");
                 //Need to find a better way of getting a transcript
-                //System.out.print(VariantContextUtils.match(VariantContext vc, ));
-                System.out.print("\t");
+                ///System.out.print(VariantContextUtils.match(VariantContext vc, ));
+                //System.out.print("\t");
 
                 //System.out.print(vc.hasAttribute("Transcript")); //To see if a particular attribute is available as a key
-                System.out.print("\t");
+                //System.out.print("\t");
 
 
-                //Requires further parsing
-                System.out.print(vc.getGenotypes());
-                System.out.print("\t");
+                ///Requires further parsing- do later
+                //System.out.print(vc.getGenotypes());
+                //System.out.print("\t");
 
 
-                //System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
-                System.out.print(vc.getAttributeAsString("CSQ","null"));
+                ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
+                String CSQ = vc.getAttributeAsString("CSQ","null"); //Fix this variable name
+                //System.out.print(CSQ); //Not needed for now
+                for (String splitVal: CSQ.split("\\,")){ //Splits multiple records per entry
+                    System.out.println(splitVal); //Prints out the individual records
+                    //for (String splitEntries: splitVal.split("\\|")){ //Need to escape the string because it's regex
+                        //System.out.print(splitEntries);
+                        //System.out.print("\n");
+                    //}
+                }
                 System.out.print("\n");
             }
 
