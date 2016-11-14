@@ -8,6 +8,7 @@ import htsjdk.tribble.readers.*;
 import htsjdk.variant.variantcontext.*;
 import htsjdk.variant.variantcontext.writer.*;
 import htsjdk.variant.vcf.*;
+import java.util.HashMap;
 
 import htsjdk.variant.utils.*;
 
@@ -27,7 +28,10 @@ public class VepVcf {
     }
     public void openFiles() { //throws IOException  {
 
+        //Declare
         Log.log(Level.INFO, "Opening VEP VCF file");
+        //Declare HashMap
+        HashMap<Integer, String> vepHashMap = new HashMap<Integer, String>();
 
         //String line; //Not required
 
