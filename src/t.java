@@ -1,3 +1,5 @@
+//This turns the import into a fully decoded one. It's a bit messy right now though- might add to the VepVcf class later
+
 import htsjdk.tribble.AbstractFeatureReader;
 import htsjdk.tribble.readers.LineIterator;
 import htsjdk.variant.variantcontext.VariantContext;
@@ -5,7 +7,6 @@ import htsjdk.variant.variantcontext.writer.Options;
 import htsjdk.variant.variantcontext.writer.VariantContextWriter;
 import htsjdk.variant.variantcontext.writer.VariantContextWriterBuilder;
 import htsjdk.variant.vcf.VCFCodec;
-import htsjdk.variant.vcf.VCFHeader;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.logging.Logger;
 
 //Extra imports for testing
 import htsjdk.variant.vcf.VCFInfoHeaderLine;
+import htsjdk.variant.vcf.VCFHeader;
+import htsjdk.variant.vcf.VCFFileReader;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -47,9 +50,13 @@ public class t {
         //Create a vcf header
         //Testing
         //VCFInfoHeaderLine currentHeaderLine = new VCFInfoHeaderLine();
-        
-        VCFHeader currentHeader = new VCFHeader(); //Need to get the vcf file path into this
 
+        //Read in the file
+        VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false); //False to not require index
+
+        //Create the VCF Header object
+        //VCFHeader currentHeader = new VCFHeader(); //Need to get the vcf file path into this
+        VCFHeader currentHeader = vcfFile.getFileHeader(); //This is very messy in light of opening the file below as well- FIX
 
 
         try (final VariantContextWriter writer = outputFile == null ? null : new VariantContextWriterBuilder().setOutputFile(outputFile).setOutputFileType(VariantContextWriterBuilder.OutputType.VCF).unsetOption(Options.INDEX_ON_THE_FLY).build();
@@ -58,14 +65,24 @@ public class t {
             System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
 
             System.out.print(currentHeader.getFormatHeaderLines());
+            System.out.print("\n");
+            System.out.print(currentHeader.getHeaderFields());
 
             //final ProgressLogger pl = new ProgressLogger(log, 1000000);
             for (final VariantContext vc : reader.iterator()) {
-                //vc.fullyDecode((vc.getFormatHeaderLines(vcfFilePath)),true); //Testing
+                //vc.fullyDecode((vc.getFormatHeaderLines(vcfFilePath)),true); //This won't work
                 if (writer != null) {
                     writer.add(vc);
                 }
+                //Fully decoded?- this converts e.g. ints to int objects in java instead of leaving as a string
+                VariantContext nvc = vc.fullyDecode(currentHeader, false); //boolean is lenient decoding
+                System.out.print("\n");
+                //System.out.print(nvc.isFullyDecoded()); //Boolean whether the object is fully decoded or not
+
+                System.out.println(vc.getReference()); //Reference allele
+                System.out.print(nvc.getReference()); //Reference allele
             }
+
         } catch (Exception e) {
 
             Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
