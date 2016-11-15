@@ -72,6 +72,7 @@ public class t {
             System.out.println(currentHeader.getInfoHeaderLines());
             System.out.println(currentHeader.getInfoHeaderLine("CSQ"));
 
+
             //WORK HERE ON OBTAINING THE HEADER LINES DIRECT FROM THE VCF//
             VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ");
             System.out.println(vepInfo.getDescription());

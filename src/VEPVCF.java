@@ -55,7 +55,7 @@ public class VepVcf {
             System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
 
             //final ProgressLogger pl = new ProgressLogger(log, 1000000);
-            for (final VariantContext vc : reader.iterator()) {
+            for (final VariantContext vc : reader.iterator()) { //Creation of VariantContext object and iteration over all records
                 if (writer != null) {
                     writer.add(vc);
                 }
@@ -119,18 +119,19 @@ public class VepVcf {
                 System.out.print("\n");
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
+                //Obtain keys for each transcript entry (header in vcf file)
                 CSQ csqObject = new CSQ(vcfFilePath);
                 //System.out.println(csqObject); //Just gives a reference to the object
-                csqObject.vepHeaders();
+                csqObject.vepHeaders(); //This object should contain the headers
+                System.out.println(csqObject.vepHeaders()); //Checking that the object contains the headers
 
 
                 String CSQ = vc.getAttributeAsString("CSQ", "null"); //Fix this variable name
                 //System.out.print(CSQ); //Not needed for now
                 for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
-                    //System.out.println(splitVal); //Prints out the individual records
+                    System.out.println(splitVal); //Prints out the individual records
                     //for (String splitEntries: splitVal.split("\\|")){ //Need to escape the string because it's regex
-                    //System.out.print(splitEntries);
-                    //System.out.print("\n");
+                    //System.out.println(splitEntries);
                     //}
                 }
                 System.out.print("\n");
