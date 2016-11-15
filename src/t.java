@@ -72,7 +72,23 @@ public class t {
             System.out.println(currentHeader.getInfoHeaderLines());
             System.out.println(currentHeader.getInfoHeaderLine("CSQ"));
 
-            //WORK HERE ON OBTAINING THE HEADER LINES DIRECT FROM THE VCF
+            //WORK HERE ON OBTAINING THE HEADER LINES DIRECT FROM THE VCF//
+            VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ");
+            System.out.println(vepInfo.getDescription());
+            //String[] vepper = vepInfo.getDescription().split("\\.");
+            //System.out.println(vepper[1].trim()); //Relies on this information being in the second entry split by a .
+            //System.out.println(vepInfo.getDescription().split("\\.")[1].trim()); //Relies on this information being in the second entry split by a .
+
+            String vepHeader = vepInfo.getDescription().split("\\.")[1].split(":")[1].trim();
+            System.out.println(vepHeader);
+
+
+             /*
+            for (String i : vepInfo.getDescription().split("\\.")) {
+               System.out.println(i);
+            }
+            */
+
 
             //final ProgressLogger pl = new ProgressLogger(log, 1000000);
             for (final VariantContext vc : reader.iterator()) {

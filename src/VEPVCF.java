@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class VepVcf {
+
     private static final Logger Log = Logger.getLogger(OpenVEPVCF.class.getName());
     private File vcfFilePath;
 
@@ -26,6 +27,7 @@ public class VepVcf {
     public VepVcf(File vcfFilePath) {
         this.vcfFilePath = vcfFilePath;
     }
+
     public void openFiles() { //throws IOException  {
 
         //Declare
@@ -115,6 +117,12 @@ public class VepVcf {
                         vc.getReference().toString().replaceAll("\\*",""), altAllele.toString()); //test
                 System.out.print(variantObject); //This can be the key for each variant entry
                 System.out.print("\n");
+
+                //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
+                CSQ csqObject = new CSQ(vcfFilePath);
+                //System.out.println(csqObject); //Just gives a reference to the object
+                csqObject.vepHeaders();
+
 
                 String CSQ = vc.getAttributeAsString("CSQ", "null"); //Fix this variable name
                 //System.out.print(CSQ); //Not needed for now
