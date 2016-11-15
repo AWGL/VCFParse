@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 
 /**
  * Created by Sara on 15-Nov-16.
+ * Dumped the syntax for creating an output file in here as not wanted at present and don't want to over-complicate
+ * things
  */
 public class SpareCode {
 

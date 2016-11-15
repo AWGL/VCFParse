@@ -65,12 +65,14 @@ public class t {
             //while ((line = reader.readLine()) != null) {
             System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
 
+            System.out.println(reader.getHeader());
+
             //Access data in header object
             //System.out.print(currentHeader.getFormatHeaderLines());
             //System.out.print("\n");
             //System.out.print(currentHeader.getHeaderFields());
-            System.out.println(currentHeader.getInfoHeaderLines());
-            System.out.println(currentHeader.getInfoHeaderLine("CSQ"));
+            //System.out.println(currentHeader.getInfoHeaderLines());
+            //System.out.println(currentHeader.getInfoHeaderLine("CSQ"));
 
 
             //WORK HERE ON OBTAINING THE HEADER LINES DIRECT FROM THE VCF//
