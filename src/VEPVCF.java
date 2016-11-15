@@ -101,7 +101,7 @@ public class VepVcf {
                     System.out.println("Loop");
                     altAllele = altAlleles.get(0);
 
-                    //Logic required here to deal with more than one alternate allele
+                    //Logic required here to deal with more than one alternate allele//
 
 
                 }else{

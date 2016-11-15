@@ -65,9 +65,14 @@ public class t {
             //while ((line = reader.readLine()) != null) {
             System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
 
-            System.out.print(currentHeader.getFormatHeaderLines());
-            System.out.print("\n");
-            System.out.print(currentHeader.getHeaderFields());
+            //Access data in header object
+            //System.out.print(currentHeader.getFormatHeaderLines());
+            //System.out.print("\n");
+            //System.out.print(currentHeader.getHeaderFields());
+            System.out.println(currentHeader.getInfoHeaderLines());
+            System.out.println(currentHeader.getInfoHeaderLine("CSQ"));
+
+            //WORK HERE ON OBTAINING THE HEADER LINES DIRECT FROM THE VCF
 
             //final ProgressLogger pl = new ProgressLogger(log, 1000000);
             for (final VariantContext vc : reader.iterator()) {
@@ -77,21 +82,21 @@ public class t {
                 }
                 //Fully decoded?- this converts e.g. ints to int objects in java instead of leaving as a string
                 VariantContext nvc = vc.fullyDecode(currentHeader, false); //boolean is lenient decoding
-                System.out.print("\n");
+                //System.out.print("\n");
                 //System.out.print(nvc.isFullyDecoded()); //Boolean whether the object is fully decoded or not
 
                 //System.out.println(nvc.getAttributes());
 
-                System.out.println(vc.getReference()); //Reference allele
-                System.out.println(nvc.getReference()); //Reference allele
+                //System.out.println(vc.getReference()); //Reference allele
+                //System.out.println(nvc.getReference()); //Reference allele
                 Object refAllele = nvc.getReference();
                 String refAllele2 = refAllele.toString();
                 String refAllele3 = nvc.getReference().toString();
-                System.out.println(refAllele3);
+                //System.out.println(refAllele3);
                 String refAllele4 = refAllele3.replaceAll("\\*","");
-                System.out.println(refAllele4);
+                //System.out.println(refAllele4);
                 String refAllele5 = nvc.getReference().toString().replaceAll("\\*","");
-                System.out.println(refAllele5);
+                //System.out.println(refAllele5);
             }
 
         } catch (Exception e) {
