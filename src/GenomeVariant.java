@@ -1,6 +1,6 @@
 /**
  * Created by Sara on 14-Nov-16.
- * Class manually copied until I work out how to import the framework
+ * Class manually copied until I work out how to import the NHS framework authored by Matt
  */
 public class GenomeVariant {
 

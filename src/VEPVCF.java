@@ -60,9 +60,10 @@ public class VepVcf {
                 //System.out.print("\t");
                 //System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
                 //System.out.print("\t");
-                //System.out.print(vc.getReference()); //Reference allele
+                System.out.print(vc.getReference()); //Reference allele
                 //System.out.print("\t");
-                //System.out.print(vc.getAlleles()); //Returns all the potential alternate alleles- test with an indel
+                System.out.print(vc.getAlleles()); //Returns all the potential alternate alleles- test with an indel
+                System.out.print(vc.getAllele("REF"));
                 //System.out.print("\t");
                 //System.out.print(vc.getID());
                 //System.out.print("\t");
@@ -88,10 +89,16 @@ public class VepVcf {
 
 
                 ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
+
+                //This is intended as the key to the hashmap
+                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(), "A", "G"); //test
+                System.out.print(variantObject); //This can be the key for each variant entry
+                System.out.print("\n");
+
                 String CSQ = vc.getAttributeAsString("CSQ", "null"); //Fix this variable name
                 //System.out.print(CSQ); //Not needed for now
                 for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
-                    System.out.println(splitVal); //Prints out the individual records
+                    //System.out.println(splitVal); //Prints out the individual records
                     //for (String splitEntries: splitVal.split("\\|")){ //Need to escape the string because it's regex
                     //System.out.print(splitEntries);
                     //System.out.print("\n");
@@ -99,8 +106,8 @@ public class VepVcf {
                 }
                 System.out.print("\n");
 
-                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(), "A", "G"); //test
-                System.out.print(variantObject);
+                System.out.print(vc.isFullyDecoded());
+
             }
 
         }catch(Exception e) {

@@ -32,7 +32,8 @@ public class Main {
         System.out.println(vcf_file);
 
         //Instantiate second class
-        VepVcf obj2 = new VepVcf(vcf_file);
+        //VepVcf obj2 = new VepVcf(vcf_file);
+        t obj2 = new t(vcf_file); //temp for testing purposes
 
         //Open the file
         obj2.openFiles(); //removed (vcf_file)
