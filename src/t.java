@@ -10,6 +10,7 @@ import htsjdk.variant.vcf.VCFCodec;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -79,8 +80,18 @@ public class t {
                 System.out.print("\n");
                 //System.out.print(nvc.isFullyDecoded()); //Boolean whether the object is fully decoded or not
 
+                //System.out.println(nvc.getAttributes());
+
                 System.out.println(vc.getReference()); //Reference allele
-                System.out.print(nvc.getReference()); //Reference allele
+                System.out.println(nvc.getReference()); //Reference allele
+                Object refAllele = nvc.getReference();
+                String refAllele2 = refAllele.toString();
+                String refAllele3 = nvc.getReference().toString();
+                System.out.println(refAllele3);
+                String refAllele4 = refAllele3.replaceAll("\\*","");
+                System.out.println(refAllele4);
+                String refAllele5 = nvc.getReference().toString().replaceAll("\\*","");
+                System.out.println(refAllele5);
             }
 
         } catch (Exception e) {

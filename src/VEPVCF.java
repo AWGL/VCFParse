@@ -35,6 +35,11 @@ public class VepVcf {
 
         //String line; //Not required
 
+        //For the alternate alleles
+        Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
+
+
+
         //final File inputFile = new File(vcfFilePath); //How to input a file
         //final File outputFile = args.length >= 2 ? new File(args[1]) : null; //for output
 
@@ -60,10 +65,12 @@ public class VepVcf {
                 //System.out.print("\t");
                 //System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
                 //System.out.print("\t");
-                System.out.print(vc.getReference()); //Reference allele
+                Allele refAl = vc.getReference();
+                System.out.print(refAl); //Reference allele
                 //System.out.print("\t");
-                System.out.print(vc.getAlleles()); //Returns all the potential alternate alleles- test with an indel
-                System.out.print(vc.getAllele("REF"));
+                //System.out.println(vc.getAlleles()); //Returns all the alleles
+                List altAlleles = vc.getAlternateAlleles();
+                System.out.println(altAlleles); //Returns all the potential alternate alleles- test with an indel
                 //System.out.print("\t");
                 //System.out.print(vc.getID());
                 //System.out.print("\t");
@@ -90,8 +97,22 @@ public class VepVcf {
 
                 ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
 
+                if (altAlleles.size() > 1){
+                    System.out.println("Loop");
+                    altAllele = altAlleles.get(0);
+
+                    //Logic required here to deal with more than one alternate allele
+
+
+                }else{
+                    System.out.println("No loop");
+                    altAllele = altAlleles.get(0);
+                    System.out.println(altAllele);
+                }
+
                 //This is intended as the key to the hashmap
-                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(), "A", "G"); //test
+                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
+                        vc.getReference().toString().replaceAll("\\*",""), altAllele.toString()); //test
                 System.out.print(variantObject); //This can be the key for each variant entry
                 System.out.print("\n");
 
@@ -105,8 +126,6 @@ public class VepVcf {
                     //}
                 }
                 System.out.print("\n");
-
-                System.out.print(vc.isFullyDecoded());
 
             }
 
