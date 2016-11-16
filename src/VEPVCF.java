@@ -47,18 +47,13 @@ public class VepVcf {
         //For the alternate alleles
         Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
 
-        //Need these temporarily for the code below to execute- find a better solution later- NEEDS A FIX
-        File inputFile = vcfFilePath;
-
         //Read in the file
-        try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){;
-            System.out.print("test");
-
-            VCFHeader currentHeader = vcfFile.getFileHeader();
-            System.out.println(currentHeader);
+        try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){
+            //VCFHeader currentHeader = vcfFile.getFileHeader();
+            //System.out.println(currentHeader); //The file header
 
             for (final VariantContext vc : vcfFile){
-                System.out.println(vc.getContig());
+                //System.out.println(vc.getContig());
                 //System.out.print(vc.getContig());
                 //System.out.print("\t");
                 //System.out.print(vc.getStart());
@@ -67,12 +62,12 @@ public class VepVcf {
                 //System.out.print("\t");
                 //System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
                 //System.out.print("\t");
-                Allele refAl = vc.getReference();
-                System.out.print(refAl); //Reference allele
+                //Allele refAl = vc.getReference();
+                //System.out.print(refAl); //Reference allele
                 //System.out.print("\t");
                 //System.out.println(vc.getAlleles()); //Returns all the alleles
                 List altAlleles = vc.getAlternateAlleles();
-                System.out.println(altAlleles); //Returns all the potential alternate alleles- test with an indel
+                //System.out.println(altAlleles); //Returns all the potential alternate alleles- test with an indel
                 //System.out.print("\t");
                 //System.out.print(vc.getID());
                 //System.out.print("\t");
@@ -82,7 +77,7 @@ public class VepVcf {
                 //System.out.print("\t");
                 //System.out.print(vc.getAttribute("DP")); //Depth
                 //System.out.print("\t");
-                ///System.out.print(vc.getAttribute("CSQ")); //Long- commented out for now
+                //System.out.print(vc.getAttribute("CSQ")); //Long- commented out for now
                 //System.out.print("\t");
                 //Need to find a better way of getting a transcript
                 ///System.out.print(VariantContextUtils.match(VariantContext vc, ));
@@ -100,16 +95,16 @@ public class VepVcf {
                 ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
 
                 if (altAlleles.size() > 1){
-                    System.out.println("Loop");
+                    //System.out.println("Loop");
                     altAllele = altAlleles.get(0);
 
                     //Logic required here to deal with more than one alternate allele//
 
 
                 }else{
-                    System.out.println("No loop");
+                    //System.out.println("No loop");
                     altAllele = altAlleles.get(0);
-                    System.out.println(altAllele);
+                    //System.out.println(altAllele);
                 }
 
                 //This is intended as the key to the hashmap
@@ -120,20 +115,18 @@ public class VepVcf {
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
-                CSQ csqObject = new CSQ(vcfFilePath);
+                CSQ csqObject = new CSQ(vcfFile);
                 //System.out.println(csqObject); //Just gives a reference to the object
+
                 csqObject.vepHeaders(); //This object should contain the headers
-                System.out.println(csqObject.vepHeaders()); //Checking that the object contains the headers
+                //System.out.println(csqObject.vepHeaders()); //Checking that the object returns the headers
+
+                csqObject.vepAnnotations(vc);
+                //System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
+
+                csqObject.vepHashMap(csqObject.vepHeaders(),csqObject.vepAnnotations(vc)); //FIX THIS LINE
 
 
-                String CSQ = vc.getAttributeAsString("CSQ", "null"); //Fix this variable name
-                //System.out.print(CSQ); //Not needed for now
-                for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
-                    System.out.println(splitVal); //Prints out the individual records
-                    //for (String splitEntries: splitVal.split("\\|")){ //Need to escape the string because it's regex
-                    //System.out.println(splitEntries);
-                    //}
-                }
                 System.out.print("\n");
 
             }
