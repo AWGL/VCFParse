@@ -48,10 +48,11 @@ public class VepVcf {
         Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
 
         //Read in the file
-        try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){
+        //try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){
             //VCFHeader currentHeader = vcfFile.getFileHeader();
             //System.out.println(currentHeader); //The file header
 
+            final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
             for (final VariantContext vc : vcfFile){
                 //System.out.println(vc.getContig());
                 //System.out.print(vc.getContig());
@@ -115,19 +116,20 @@ public class VepVcf {
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
-                CSQ csqObject = new CSQ();
+                CSQ csqObject = new CSQ(vcfFile);
                 //System.out.println(csqObject); //Just gives a reference to the object
 
-                csqObject.vepHeaders(vcfFile); //This object should contain the headers
+                csqObject.vepHeaders(); //This object should contain the headers
                 ////System.out.println(csqObject.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
                 csqObject.vepAnnotations(vc);
-                ////System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
+                //System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
 
                 //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
 
-                CSQObject t = new CSQObject(csqObject.vepHeaders(vcfFile),
-                        csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
+                CSQObject t = new CSQObject(csqObject.vepHeaders(),
+                        csqObject.vepAnnotations(vc));
+                        //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
                 t.tester();
 
 
@@ -136,10 +138,10 @@ public class VepVcf {
             }
 
 
-        }catch(Exception e) {
+        //}catch(Exception e) {
 
-            Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
-        }
+            //Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
+        //}
 
     }
 }

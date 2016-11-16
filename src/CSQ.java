@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class CSQ {
 
-    //private VCFFileReader vcfFile;
+    private VCFFileReader vcfFile;
 
-    //public CSQ(VCFFileReader vcfFile)    { this.vcfFile = vcfFile; }
+    public CSQ(VCFFileReader vcfFile)    { this.vcfFile = vcfFile; }
 
-    public String vepHeaders(VCFFileReader vcfFile)   {
+    public String vepHeaders()   {
         //Create the VCF Header object
         VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader);
