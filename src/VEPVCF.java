@@ -44,71 +44,21 @@ public class VepVcf {
         //Declare HashMap
         HashMap<Integer, String> vepHashMap = new HashMap<Integer, String>();
 
-        //String line; //Not required
-
         //For the alternate alleles
         Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
-
-
-        //final File inputFile = new File(vcfFilePath); //How to input a file
-        //final File outputFile = args.length >= 2 ? new File(args[1]) : null; //for output
 
         //Need these temporarily for the code below to execute- find a better solution later- NEEDS A FIX
         File inputFile = vcfFilePath;
 
         //Read in the file
-        //try(final AbstractFeatureReader<VariantContext, LineIterator> reader = AbstractFeatureReader.getFeatureReader(inputFile.getAbsolutePath(), new VCFCodec(), false)) {
-            //while ((line = reader.readLine()) != null) {
+        try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){;
+            System.out.print("test");
 
-        final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
-        System.out.print("test");
+            VCFHeader currentHeader = vcfFile.getFileHeader();
+            System.out.println(currentHeader);
 
-        VCFHeader currentHeader = vcfFile.getFileHeader();
-        System.out.println(currentHeader);
-
-        //final CloseableIterator<VariantContext> variantIterator = vcfFile.iterator();
-        //for (final VariantContext vc : variantIterator.iterator()) {
-            //System.out.println(vc.getContig());
-        //while (variantIterator.hasNext()){
-            //System.out.print(variantIterator.next());
-        //}
-
-        for (final VariantContext vc : vcfFile){
-            System.out.println(vc.getContig());
-        }
-
-
-
-
-                //BufferedReader reader = new BufferedReader(vcfFile))    {
-                //final LineIterator reader; //= new LineIterator();
-                //for (final VariantContext vc : reader.iterator()) {
-                //System.out.println(vc.getContig());
-                //System.out.println(vcfFile);
-                //while ((line = vcfFile.readLine()) != null) {
-                    //System.out.println(line);
-                //}
-            //}
-
-            /*
-            System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
-
-            System.out.println(reader.getHeader());
-
-            //VCFHeader vcfHeader = reader.getHeader();
-            String type = ((Object)reader).getClass().getName();
-            System.out.println(type);
-            //VCFHeader currentHeader = vcfHeader.getFileHeader();
-
-            //VariantContextAdaptors.convertToVariantContext("vcfFile", vcfHeader); //Give up on this approach
-
-            //final VariantContext vcfFile = new VariantContext();  //??
-            //VCFHeader currentHeader = reader.getFileHeader();
-            //System.out.println(currentHeader);
-
-            /*
-            //final ProgressLogger pl = new ProgressLogger(log, 1000000);
-            for (final VariantContext vc : reader.iterator()) { //Creation of VariantContext object and iteration over all records
+            for (final VariantContext vc : vcfFile){
+                System.out.println(vc.getContig());
                 //System.out.print(vc.getContig());
                 //System.out.print("\t");
                 //System.out.print(vc.getStart());
@@ -188,12 +138,11 @@ public class VepVcf {
 
             }
 
-            */
 
-        //}catch(Exception e) {
+        }catch(Exception e) {
 
-            //Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
-        //}
+            Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
+        }
 
     }
 }
