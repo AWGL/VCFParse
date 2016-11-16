@@ -1,3 +1,10 @@
+//Dependencies htsjdk library 2.7.0 and gatk utils 2.6
+/*
+The issue with opening the file twice should be resolved soon in the tribble package (the VariantContextAdaptors
+package referred to in the htsjdk doccumentation appears to be part of gatk and getting that set up properly did not
+look very easy
+ */
+
 import java.io.*;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -7,11 +14,14 @@ import htsjdk.tribble.*;
 import htsjdk.tribble.readers.*;
 import htsjdk.variant.variantcontext.*;
 import htsjdk.variant.variantcontext.writer.*;
+import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.*;
 import java.util.HashMap;
 
 import htsjdk.variant.utils.*;
 import java.util.List;
+import org.broadinstitute.hellbender.utils.reference.ReferenceUtils.*;
+
 
 /**
  * Created by Sara on 08-Nov-16.
@@ -47,13 +57,50 @@ public class VepVcf {
         File inputFile = vcfFilePath;
 
         //Read in the file
-        try(final AbstractFeatureReader<VariantContext, LineIterator> reader = AbstractFeatureReader.getFeatureReader(inputFile.getAbsolutePath(), new VCFCodec(), false)) {
+        //try(final AbstractFeatureReader<VariantContext, LineIterator> reader = AbstractFeatureReader.getFeatureReader(inputFile.getAbsolutePath(), new VCFCodec(), false)) {
             //while ((line = reader.readLine()) != null) {
+
+        final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
+        System.out.print("test");
+
+        VCFHeader currentHeader = vcfFile.getFileHeader();
+        System.out.println(currentHeader);
+
+        //final CloseableIterator<VariantContext> variantIterator = vcfFile.iterator();
+        //for (final VariantContext vc : variantIterator.iterator()) {
+            //System.out.println(vc.getContig());
+        //while (variantIterator.hasNext()){
+            //System.out.print(variantIterator.next());
+        //}
+
+        for (final VariantContext vc : vcfFile){
+            System.out.println(vc.getContig());
+        }
+
+
+
+
+                //BufferedReader reader = new BufferedReader(vcfFile))    {
+                //final LineIterator reader; //= new LineIterator();
+                //for (final VariantContext vc : reader.iterator()) {
+                //System.out.println(vc.getContig());
+                //System.out.println(vcfFile);
+                //while ((line = vcfFile.readLine()) != null) {
+                    //System.out.println(line);
+                //}
+            //}
+
+            /*
             System.out.println("line"); //This is just in here for the moment to allow the try except block to work. Replace with better solution.
 
             System.out.println(reader.getHeader());
 
+            //VCFHeader vcfHeader = reader.getHeader();
+            String type = ((Object)reader).getClass().getName();
+            System.out.println(type);
+            //VCFHeader currentHeader = vcfHeader.getFileHeader();
 
+            //VariantContextAdaptors.convertToVariantContext("vcfFile", vcfHeader); //Give up on this approach
 
             //final VariantContext vcfFile = new VariantContext();  //??
             //VCFHeader currentHeader = reader.getFileHeader();
@@ -143,10 +190,10 @@ public class VepVcf {
 
             */
 
-        }catch(Exception e) {
+        //}catch(Exception e) {
 
-            Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
-        }
+            //Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
+        //}
 
     }
 }
