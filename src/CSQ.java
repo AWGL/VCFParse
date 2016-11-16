@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class CSQ {
 
-    private VCFFileReader vcfFile;
+    //private VCFFileReader vcfFile;
 
-    public CSQ(VCFFileReader vcfFile)    { this.vcfFile = vcfFile; }
+    //public CSQ(VCFFileReader vcfFile)    { this.vcfFile = vcfFile; }
 
-    public String vepHeaders()   {
+    public String vepHeaders(VCFFileReader vcfFile)   {
         //Create the VCF Header object
         VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader);
@@ -32,15 +32,16 @@ public class CSQ {
         ArrayList<String> entries = new ArrayList<>();
 
         //Access the data in the CSQ field of the INFO field- per record
-        //String CSQ = vc.getAttributeAsString("CSQ", "null"); //Could just pass this in instead of the VariantContext object
+        //Obtain the CSQ field and remove the square brackets
+        String CSQ = vc.getAttributeAsString("CSQ", "null").replaceAll("^\\[","").replaceAll("\\]$",""); //Could just pass this in instead of the VariantContext object
         //System.out.println(CSQ);
-        System.out.println(vc.getAttribute("CSQ"));
+        //System.out.println(vc.getAttribute("CSQ"));
 
-        //for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
+        for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
             //System.out.println(splitVal); //Prints out the individual records
             //Append these to some sort of array
-            //entries.add(splitVal);
-        //}
+            entries.add(splitVal);
+        }
         return entries; //Return the Array
     }
 
@@ -68,6 +69,6 @@ public class CSQ {
         return "Null";
     }
 
-    public String getVepHeaders(){return vcfFile.toString();} //Fix this line to return what is required
+    //public String getVepHeaders(){return vcfFile.toString();} //Fix this line to return what is required
 
 }

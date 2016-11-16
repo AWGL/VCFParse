@@ -115,16 +115,20 @@ public class VepVcf {
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
-                CSQ csqObject = new CSQ(vcfFile);
+                CSQ csqObject = new CSQ();
                 //System.out.println(csqObject); //Just gives a reference to the object
 
-                csqObject.vepHeaders(); //This object should contain the headers
-                //System.out.println(csqObject.vepHeaders()); //Checking that the object returns the headers
+                csqObject.vepHeaders(vcfFile); //This object should contain the headers
+                ////System.out.println(csqObject.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
                 csqObject.vepAnnotations(vc);
-                //System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
+                ////System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
 
-                csqObject.vepHashMap(csqObject.vepHeaders(),csqObject.vepAnnotations(vc)); //FIX THIS LINE
+                //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
+
+                CSQObject t = new CSQObject(csqObject.vepHeaders(vcfFile),
+                        csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
+                t.tester();
 
 
                 System.out.print("\n");
