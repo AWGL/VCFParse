@@ -14,7 +14,7 @@ public class VepAnnotation {
         this.variantAnnPerCSQ = variantAnnPerCSQ;
     }
 
-    public void vepAnnotationRecord(){
+    public HashMap<String, String> vepAnnotationRecord(){
         ArrayList<String> vepEntries = new ArrayList<>();
         HashMap<String, String> vepHashMap = new HashMap<String, String>();
 
@@ -32,7 +32,8 @@ public class VepAnnotation {
             //System.out.println(vepHashMap);
         }
         //Test output
-        System.out.println(vepHashMap);
+        //System.out.println(vepHashMap);
+        return vepHashMap;
         //System.out.println(vepHashMap.get("Allele"));
         //System.out.println(vepHashMap.get("Feature"));
     }

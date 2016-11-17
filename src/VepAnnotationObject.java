@@ -5,23 +5,25 @@ import java.util.HashMap;
  * Created by Sara on 16-Nov-16.
  */
 
-public class CSQObject {
+public class VepAnnotationObject {
 
-    private int csqNumber;
+    //private int csqNumber;
     private HashMap<String, String> vepAnnotationHashMap;
 
 
 
-    public CSQObject(HashMap<String,String> vepAnnotationHashMap) {
+    public VepAnnotationObject(HashMap<String,String> vepAnnotationHashMap) {
         //this.csqNumber = csqNumber;
         this.vepAnnotationHashMap = vepAnnotationHashMap;
     }
 
-    public void CSQRecord() {
+    public void VepRecord() {
 
 
             //return splitEntries;
         }
+
+    //Needs a method to return values- format??
 }
 
 

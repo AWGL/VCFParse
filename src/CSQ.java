@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class CSQ {
 
-    private VCFFileReader vcfFile;
+    //private VCFFileReader vcfFile;
 
-    public CSQ(VCFFileReader vcfFile)    { this.vcfFile = vcfFile; }
+    //public CSQ()    { this.vcfFile = vcfFile; }
 
-    public String vepHeaders()   {
+    public String vepHeaders(VCFFileReader vcfFile)   {
         //Create the VCF Header object
         VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader);
@@ -27,7 +27,7 @@ public class CSQ {
         return vepHeader; //returns the header
     }
 
-    public ArrayList vepAnnotations(VariantContext vc){
+    public ArrayList<String> vepAnnotations(VariantContext vc){
 
         ArrayList<String> entries = new ArrayList<>(); //Note: Should this be new ArrayList<String>?
 
@@ -46,28 +46,34 @@ public class CSQ {
     }
 
 
-    public void CSQRecord(String variantHeaders, ArrayList<String> csqRecord) {
+    public HashMap<Integer,VepAnnotationObject> CSQRecord(String variantHeaders, ArrayList<String> csqRecord) {
 
         //ArrayList<Integer,CSQObject> csqArray = new ArrayList<Integer,CSQObject>();
-        HashMap<Integer,CSQObject> csqMap = new HashMap<Integer,CSQObject>();
+        HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
 
-        for (String splitEntries : csqRecord) {
-            //Iterate over the annotation array containing the different entries for each transcript/effect etc.
-            //System.out.println(vepHead);
-            //System.out.println(splitEntries);
-            //Identify a useful unique identifier for each transcript
+            //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
 
-            //Check that it works now it has been split out- Working
-            VepAnnotation t = new VepAnnotation(variantHeaders, splitEntries);
-            t.vepAnnotationRecord();
+        for (int i = 0; i < csqRecord.size(); i++){
+            //System.out.println((i+1)); // +1 so that entries start at 1 instead of 0
+            //System.out.println(csqRecord.get(i));
 
-            //Try creating a HashMap of objects
-            csqMap.put(); //In here put the key and the value pair- see the model class (CSQObject)
+            //Creating a HashMap of objects
+            //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
+            VepAnnotation currentVepAnnotation = new VepAnnotation(variantHeaders, csqRecord.get(i));
+            //Check that it works now it has been split out- Working- comment out later
+            //System.out.println(currentVepAnnotationObject.vepAnnotationRecord());
 
+            //Create a variant annotation object
+            VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject(currentVepAnnotation.vepAnnotationRecord());
 
+            //Create hashmap of objects
+            csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)
 
-            //return splitEntries;
+            //See if it is working
+            //System.out.println(csqMap);
         }
+        //Return the hash map
+        return csqMap;
     }
 
     /*

@@ -16,7 +16,7 @@ import htsjdk.variant.variantcontext.*;
 import htsjdk.variant.variantcontext.writer.*;
 import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.*;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import htsjdk.variant.utils.*;
 import java.util.List;
@@ -31,6 +31,7 @@ public class VepVcf {
 
     private static final Logger Log = Logger.getLogger(OpenVEPVCF.class.getName());
     private File vcfFilePath;
+    private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
 
     //Constructor- invoked at the time of object creation
     public VepVcf(File vcfFilePath) {
@@ -39,10 +40,9 @@ public class VepVcf {
 
     public void openFiles() { //throws IOException  {
 
-        //Declare
         Log.log(Level.INFO, "Opening VEP VCF file");
         //Declare HashMap
-        HashMap<Integer, String> vepHashMap = new HashMap<Integer, String>();
+
 
         //For the alternate alleles
         Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
@@ -117,16 +117,26 @@ public class VepVcf {
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
-                CSQ c = new CSQ(vcfFile);
+
+                //The entire CSQ record including all of the entries for this variant context
+                CSQ c = new CSQ();
                 //System.out.println(csqObject); //Just gives a reference to the object
 
-                c.vepHeaders(); //This object should contain the headers
+                //c.vepHeaders(); //This object should contain the headers
                 ////System.out.println(c.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
-                c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
+                //c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
                 //System.out.println(c.vepAnnotations(vc)); //Checking that the object returns the datalist
 
-                c.CSQRecord(c.vepHeaders(),c.vepAnnotations(vc));
+                //Create a CSQ recordset per this Variant Context entry
+                //c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)); //Might be worth retrieving the headers outside of this loop
+                //System.out.println(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc))); //Print to check
+
+                //Create a CsqObject to hold the data paired with the Genome Variant object as the key
+                CsqObject currentCsqObject = new CsqObject(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)));
+                //Might be worth retrieving the headers outside of this loop
+                variantHashMap.put(variantObject,currentCsqObject);
+
 
                 //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
 
@@ -134,7 +144,7 @@ public class VepVcf {
                         //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
                 //t.tester();
 
-
+                System.out.println(variantHashMap);
                 System.out.print("\n");
 
             }
