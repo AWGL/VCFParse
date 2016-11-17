@@ -4,7 +4,6 @@ import htsjdk.variant.vcf.VCFInfoHeaderLine;
 import htsjdk.variant.variantcontext.VariantContext;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -29,7 +28,7 @@ public class CSQ {
 
     public ArrayList vepAnnotations(VariantContext vc){
 
-        ArrayList<String> entries = new ArrayList<>();
+        ArrayList<String> entries = new ArrayList<>(); //Note: Should this be new ArrayList<String>?
 
         //Access the data in the CSQ field of the INFO field- per record
         //Obtain the CSQ field and remove the square brackets
@@ -45,6 +44,7 @@ public class CSQ {
         return entries; //Return the Array
     }
 
+    /*
     public String vepHashMap(String vh, ArrayList va){
         //Declare HashMap
         HashMap<String, String> vepHashMap = new HashMap<String, String>();
@@ -68,6 +68,7 @@ public class CSQ {
 
         return "Null";
     }
+    */
 
     //public String getVepHeaders(){return vcfFile.toString();} //Fix this line to return what is required
 

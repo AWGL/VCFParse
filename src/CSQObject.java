@@ -7,14 +7,41 @@ import java.util.HashMap;
 
 public class CSQObject {
 
-   private String vepHead;
-   private ArrayList vepAnn;
+    private String variantHeaders;
+    private ArrayList<String> CSQRecord;
 
-    public CSQObject(String vh, ArrayList va){
-        this.vepHead = vh;
-        this.vepAnn = va;
+
+
+
+    public CSQObject(String variantHeaders, ArrayList CSQRecord) {
+        this.variantHeaders = variantHeaders;
+        this.CSQRecord = CSQRecord;
     }
 
+    public void CSQRecord() {
+
+        for (String splitEntries : CSQRecord) {
+            //Iterate over the annotation array containing the different entries for each transcript/effect etc.
+            //System.out.println(vepHead);
+            //System.out.println(splitEntries);
+            //Identify a useful unique identifier for each transcript
+
+            //Check that it works now it has been split out- Working
+            VepAnnotation t = new VepAnnotation(variantHeaders.toString(), splitEntries);
+            t.vepAnnotationRecord();
+
+            //return splitEntries;
+        }
+    }
+}
+
+
+
+
+
+
+
+    /*
     public void tester(){
 
         ArrayList<String> vepEntries = new ArrayList<>();
@@ -26,7 +53,6 @@ public class CSQObject {
             System.out.println(splitEntries);
             //Identify a useful unique identifier for each transcript
 
-
             String[] annotations = splitEntries.toString().split("\\|");
             String[] headers = vepHead.split("\\|");
             for (String element: annotations) {
@@ -36,6 +62,7 @@ public class CSQObject {
             for (int i=0 ; i < annotations.length; i++) {
                 //System.out.println(headers[i]);
                 //System.out.println(vepEntries.get(i));
+                //Generate HashMap on the fly
                 vepHashMap.put(headers[i],vepEntries.get(i));
                 //System.out.println(vepHashMap);
             }
@@ -46,5 +73,5 @@ public class CSQObject {
         }
     }
 
-
 }
+*/

@@ -100,6 +100,7 @@ public class VepVcf {
                     altAllele = altAlleles.get(0);
 
                     //Logic required here to deal with more than one alternate allele//
+                    //Or perhaps we directly put it out as a List/Array- deal with in getter for this//
 
 
                 }else{
@@ -116,21 +117,21 @@ public class VepVcf {
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
-                CSQ csqObject = new CSQ(vcfFile);
+                CSQ c = new CSQ(vcfFile);
                 //System.out.println(csqObject); //Just gives a reference to the object
 
-                csqObject.vepHeaders(); //This object should contain the headers
-                ////System.out.println(csqObject.vepHeaders(vcfFile)); //Checking that the object returns the headers
+                c.vepHeaders(); //This object should contain the headers
+                ////System.out.println(c.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
-                csqObject.vepAnnotations(vc);
-                //System.out.println(csqObject.vepAnnotations(vc)); //Checking that the object returns the datalist
+                c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
+                //System.out.println(c.vepAnnotations(vc)); //Checking that the object returns the datalist
 
                 //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
 
-                CSQObject t = new CSQObject(csqObject.vepHeaders(),
-                        csqObject.vepAnnotations(vc));
+                CSQObject t = new CSQObject(c.vepHeaders(), c.vepAnnotations(vc));
                         //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
-                t.tester();
+                //t.tester();
+                t.CSQRecord();
 
 
                 System.out.print("\n");
