@@ -44,6 +44,23 @@ public class CSQ {
         return entries; //Return the Array
     }
 
+
+    public void CSQRecord(String variantHeaders, ArrayList<String> CSQRecord) {
+
+        for (String splitEntries : CSQRecord) {
+            //Iterate over the annotation array containing the different entries for each transcript/effect etc.
+            //System.out.println(vepHead);
+            //System.out.println(splitEntries);
+            //Identify a useful unique identifier for each transcript
+
+            //Check that it works now it has been split out- Working
+            VepAnnotation t = new VepAnnotation(variantHeaders, splitEntries);
+            t.vepAnnotationRecord();
+
+            //return splitEntries;
+        }
+    }
+
     /*
     public String vepHashMap(String vh, ArrayList va){
         //Declare HashMap

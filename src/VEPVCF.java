@@ -126,12 +126,13 @@ public class VepVcf {
                 c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
                 //System.out.println(c.vepAnnotations(vc)); //Checking that the object returns the datalist
 
+                c.CSQRecord(c.vepHeaders(),c.vepAnnotations(vc));
+
                 //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
 
-                CSQObject t = new CSQObject(c.vepHeaders(), c.vepAnnotations(vc));
+                //CSQObject t = new CSQObject(c.vepHeaders(), c.vepAnnotations(vc));
                         //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
                 //t.tester();
-                t.CSQRecord();
 
 
                 System.out.print("\n");

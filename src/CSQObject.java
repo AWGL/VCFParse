@@ -13,27 +13,18 @@ public class CSQObject {
 
 
 
-    public CSQObject(String variantHeaders, ArrayList CSQRecord) {
+    public CSQObject() {
         this.variantHeaders = variantHeaders;
         this.CSQRecord = CSQRecord;
     }
 
     public void CSQRecord() {
 
-        for (String splitEntries : CSQRecord) {
-            //Iterate over the annotation array containing the different entries for each transcript/effect etc.
-            //System.out.println(vepHead);
-            //System.out.println(splitEntries);
-            //Identify a useful unique identifier for each transcript
-
-            //Check that it works now it has been split out- Working
-            VepAnnotation t = new VepAnnotation(variantHeaders.toString(), splitEntries);
-            t.vepAnnotationRecord();
 
             //return splitEntries;
         }
     }
-}
+
 
 
 
