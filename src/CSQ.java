@@ -4,6 +4,7 @@ import htsjdk.variant.vcf.VCFInfoHeaderLine;
 import htsjdk.variant.variantcontext.VariantContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -45,9 +46,12 @@ public class CSQ {
     }
 
 
-    public void CSQRecord(String variantHeaders, ArrayList<String> CSQRecord) {
+    public void CSQRecord(String variantHeaders, ArrayList<String> csqRecord) {
 
-        for (String splitEntries : CSQRecord) {
+        //ArrayList<Integer,CSQObject> csqArray = new ArrayList<Integer,CSQObject>();
+        HashMap<Integer,CSQObject> csqMap = new HashMap<Integer,CSQObject>();
+
+        for (String splitEntries : csqRecord) {
             //Iterate over the annotation array containing the different entries for each transcript/effect etc.
             //System.out.println(vepHead);
             //System.out.println(splitEntries);
@@ -56,6 +60,11 @@ public class CSQ {
             //Check that it works now it has been split out- Working
             VepAnnotation t = new VepAnnotation(variantHeaders, splitEntries);
             t.vepAnnotationRecord();
+
+            //Try creating a HashMap of objects
+            csqMap.put(); //In here put the key and the value pair- see the model class (CSQObject)
+
+
 
             //return splitEntries;
         }

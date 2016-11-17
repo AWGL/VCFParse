@@ -7,15 +7,14 @@ import java.util.HashMap;
 
 public class CSQObject {
 
-    private String variantHeaders;
-    private ArrayList<String> CSQRecord;
+    private int csqNumber;
+    private HashMap<String, String> vepAnnotationHashMap;
 
 
 
-
-    public CSQObject() {
-        this.variantHeaders = variantHeaders;
-        this.CSQRecord = CSQRecord;
+    public CSQObject(HashMap<String,String> vepAnnotationHashMap) {
+        //this.csqNumber = csqNumber;
+        this.vepAnnotationHashMap = vepAnnotationHashMap;
     }
 
     public void CSQRecord() {
@@ -23,7 +22,7 @@ public class CSQObject {
 
             //return splitEntries;
         }
-    }
+}
 
 
 
