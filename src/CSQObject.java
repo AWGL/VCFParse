@@ -21,35 +21,23 @@ public class CSQObject {
         HashMap<String, String> vepHashMap = new HashMap<String, String>();
 
         for (Object splitEntries: vepAnn) {
-            //System.out.println(splitEntries);
+            //Iterate over the annotation array containing the different entries for each transcript/effect etc.
+            System.out.println(splitEntries);
             String[] annotations = splitEntries.toString().split("\\|");
             String[] headers = vepHead.split("\\|");
             for (String element: annotations) {
+                //Obtain each element of the CSQ entry and append to an array
                 vepEntries.add(element);
-
-                //System.out.println(element);
-                //if (element.length() < 1){
-                    //vepEntries.add(" ");
-                    //System.out.println("Triggered");
-                //}else{
-                    //vepEntries.add(element);
-                //}
             }
-            ////System.out.println(t[0]);
-            ////System.out.println(u[0]);
-            //System.out.print("\n");
-            //System.out.println(vepEntries);
-            //System.out.println(vepEntries.get(0));
-            //System.out.println(vepEntries.size());
-            //System.out.println(u.length);
-
             for (int i=0 ; i < annotations.length; i++) {
                 //System.out.println(headers[i]);
                 //System.out.println(vepEntries.get(i));
                 vepHashMap.put(headers[i],vepEntries.get(i));
                 //System.out.println(vepHashMap);
             }
-        System.out.println(vepHashMap);
+        //System.out.println(vepHashMap);
+        System.out.println(vepHashMap.get("Allele"));
+        System.out.println(vepHashMap.get("Feature"));
         }
     }
 

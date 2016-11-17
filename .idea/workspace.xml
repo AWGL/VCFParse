@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="10edee24-1962-47e7-b801-2ab1b897df9b" name="Default" comment="Additional modifications">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CSQObject.java" afterPath="$PROJECT_DIR$/src/CSQObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
     </list>
     <ignored path="VEPVCFtoTxt.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,8 +76,8 @@
       <file leaf-file-name="CSQObject.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CSQObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+            <state relative-caret-position="393">
+              <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -723,12 +722,12 @@
       <workItem from="1479133765061" duration="8044000" />
       <workItem from="1479204014549" duration="24537000" />
       <workItem from="1479289292868" duration="25145000" />
-      <workItem from="1479376415012" duration="1905000" />
+      <workItem from="1479376415012" duration="2874000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90311000" />
+    <option name="totallyTimeSpent" value="91280000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="0" />
@@ -1180,8 +1179,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CSQObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="39" column="37" selection-start-line="39" selection-start-column="37" selection-end-line="39" selection-end-column="37" />
+        <state relative-caret-position="393">
+          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
