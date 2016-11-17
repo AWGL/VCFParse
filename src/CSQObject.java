@@ -22,7 +22,11 @@ public class CSQObject {
 
         for (Object splitEntries: vepAnn) {
             //Iterate over the annotation array containing the different entries for each transcript/effect etc.
+            //System.out.println(vepHead);
             System.out.println(splitEntries);
+            //Identify a useful unique identifier for each transcript
+
+
             String[] annotations = splitEntries.toString().split("\\|");
             String[] headers = vepHead.split("\\|");
             for (String element: annotations) {
@@ -35,9 +39,10 @@ public class CSQObject {
                 vepHashMap.put(headers[i],vepEntries.get(i));
                 //System.out.println(vepHashMap);
             }
-        //System.out.println(vepHashMap);
-        System.out.println(vepHashMap.get("Allele"));
-        System.out.println(vepHashMap.get("Feature"));
+        //Test output
+        // System.out.println(vepHashMap);
+        //System.out.println(vepHashMap.get("Allele"));
+        //System.out.println(vepHashMap.get("Feature"));
         }
     }
 
