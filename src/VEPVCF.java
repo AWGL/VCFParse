@@ -112,14 +112,14 @@ public class VepVcf {
                 //This is intended as the key to the hashmap
                 GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
                         vc.getReference().toString().replaceAll("\\*",""), altAllele.toString()); //test
-                System.out.print(variantObject); //This can be the key for each variant entry
-                System.out.print("\n");
+                //System.out.print(variantObject); //This can be the key for each variant entry
+                //System.out.print("\n");
 
                 //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
                 //Obtain keys for each transcript entry (header in vcf file)
 
                 //The entire CSQ record including all of the entries for this variant context
-                CSQ c = new CSQ();
+                CSQ csqRecord = new CSQ();
                 //System.out.println(csqObject); //Just gives a reference to the object
 
                 //c.vepHeaders(); //This object should contain the headers
@@ -133,7 +133,8 @@ public class VepVcf {
                 //System.out.println(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc))); //Print to check
 
                 //Create a CsqObject to hold the data paired with the Genome Variant object as the key
-                CsqObject currentCsqObject = new CsqObject(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)));
+                CsqObject currentCsqObject = new CsqObject(csqRecord.CSQRecord(csqRecord.vepHeaders(vcfFile),
+                        csqRecord.vepAnnotations(vc)));
                 //Might be worth retrieving the headers outside of this loop
                 variantHashMap.put(variantObject,currentCsqObject);
 
@@ -144,10 +145,12 @@ public class VepVcf {
                         //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
                 //t.tester();
 
-                System.out.println(variantHashMap);
-                System.out.print("\n");
-
             }
+
+        //Test hash map is working correctly
+        System.out.println(variantHashMap);
+        System.out.print("\n");
+
 
 
         //}catch(Exception e) {

@@ -39,6 +39,8 @@ public class Main {
 
         //Open the file
         obj2.openFiles(); //removed (vcf_file)
+        //obj2.parseVepVcf(); //Write this method
+        //System.out.println(obj2.openFiles());
 
         //Parse the file
 
