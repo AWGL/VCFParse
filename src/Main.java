@@ -9,18 +9,18 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //Temp for variables
+        //Declare variables
         String path;
 
 
-        System.out.println("Hello World");
+        //System.out.println("Hello World");
 
         //An instance of the class needs to be created before the non-static methods can be referenced
         //Instance of the TestClass, which I have called obj
-        TestClass obj = new TestClass ();
+        //TestClass obj = new TestClass ();
 
         //calling the parSer method of the TestClass within the obj instance of the class
-        obj.parSer();
+        //obj.parSer();
 
         //Stuff for fiddling- move in a bit- to create the File object for the vcf
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\160916_M00766_0079_000000000-ATNNU_16M13176_filtered_meta_annotated.vcf";

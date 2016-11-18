@@ -4,17 +4,21 @@ import java.util.HashMap;
 /**
  * Created by Sara on 17-Nov-16.
  */
-public class VepAnnotation {
+
+class VepAnnotation {
 
     private String variantHeaders;
     private String variantAnnPerCSQ;
 
-    public VepAnnotation(String variantHeaders, String variantAnnPerCSQ){
+    public VepAnnotation(){}
+
+    public void setVepAnnotation(String variantHeaders, String variantAnnPerCSQ){
         this.variantHeaders = variantHeaders;
         this.variantAnnPerCSQ = variantAnnPerCSQ;
     }
 
     public HashMap<String, String> vepAnnotationRecord(){
+
         ArrayList<String> vepEntries = new ArrayList<>();
         HashMap<String, String> vepHashMap = new HashMap<String, String>();
 

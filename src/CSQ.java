@@ -59,13 +59,18 @@ public class CSQ {
 
             //Creating a HashMap of objects
             //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
-            VepAnnotation currentVepAnnotation = new VepAnnotation(variantHeaders, csqRecord.get(i));
+
+            ////WHERE THERE ARE FOUR COMMENT LINES BELOW THIS NEEDS WORK TO ENSURE THAT THE NESTED OBJECT INSIDE THE
+            // CSQ OBJECT IS CORRECT////
+
+            ////VepAnnotation currentVepAnnotation = new VepAnnotation();
+            ////currentVepAnnotation.setVepAnnotation(variantHeaders, csqRecord.get(i));
             //Check that it works now it has been split out- Working- comment out later
             //System.out.println(currentVepAnnotationObject.vepAnnotationRecord());
 
             //Create a variant annotation object
             VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
-            currentVepAnnotation.vepAnnotationRecord(); //Here put setter
+            ////currentVepAnnotation.vepAnnotationRecord(); //
 
             //Create hashmap of objects
             csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)

@@ -7,7 +7,8 @@ import java.util.HashMap;
 
 class VepAnnotationObject {
 
-    //private int csqNumber;
+    //This class is designed to hold the HashMap of each VEP annotation record held in each separate CSQ field
+
     private HashMap<String, String> vepAnnotationHashMap;
 
     public VepAnnotationObject() {}
