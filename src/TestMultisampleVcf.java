@@ -1,3 +1,4 @@
+import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.vcf.VCFFileReader;
 
 import java.io.*;
@@ -13,6 +14,11 @@ public class TestMultisampleVcf {
 
     public void openMultisampleVcf(File vcfFilePath){
         VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
+        for (final VariantContext vc : vcfFile){
+            System.out.println(vc.getContig());
+            System.out.println(vc.getStart());
+            System.out.println(vc);
+        }
 
 
 

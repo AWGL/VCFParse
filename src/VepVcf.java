@@ -47,8 +47,7 @@ public class VepVcf {
         //VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader); //The file header
 
-        try{ //this try except doesn't work
-        //https://www.google.co.uk/search?q=wrap+file+open+in+try+except+block+in+java&oq=wrap+file+open+in+try+except+block+in+java&aqs=chrome..69i57.8514j0j1&sourceid=chrome&ie=UTF-8
+        try{
             final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
             return vcfFile;
         }catch(Exception e) {
@@ -131,10 +130,10 @@ public class VepVcf {
             //System.out.println(csqObject); //Just gives a reference to the object
 
             //c.vepHeaders(); //This object should contain the headers
-            ////System.out.println(c.vepHeaders(vcfFile)); //Checking that the object returns the headers
+            System.out.println(currentCsqRecord.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
             //c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
-            //System.out.println(c.vepAnnotations(vc)); //Checking that the object returns the datalist
+            System.out.println(currentCsqRecord.vepAnnotations(vc)); //Checking that the object returns the datalist
 
             //Create a CSQ recordset per this Variant Context entry
             //c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)); //Might be worth retrieving the headers outside of this loop
