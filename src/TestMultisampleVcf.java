@@ -1,3 +1,5 @@
+import htsjdk.variant.vcf.VCFFileReader;
+
 import java.io.*;
 
 /**
@@ -9,7 +11,9 @@ public class TestMultisampleVcf {
     public TestMultisampleVcf(){}
 
 
-    public void openMultisampleVcf(File vcfFile){
+    public void openMultisampleVcf(File vcfFilePath){
+        VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
+
 
 
     }

@@ -23,9 +23,9 @@ public class Main {
         //obj.parSer();
 
         //Stuff for fiddling- move in a bit- to create the File object for the vcf
-        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\160916_M00766_0079_000000000-ATNNU_16M13176_filtered_meta_annotated.vcf";
         //path="C:\\Users\\Admin\\Documents\\Work\\VCFtoTab\\ExampleFiles\\vcf.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\vcf.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_ann.vcf";
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
 
