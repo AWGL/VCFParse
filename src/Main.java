@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Sara on 07-Nov-16.
@@ -30,17 +31,26 @@ public class Main {
 
         //Verifying type is correct and the absolute filepath is correct
         String type = ((Object)vcf_file).getClass().getName();
-        System.out.println(type);
-        System.out.println(vcf_file);
+        //System.out.println(type);
+        //System.out.println(vcf_file);
 
         //Instantiate second class
         VepVcf obj2 = new VepVcf();
         //t obj2 = new t(vcf_file); //temp for testing purposes
 
         //Open the file
-        obj2.parseVepVCF(obj2.openFiles(vcf_file));
+        //obj2.parseVepVCF(obj2.openFiles(vcf_file));
         //obj2.parseVepVcf(); //Write this method
         //System.out.println(obj2.openFiles());
+        //System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
+        LinkedHashMap obj3 = obj2.parseVepVCF(obj2.openFiles(vcf_file));
+
+        System.out.println(obj3);
+        //System.out.println(obj3.getCsqObject());
+
+
+
+
 
         //Parse the file
 

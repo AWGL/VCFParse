@@ -64,7 +64,8 @@ public class CSQ {
             //System.out.println(currentVepAnnotationObject.vepAnnotationRecord());
 
             //Create a variant annotation object
-            VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject(currentVepAnnotation.vepAnnotationRecord());
+            VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
+            currentVepAnnotation.vepAnnotationRecord(); //Here put setter
 
             //Create hashmap of objects
             csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)

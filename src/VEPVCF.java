@@ -47,13 +47,14 @@ public class VepVcf {
         //VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader); //The file header
 
-        //try{ //this try except doesn't work
+        try{ //this try except doesn't work
         //https://www.google.co.uk/search?q=wrap+file+open+in+try+except+block+in+java&oq=wrap+file+open+in+try+except+block+in+java&aqs=chrome..69i57.8514j0j1&sourceid=chrome&ie=UTF-8
             final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
-        //}catch(Exception e) {
-            //Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
-        //}
-        return vcfFile;
+            return vcfFile;
+        }catch(Exception e) {
+            Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
+        }
+        return null; //This is what it returns if the try catch block fails- syntax??
     }
 
     public LinkedHashMap parseVepVCF(VCFFileReader vcfFile){
@@ -140,8 +141,9 @@ public class VepVcf {
             //System.out.println(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc))); //Print to check
 
             //Create a CsqObject to hold the data paired with the Genome Variant object as the key
-            CsqObject currentCsqObject = new CsqObject(csqRecord.CSQRecord(csqRecord.vepHeaders(vcfFile),
-                    csqRecord.vepAnnotations(vc)));
+            CsqObject currentCsqObject = new CsqObject(); //Empty object created
+            currentCsqObject.setCsqObject((csqRecord.CSQRecord(csqRecord.vepHeaders(vcfFile),
+                    csqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop
             variantHashMap.put(variantObject,currentCsqObject);
 
@@ -155,8 +157,8 @@ public class VepVcf {
             }
 
         //Test hash map is working correctly
-        System.out.println(variantHashMap);
-        System.out.print("\n");
+        //System.out.println(variantHashMap);
+        //System.out.print("\n");
         return variantHashMap;
 
     }

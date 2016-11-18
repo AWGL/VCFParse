@@ -3,19 +3,20 @@ import java.util.HashMap;
 /**
  * Created by Sara on 17-Nov-16.
  */
-public class CsqObject {
+
+class CsqObject {
 
     private HashMap<Integer, VepAnnotationObject> csqHashMap;
 
+    public CsqObject() {}
 
-
-    public CsqObject(HashMap<Integer,VepAnnotationObject> csqHashMap) {
-        //this.csqNumber = csqNumber;
+    public void setCsqObject(HashMap<Integer,VepAnnotationObject> csqHashMap){
         this.csqHashMap = csqHashMap;
     }
 
+    public HashMap getCsqObject(){
+        return this.csqHashMap;
+    }
 
-
-    //Needs a method to return values- format??
 }
 
