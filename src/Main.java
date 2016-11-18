@@ -30,23 +30,26 @@ public class Main {
         File vcf_file = new File(path);
 
         //Verifying type is correct and the absolute filepath is correct
-        String type = ((Object)vcf_file).getClass().getName();
+        //String type = ((Object)vcf_file).getClass().getName();
         //System.out.println(type);
         //System.out.println(vcf_file);
 
         //Instantiate second class
-        VepVcf obj2 = new VepVcf();
-        //t obj2 = new t(vcf_file); //temp for testing purposes
+        //VepVcf obj2 = new VepVcf(); //When return to data retrieval//!!
+        ////t obj2 = new t(vcf_file); //temp for testing purposes
 
         //Open the file
-        //obj2.parseVepVCF(obj2.openFiles(vcf_file));
-        //obj2.parseVepVcf(); //Write this method
-        //System.out.println(obj2.openFiles());
-        //System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
-        LinkedHashMap obj3 = obj2.parseVepVCF(obj2.openFiles(vcf_file));
+        ////obj2.parseVepVCF(obj2.openFiles(vcf_file));
+        ////obj2.parseVepVcf(); //Write this method
+        ////System.out.println(obj2.openFiles());
+        ////System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
+        //LinkedHashMap obj3 = obj2.parseVepVCF(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
 
         //System.out.println(obj3);
         //System.out.println(obj3.getCsqObject());
+
+        TestMultisampleVcf obj4 = new TestMultisampleVcf();
+        obj4.openMultisampleVcf(vcf_file);
 
 
 
