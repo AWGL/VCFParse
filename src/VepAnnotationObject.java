@@ -23,7 +23,7 @@ public class VepAnnotationObject {
         return this.vepAnnotationHashMap;
     }
 
-    public Collection<String> getEntireVepRecord() {
+    public Collection<String> getEntireVepRecordValues() {
         return this.vepAnnotationHashMap.values();
 
         }

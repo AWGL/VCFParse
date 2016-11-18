@@ -10,7 +10,7 @@ import java.util.HashMap;
  * Created by Sara on 15-Nov-16.
  */
 
-public class CSQ {
+public class CsqUtilities {
 
     //private VCFFileReader vcfFile;
 
@@ -33,11 +33,11 @@ public class CSQ {
 
         //Access the data in the CSQ field of the INFO field- per record
         //Obtain the CSQ field and remove the square brackets
-        String CSQ = vc.getAttributeAsString("CSQ", "null").replaceAll("^\\[","").replaceAll("\\]$",""); //Could just pass this in instead of the VariantContext object
+        String csq = vc.getAttributeAsString("CSQ", "null").replaceAll("^\\[","").replaceAll("\\]$",""); //Could just pass this in instead of the VariantContext object
         //System.out.println(CSQ);
         //System.out.println(vc.getAttribute("CSQ"));
 
-        for (String splitVal : CSQ.split("\\,")) { //Splits multiple records per entry
+        for (String splitVal : csq.split("\\,")) { //Splits multiple records per entry
             //System.out.println(splitVal); //Prints out the individual records
             //Append these to some sort of array
             entries.add(splitVal);
@@ -46,7 +46,7 @@ public class CSQ {
     }
 
 
-    public HashMap<Integer,VepAnnotationObject> CSQRecord(String variantHeaders, ArrayList<String> csqRecord) {
+    public HashMap<Integer,VepAnnotationObject> csqRecord(String variantHeaders, ArrayList<String> csqRecord) {
 
         //ArrayList<Integer,CSQObject> csqArray = new ArrayList<Integer,CSQObject>();
         HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();

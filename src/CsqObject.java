@@ -31,8 +31,8 @@ class CsqObject {
         return this.csqHashMap.values();
     }
 
-    public Collection<String> getCsqObjectVepAnnotations(int k){
-        return this.csqHashMap.get(k).getEntireVepRecord();
+    public Collection<String> getCsqObjectVepAnnotationValues(int k){
+        return this.csqHashMap.get(k).getEntireVepRecordValues();
     }
 
     public HashMap getCsqObject3(int k){

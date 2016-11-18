@@ -127,7 +127,7 @@ public class VepVcf {
             //Obtain keys for each transcript entry (header in vcf file)
 
             //The entire CSQ record including all of the entries for this variant context
-            CSQ csqRecord = new CSQ();
+            CsqUtilities currentCsqRecord = new CsqUtilities();
             //System.out.println(csqObject); //Just gives a reference to the object
 
             //c.vepHeaders(); //This object should contain the headers
@@ -142,8 +142,8 @@ public class VepVcf {
 
             //Create a CsqObject to hold the data paired with the Genome Variant object as the key
             CsqObject currentCsqObject = new CsqObject(); //Empty object created
-            currentCsqObject.setCsqObject((csqRecord.CSQRecord(csqRecord.vepHeaders(vcfFile),
-                    csqRecord.vepAnnotations(vc))));
+            currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
+                    currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop
             variantHashMap.put(variantObject,currentCsqObject);
 
@@ -155,11 +155,11 @@ public class VepVcf {
             //t.tester();
 
             //Testing to determine what is inside each CsqObject- working on access
-            System.out.println(currentCsqObject.getCsqObject());
-            System.out.println(currentCsqObject.getEntireCsqObject());
-            System.out.println(currentCsqObject.getCsqObjectVepAnnotations(1));
-            System.out.println(currentCsqObject.getCsqObject2(1));
-            System.out.println(currentCsqObject.getCsqObject3(1));
+            //System.out.println(currentCsqObject.getCsqObject());
+            //System.out.println(currentCsqObject.getEntireCsqObject());
+            //System.out.println(currentCsqObject.getCsqObjectVepAnnotationValues(1));
+            //System.out.println(currentCsqObject.getCsqObject2(1));
+            //System.out.println(currentCsqObject.getCsqObject3(1));
 
             }
 
