@@ -6,6 +6,10 @@ import java.util.HashMap;
 
 class CsqObject {
 
+    //This class is designed to hold the HashMap of all CSQ records held for each variant
+    //Inside the HashMap is a VepAnnotation object
+
+
     private HashMap<Integer, VepAnnotationObject> csqHashMap;
 
     public CsqObject() {}
@@ -17,6 +21,14 @@ class CsqObject {
     public HashMap getCsqObject(){
         return this.csqHashMap;
     }
+
+    public VepAnnotationObject getCsqObject2(int k){
+        return this.csqHashMap.get(k);
+    }
+    public HashMap getCsqObject3(int k){
+        return this.csqHashMap.get(k).getVepRecord(); //Testing
+    }
+
 
 }
 

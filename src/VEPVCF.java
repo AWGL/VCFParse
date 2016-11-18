@@ -154,6 +154,11 @@ public class VepVcf {
             //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
             //t.tester();
 
+            //Testing to determine what is inside each CsqObject- working on access
+            System.out.println(currentCsqObject.getCsqObject());
+            System.out.println(currentCsqObject.getCsqObject2(1));
+            System.out.println(currentCsqObject.getCsqObject3(1));
+
             }
 
         //Test hash map is working correctly

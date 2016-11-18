@@ -59,18 +59,16 @@ public class CSQ {
 
             //Creating a HashMap of objects
             //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
+            VepAnnotation currentVepAnnotation = new VepAnnotation(); //comment
+            currentVepAnnotation.setVepAnnotation(variantHeaders, csqRecord.get(i)); //comment
 
-            ////WHERE THERE ARE FOUR COMMENT LINES BELOW THIS NEEDS WORK TO ENSURE THAT THE NESTED OBJECT INSIDE THE
-            // CSQ OBJECT IS CORRECT////
-
-            ////VepAnnotation currentVepAnnotation = new VepAnnotation();
-            ////currentVepAnnotation.setVepAnnotation(variantHeaders, csqRecord.get(i));
             //Check that it works now it has been split out- Working- comment out later
             //System.out.println(currentVepAnnotationObject.vepAnnotationRecord());
 
-            //Create a variant annotation object
+            //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
             VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
-            ////currentVepAnnotation.vepAnnotationRecord(); //
+            //Populate the object with the hash map
+            currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
 
             //Create hashmap of objects
             csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)
@@ -81,33 +79,5 @@ public class CSQ {
         //Return the hash map
         return csqMap;
     }
-
-    /*
-    public String vepHashMap(String vh, ArrayList va){
-        //Declare HashMap
-        HashMap<String, String> vepHashMap = new HashMap<String, String>();
-
-        for (int i = 0; i < va.size(); i++ ){
-            //System.out.println(vh);
-            //System.out.println(va.get(i));
-
-           //CSQObject t = new CSQObject(vh , va.get(i));
-            //t.tester();
-            System.out.print("\n");
-        }
-        System.out.print("\n");
-
-
-        //Create hashmap
-        vepHashMap.put("a", "b");
-        //System.out.println(vepHashMap);
-
-        //create the HashMap of header value pairs for each annotation
-
-        return "Null";
-    }
-    */
-
-    //public String getVepHeaders(){return vcfFile.toString();} //Fix this line to return what is required
 
 }

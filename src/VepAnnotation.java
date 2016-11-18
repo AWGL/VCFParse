@@ -36,7 +36,7 @@ class VepAnnotation {
             //System.out.println(vepHashMap);
         }
         //Test output
-        //System.out.println(vepHashMap);
+        System.out.println(vepHashMap);
         return vepHashMap;
         //System.out.println(vepHashMap.get("Allele"));
         //System.out.println(vepHashMap.get("Feature"));
