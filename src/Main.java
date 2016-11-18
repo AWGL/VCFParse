@@ -45,7 +45,7 @@ public class Main {
         //System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
         LinkedHashMap obj3 = obj2.parseVepVCF(obj2.openFiles(vcf_file));
 
-        System.out.println(obj3);
+        //System.out.println(obj3);
         //System.out.println(obj3.getCsqObject());
 
 

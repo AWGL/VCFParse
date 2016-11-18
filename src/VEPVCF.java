@@ -156,6 +156,8 @@ public class VepVcf {
 
             //Testing to determine what is inside each CsqObject- working on access
             System.out.println(currentCsqObject.getCsqObject());
+            System.out.println(currentCsqObject.getEntireCsqObject());
+            System.out.println(currentCsqObject.getCsqObjectVepAnnotations(1));
             System.out.println(currentCsqObject.getCsqObject2(1));
             System.out.println(currentCsqObject.getCsqObject3(1));
 

@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
  * Created by Sara on 16-Nov-16.
  */
 
-class VepAnnotationObject {
+public class VepAnnotationObject {
 
     //This class is designed to hold the HashMap of each VEP annotation record held in each separate CSQ field
 
@@ -17,8 +18,13 @@ class VepAnnotationObject {
         this.vepAnnotationHashMap = vepAnnotationHashMap;
     }
 
-    public HashMap getVepRecord() {
+    public HashMap getVepRecord(){
+        //Returns entire vep record entry as a hash map
         return this.vepAnnotationHashMap;
+    }
+
+    public Collection<String> getEntireVepRecord() {
+        return this.vepAnnotationHashMap.values();
 
         }
 

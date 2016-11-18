@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -25,6 +26,15 @@ class CsqObject {
     public VepAnnotationObject getCsqObject2(int k){
         return this.csqHashMap.get(k);
     }
+
+    public Collection<VepAnnotationObject> getEntireCsqObject(){
+        return this.csqHashMap.values();
+    }
+
+    public Collection<String> getCsqObjectVepAnnotations(int k){
+        return this.csqHashMap.get(k).getEntireVepRecord();
+    }
+
     public HashMap getCsqObject3(int k){
         return this.csqHashMap.get(k).getVepRecord(); //Testing
     }
