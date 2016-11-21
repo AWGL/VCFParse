@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap; //Replaced hash map as was easier for debugging (SR 21/11/2016)
 
 /**
  * Created by Sara on 17-Nov-16.
@@ -17,10 +17,10 @@ class VepAnnotation {
         this.variantAnnPerCSQ = variantAnnPerCSQ;
     }
 
-    public HashMap<String, String> vepAnnotationRecord(){
+    public LinkedHashMap<String, String> vepAnnotationRecord(){
 
         ArrayList<String> vepEntries = new ArrayList<>();
-        HashMap<String, String> vepHashMap = new HashMap<String, String>();
+        LinkedHashMap<String, String> vepHashMap = new LinkedHashMap<String, String>();
 
         String[] annotations = variantAnnPerCSQ.split("\\|");
         String[] headers = variantHeaders.split("\\|");

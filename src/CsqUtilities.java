@@ -63,7 +63,7 @@ public class CsqUtilities {
             currentVepAnnotation.setVepAnnotation(variantHeaders, csqRecord.get(i)); //comment
 
             //Check that it works now it has been split out- Working- comment out later
-            //System.out.println(currentVepAnnotationObject.vepAnnotationRecord());
+            System.out.println(currentVepAnnotation.vepAnnotationRecord());
 
             //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
             VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
@@ -78,6 +78,13 @@ public class CsqUtilities {
         }
         //Return the hash map
         return csqMap;
+    }
+
+    public String parseCsq(VariantContext vc) {
+
+
+        return "test";
+
     }
 
 }

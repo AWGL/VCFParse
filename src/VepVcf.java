@@ -113,12 +113,23 @@ public class VepVcf {
             }else{
                 //System.out.println("No loop");
                 altAllele = altAlleles.get(0);
-                //System.out.println(altAllele);
+                System.out.println(altAllele);
                 }
 
             //This is intended as the key to the hashmap
             GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
                     vc.getReference().toString().replaceAll("\\*",""), altAllele.toString()); //test
+
+            //Just some code to show that the convert to minimal representation method of GenomeVariant works
+            /*
+            System.out.println(variantObject);
+            System.out.println(variantObject.getRef());
+            System.out.println(variantObject.getAlt());
+            variantObject.convertToMinimalRepresentation();
+            System.out.println(variantObject.getRef());
+            System.out.println(variantObject.getAlt());
+            */
+
             //System.out.print(variantObject); //This can be the key for each variant entry
             //System.out.print("\n");
 
@@ -129,11 +140,13 @@ public class VepVcf {
             CsqUtilities currentCsqRecord = new CsqUtilities();
             //System.out.println(csqObject); //Just gives a reference to the object
 
+            System.out.println(currentCsqRecord.parseCsq(vc));
+
             //c.vepHeaders(); //This object should contain the headers
-            System.out.println(currentCsqRecord.vepHeaders(vcfFile)); //Checking that the object returns the headers
+            //System.out.println(currentCsqRecord.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
             //c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
-            System.out.println(currentCsqRecord.vepAnnotations(vc)); //Checking that the object returns the datalist
+            //System.out.println(currentCsqRecord.vepAnnotations(vc)); //Checking that the object returns the datalist
 
             //Create a CSQ recordset per this Variant Context entry
             //c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)); //Might be worth retrieving the headers outside of this loop
@@ -163,9 +176,11 @@ public class VepVcf {
             }
 
         //Test hash map is working correctly
-        //System.out.println(variantHashMap);
+        System.out.println(variantHashMap);
         //System.out.print("\n");
         return variantHashMap;
 
     }
+
+
 }
