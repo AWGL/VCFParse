@@ -105,22 +105,25 @@ public class VepVcf {
             if (altAlleles.size() > 1){
                 //System.out.println("Loop");
                 altAllele = altAlleles.get(0);
+                //System.out.println(altAlleles.size());
 
                 //Logic required here to deal with more than one alternate allele//
                 //Or perhaps we directly put it out as a List/Array- deal with in getter for this//
 
+                //Create genome variant object for each allele
 
-            }else{
+
+            }else {
                 //System.out.println("No loop");
                 altAllele = altAlleles.get(0);
-                System.out.println(altAllele);
-                }
+                //System.out.println(altAllele);
 
-            //This is intended as the key to the hashmap
-            GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
-                    vc.getReference().toString().replaceAll("\\*",""), altAllele.toString()); //test
 
-            //Just some code to show that the convert to minimal representation method of GenomeVariant works
+                //This is intended as the key to the hashmap
+                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
+                        vc.getReference().toString().replaceAll("\\*", ""), altAllele.toString()); //test
+
+                //Just some code to show that the convert to minimal representation method of GenomeVariant works
             /*
             System.out.println(variantObject);
             System.out.println(variantObject.getRef());
@@ -130,34 +133,38 @@ public class VepVcf {
             System.out.println(variantObject.getAlt());
             */
 
-            //System.out.print(variantObject); //This can be the key for each variant entry
-            //System.out.print("\n");
+                //System.out.print(variantObject); //This can be the key for each variant entry
+                //System.out.print("\n");
 
-            //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
-            //Obtain keys for each transcript entry (header in vcf file)
+                //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
+                //Obtain keys for each transcript entry (header in vcf file)
 
-            //The entire CSQ record including all of the entries for this variant context
-            CsqUtilities currentCsqRecord = new CsqUtilities();
-            //System.out.println(csqObject); //Just gives a reference to the object
+                //The entire CSQ record including all of the entries for this variant context
+                CsqUtilities currentCsqRecord = new CsqUtilities();
+                //System.out.println(csqObject); //Just gives a reference to the object
 
-            System.out.println(currentCsqRecord.parseCsq(vc));
+                ////SOME LOGIC HERE- FOR MULTIALLELE
+                //System.out.println(currentCsqRecord.parseCsq(vc));
 
-            //c.vepHeaders(); //This object should contain the headers
-            //System.out.println(currentCsqRecord.vepHeaders(vcfFile)); //Checking that the object returns the headers
+                //c.vepHeaders(); //This object should contain the headers
+                //System.out.println(currentCsqRecord.vepHeaders(vcfFile)); //Checking that the object returns the headers
 
-            //c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
-            //System.out.println(currentCsqRecord.vepAnnotations(vc)); //Checking that the object returns the datalist
+                //c.vepAnnotations(vc); //This object should be an ArrayList of the annotations in the CSQ field
+                //System.out.println(currentCsqRecord.vepAnnotations(vc)); //Checking that the object returns the datalist
 
-            //Create a CSQ recordset per this Variant Context entry
-            //c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)); //Might be worth retrieving the headers outside of this loop
-            //System.out.println(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc))); //Print to check
+                //Create a CSQ recordset per this Variant Context entry
+                //c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc)); //Might be worth retrieving the headers outside of this loop
+                //System.out.println(c.CSQRecord(c.vepHeaders(vcfFile),c.vepAnnotations(vc))); //Print to check
 
-            //Create a CsqObject to hold the data paired with the Genome Variant object as the key
-            CsqObject currentCsqObject = new CsqObject(); //Empty object created
-            currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
-                    currentCsqRecord.vepAnnotations(vc))));
-            //Might be worth retrieving the headers outside of this loop
-            variantHashMap.put(variantObject,currentCsqObject);
+                //Create a CsqObject to hold the data paired with the Genome Variant object as the key
+                CsqObject currentCsqObject = new CsqObject(); //Empty object created
+                currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
+                        currentCsqRecord.vepAnnotations(vc))));
+                //Might be worth retrieving the headers outside of this loop
+
+                //Associate the variant object with the CsqObject on a per record basis
+                variantHashMap.put(variantObject, currentCsqObject);
+            }
 
 
             //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
