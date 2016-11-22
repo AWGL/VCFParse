@@ -59,7 +59,8 @@ public class VepVcf {
     public LinkedHashMap parseVepVcf(VCFFileReader vcfFile){
         Log.log(Level.INFO, "Parsing VEP VCF file");
         //For the alternate alleles
-        Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
+        //Required for code execution as otherwise variable is initialised only in else clause
+        String altAllele = null;
         for (final VariantContext vc : vcfFile){
             //System.out.println(vc.getContig());
             //System.out.print(vc.getContig());
@@ -74,7 +75,7 @@ public class VepVcf {
             //System.out.print(refAl); //Reference allele
             //System.out.print("\t");
             //System.out.println(vc.getAlleles()); //Returns all the alleles
-            List altAlleles = vc.getAlternateAlleles();
+            List<Allele> altAlleles = vc.getAlternateAlleles();
             //System.out.println(altAlleles); //Returns all the potential alternate alleles- test with an indel
             //System.out.print("\t");
             //System.out.print(vc.getID());
@@ -104,24 +105,79 @@ public class VepVcf {
 
             if (altAlleles.size() > 1){
                 //System.out.println("Loop");
-                altAllele = altAlleles.get(0);
+                //altAllele = altAlleles.get(0).toString();
                 //System.out.println(altAlleles.size());
 
                 //Logic required here to deal with more than one alternate allele//
                 //Or perhaps we directly put it out as a List/Array- deal with in getter for this//
 
                 //Create genome variant object for each allele
+                //Allele variable has to be an object for compatibility with else (method returns object)
+                for (Allele Alleles: altAlleles) {
+
+                    //System.out.println(Alleles.getBaseString());
+                    altAllele = Alleles.getBaseString();
+
+                    //Create the GenomeVariant object to act as a key for this allele
+                    GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
+                            vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+
+                    System.out.println(variantObject);
+
+                    //Obtain variant object for this allele
+                    //How many are there?
+                    for (int i = 0; i < altAlleles.size(); i++){
+
+                        //System.out.println(i);
+
+                        //The entire CSQ record including all of the entries for this variant context
+                        CsqUtilities currentCsqRecord = new CsqUtilities();
+
+                        //Retrieve Csqs
+                        CsqObject currentCsqObject = new CsqObject(); //Empty object created
+                        //currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
+                                //currentCsqRecord.vepAnnotations(vc))));
+
+                        //The allele num lookup
+                       // VepAnnotationObject vA = ;
+
+                        //This code is needed to populate the CSQ object
+                        currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
+                                currentCsqRecord.vepAnnotations(vc))));
+
+                        //System.out.println(currentCsqObject.getCsqObject());
+
+                        for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++ ){
+                            System.out.println(j);
+                            System.out.println(currentCsqObject.getCsqObject());
+
+                            System.out.println(currentCsqObject.getCsqObject().get(j));
+
+                            Object vepA = currentCsqObject.getCsqObject().get(j);
+                            //Something is wrong with how these classes are defined
+
+
+                            //VepAnnotationObject vepAnn = currentCsqObject.getCsqObject().get(j);
+
+                            //System.out.println(vepAnn.getAlleleNum());
+
+                        }
+
+                    }
+
+
+                }
 
 
             }else {
                 //System.out.println("No loop");
-                altAllele = altAlleles.get(0);
+                altAllele = altAlleles.get(0).getBaseString(); //Requires String for GenomeVariant class
                 //System.out.println(altAllele);
 
 
                 //This is intended as the key to the hashmap
                 GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
-                        vc.getReference().toString().replaceAll("\\*", ""), altAllele.toString()); //test
+                        vc.getReference().toString().replaceAll("\\*", ""), altAllele);
 
                 //Just some code to show that the convert to minimal representation method of GenomeVariant works
             /*

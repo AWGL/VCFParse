@@ -13,7 +13,7 @@ class CsqObject {
 
     private HashMap<Integer, VepAnnotationObject> csqHashMap;
 
-    public CsqObject() {}
+    //public CsqObject() {}
 
     public void setCsqObject(HashMap<Integer,VepAnnotationObject> csqHashMap){
         this.csqHashMap = csqHashMap;
@@ -22,6 +22,10 @@ class CsqObject {
     public HashMap getCsqObject(){
         return this.csqHashMap;
     }
+
+    //public CsqObject getCsqObject(){
+        //return this.csqHashMap;
+    //}  //This doesn't work
 
     public VepAnnotationObject getCsqObject2(int k){
         return this.csqHashMap.get(k);
@@ -33,6 +37,10 @@ class CsqObject {
 
     public Collection<String> getCsqObjectVepAnnotationValues(int k){
         return this.csqHashMap.get(k).getEntireVepRecordValues();
+    }
+
+    public VepAnnotationObject getVepAnn(Integer key){
+            return this.csqHashMap.get(key);
     }
 
     public HashMap getCsqObject3(int k){
