@@ -56,7 +56,7 @@ public class VepVcf {
         return null; //This is what it returns if the try catch block fails- syntax??
     }
 
-    public LinkedHashMap parseVepVCF(VCFFileReader vcfFile){
+    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile){
         Log.log(Level.INFO, "Parsing VEP VCF file");
         //For the alternate alleles
         Object altAllele = null; //Required for code execution as otherwise variable is initialised only in else clause
@@ -176,7 +176,7 @@ public class VepVcf {
             }
 
         //Test hash map is working correctly
-        System.out.println(variantHashMap);
+        //System.out.println(variantHashMap);
         //System.out.print("\n");
         return variantHashMap;
 

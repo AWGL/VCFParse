@@ -28,6 +28,22 @@ public class VepAnnotationObject {
 
         }
 
+    public void getVepAnnotationObjectFromAlleleNum(String inp){ //Change from void to correct output
+        //Get the allele number
+
+
+        //Return a collection of every Vep Annotation Object where the allele number matches the input string
+
+
+
+        //If it matches the input inp then append it to some sort of appropriate collection
+        //Note that here will want to replace whatever number CSQ we are on with a new number reflecting only the
+        //CSQs for that allele
+
+
+
+    }
+
 }
 
 

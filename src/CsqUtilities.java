@@ -33,14 +33,15 @@ public class CsqUtilities {
 
         //Access the data in the CSQ field of the INFO field- per record
         //Obtain the CSQ field and remove the square brackets
-        String csq = vc.getAttributeAsString("CSQ", "null").replaceAll("^\\[","").replaceAll("\\]$",""); //Could just pass this in instead of the VariantContext object
+        String csq =
+                vc.getAttributeAsString("CSQ", "null").replaceAll("^\\[","").replaceAll("\\]$",""); //Could just pass this in instead of the VariantContext object
         //System.out.println(CSQ);
         //System.out.println(vc.getAttribute("CSQ"));
 
         for (String splitVal : csq.split("\\,")) { //Splits multiple records per entry
-            //System.out.println(splitVal); //Prints out the individual records
-            //Append these to some sort of array
-            entries.add(splitVal);
+            //Remove leading whitespace
+            //System.out.println(splitVal.trim()); //Prints out the individual records
+            entries.add(splitVal.trim());
         }
         return entries; //Return the Array
     }
@@ -63,7 +64,7 @@ public class CsqUtilities {
             currentVepAnnotation.setVepAnnotation(variantHeaders, csqRecord.get(i)); //comment
 
             //Check that it works now it has been split out- Working- comment out later
-            System.out.println(currentVepAnnotation.vepAnnotationRecord());
+            //System.out.println(currentVepAnnotation.vepAnnotationRecord());
 
             //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
             VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
@@ -75,6 +76,10 @@ public class CsqUtilities {
 
             //See if it is working
             //System.out.println(csqMap);
+
+            //Retrieve allele num ????????
+            //System.out.println();
+
         }
         //Return the hash map
         return csqMap;

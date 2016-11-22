@@ -31,6 +31,8 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_ann_new2.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\minimisation.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multialleles.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_minimisation.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
@@ -49,7 +51,7 @@ public class Main {
         ////obj2.parseVepVcf(); //Write this method
         ////System.out.println(obj2.openFiles());
         ////System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
-        LinkedHashMap obj3 = obj2.parseVepVCF(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
+        LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
 
         //System.out.println(obj3);
         //System.out.println(obj3.getCsqObject());
