@@ -56,7 +56,9 @@ public class VepVcf {
         return null; //This is what it returns if the try catch block fails- syntax??
     }
 
-    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile){
+    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile)
+
+    {
         Log.log(Level.INFO, "Parsing VEP VCF file");
         //For the alternate alleles
         //Required for code execution as otherwise variable is initialised only in else clause
@@ -136,14 +138,20 @@ public class VepVcf {
                         //Retrieve Csqs
                         CsqObject currentCsqObject = new CsqObject(); //Empty object created
                         //currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
-                                //currentCsqRecord.vepAnnotations(vc))));
+                        //currentCsqRecord.vepAnnotations(vc))));
 
                         //The allele num lookup
-                       // VepAnnotationObject vA = ;
+                        // VepAnnotationObject vA = ;
 
-                        //This code is needed to populate the CSQ object
+                        //This code is needed to populate the CSQ object- this is incorrectly populated with the types
+                        //not going in as the correct object type (for the annotations) which leads to an issue
+                        //with retrieval later
+                        //(where the retrieved items are generic objects instead of VepAnnotationObjects)
                         currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
                                 currentCsqRecord.vepAnnotations(vc))));
+
+                        //Change the below to return a VepAnnotationObject
+                        VepAnnotationObject vepA1 = currentCsqRecord.vepAnnotations(vc);
 
                         //System.out.println(currentCsqObject.getCsqObject());
 
@@ -151,9 +159,10 @@ public class VepVcf {
                             System.out.println(j);
                             System.out.println(currentCsqObject.getCsqObject());
 
-                            System.out.println(currentCsqObject.getCsqObject().get(j));
+                            //System.out.println(currentCsqObject.getCsqObject().get(j));
 
                             Object vepA = currentCsqObject.getCsqObject().get(j);
+                            System.out.println(vepA); //Retrieves the VepAnnotationObject but as a generic object- WHY?
                             //Something is wrong with how these classes are defined
 
 
@@ -236,7 +245,7 @@ public class VepVcf {
             //System.out.println(currentCsqObject.getCsqObject2(1));
             //System.out.println(currentCsqObject.getCsqObject3(1));
 
-            }
+        }
 
         //Test hash map is working correctly
         //System.out.println(variantHashMap);
@@ -244,6 +253,4 @@ public class VepVcf {
         return variantHashMap;
 
     }
-
-
 }

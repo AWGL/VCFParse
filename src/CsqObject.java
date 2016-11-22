@@ -1,3 +1,4 @@
+import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -12,22 +13,27 @@ class CsqObject {
 
 
     private HashMap<Integer, VepAnnotationObject> csqHashMap;
+    //private Set<Integer> csqID = this.csqHashMap.keySet();
+    //private Collection<VepAnnotationObject> vepAnn = this.csqHashMap.values();
+    private CsqObject csqer;
 
-    //public CsqObject() {}
+    //public CsqObject() {    }
 
     public void setCsqObject(HashMap<Integer,VepAnnotationObject> csqHashMap){
         this.csqHashMap = csqHashMap;
+        //this.csqHashMap = csqer;
     }
 
     public HashMap getCsqObject(){
         return this.csqHashMap;
     }
 
-    //public CsqObject getCsqObject(){
+    //public CsqObject getCsqObjectTest(){
         //return this.csqHashMap;
     //}  //This doesn't work
 
     public VepAnnotationObject getCsqObject2(int k){
+
         return this.csqHashMap.get(k);
     }
 
