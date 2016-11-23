@@ -169,6 +169,13 @@ public class VepVcf {
 
                             System.out.println(altAlleles.get(alleleIndex));
 
+                            //Create an appropriate store to associate the entire csq entry with the alt allele
+                            //Temp working
+                            LinkedHashMap<String,VepAnnotationObject> alleleCsq =
+                                    new LinkedHashMap<String,VepAnnotationObject>(); //Consider creation of a separate object?
+
+                            System.out.println(vepAnn.getVepRecord());
+
 
 
                         }
