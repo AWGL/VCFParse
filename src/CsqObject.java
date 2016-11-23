@@ -32,7 +32,7 @@ class CsqObject {
         //return this.csqHashMap;
     //}  //This doesn't work
 
-    public VepAnnotationObject getCsqObject2(int k){
+    public VepAnnotationObject getSpecificCsqObject(int k){
 
         return this.csqHashMap.get(k);
     }

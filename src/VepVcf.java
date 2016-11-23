@@ -161,11 +161,22 @@ public class VepVcf {
                         for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++ ){
                             System.out.println(j);
                             System.out.println(currentCsqObject.getCsqObject());
+                            System.out.println(currentCsqObject.getCsqObject().getClass());
 
-                            //System.out.println(currentCsqObject.getCsqObject().get(j));
+                            System.out.println(currentCsqObject.getCsqObject().get(j));
+                            System.out.println(currentCsqObject.getCsqObject().get(j).getClass());
 
                             Object vepA = currentCsqObject.getCsqObject().get(j);
+                            //VepAnnotationObject vepAB = currentCsqObject.getCsqObject().get(j);
                             System.out.println(vepA); //Retrieves the VepAnnotationObject but as a generic object- WHY?
+                            System.out.println(vepA.getClass());
+
+                            VepAnnotationObject vepAC = new VepAnnotationObject();
+                            System.out.println(vepAC.getClass());
+
+                            System.out.println(currentCsqObject.getSpecificCsqObject(j).getAlleleNum());
+
+                            //System.out.println(vepA.g
                             //Something is wrong with how these classes are defined
 
 
