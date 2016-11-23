@@ -129,9 +129,7 @@ public class VepVcf {
                     //Obtain variant object for this allele
                     //How many are there?
                     for (int i = 0; i < altAlleles.size(); i++){
-
                         //System.out.println(i);
-
                         //The entire CSQ record including all of the entries for this variant context
                         CsqUtilities currentCsqRecord = new CsqUtilities();
 
@@ -139,9 +137,6 @@ public class VepVcf {
                         CsqObject currentCsqObject = new CsqObject(); //Empty object created
                         //currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
                         //currentCsqRecord.vepAnnotations(vc))));
-
-                        //The allele num lookup
-                        // VepAnnotationObject vA = ;
 
                         //This code is needed to populate the CSQ object- this is incorrectly populated with the types
                         //not going in as the correct object type (for the annotations) which leads to an issue
@@ -159,35 +154,13 @@ public class VepVcf {
                         //System.out.println(currentCsqObject.getCsqObject());
 
                         for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++ ){
-                            System.out.println(j);
-                            System.out.println(currentCsqObject.getCsqObject());
-                            System.out.println(currentCsqObject.getCsqObject().getClass());
 
-                            System.out.println(currentCsqObject.getCsqObject().get(j));
-                            System.out.println(currentCsqObject.getCsqObject().get(j).getClass());
-
-                            Object vepA = currentCsqObject.getCsqObject().get(j);
-                            //VepAnnotationObject vepAB = currentCsqObject.getCsqObject().get(j);
-                            System.out.println(vepA); //Retrieves the VepAnnotationObject but as a generic object- WHY?
-                            System.out.println(vepA.getClass());
-
-                            VepAnnotationObject vepAC = new VepAnnotationObject();
-                            System.out.println(vepAC.getClass());
-
-                            System.out.println(currentCsqObject.getSpecificCsqObject(j).getAlleleNum());
-
-                            //System.out.println(vepA.g
-                            //Something is wrong with how these classes are defined
-
-
-                            //VepAnnotationObject vepAnn = currentCsqObject.getCsqObject().get(j);
-
-                            //System.out.println(vepAnn.getAlleleNum());
+                            VepAnnotationObject vepAnn = currentCsqObject.getSpecificCsqObject(j);
+                            System.out.println(vepAnn.getAlleleNum());
 
                         }
 
                     }
-
 
                 }
 
@@ -196,7 +169,6 @@ public class VepVcf {
                 //System.out.println("No loop");
                 altAllele = altAlleles.get(0).getBaseString(); //Requires String for GenomeVariant class
                 //System.out.println(altAllele);
-
 
                 //This is intended as the key to the hashmap
                 GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),

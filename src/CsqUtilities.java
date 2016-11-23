@@ -76,8 +76,8 @@ public class CsqUtilities {
             //VepAnnotationObject tr = currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
 
             //Testing the object is a VepAnnotationObject going in to the csq hashmap
-            System.out.println("Ann obj is " + currentVepAnnotationObject);
-            System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
+            //System.out.println("Ann obj is " + currentVepAnnotationObject);
+            //System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
 
             //Create hashmap of objects
             csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)
@@ -87,8 +87,6 @@ public class CsqUtilities {
 
             //Retrieve allele num ????????
             //System.out.println();
-
-            System.out.println();
 
         }
         //Return the hash map
