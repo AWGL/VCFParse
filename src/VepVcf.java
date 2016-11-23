@@ -150,8 +150,11 @@ public class VepVcf {
                         currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
                                 currentCsqRecord.vepAnnotations(vc))));
 
+                        //System.out.println(currentCsqObject.getEntireCsqObject());
+                        //System.out.println(currentCsqObject.getCsqObjectVepAnnotationValues(1));
+
                         //Change the below to return a VepAnnotationObject
-                        VepAnnotationObject vepA1 = currentCsqRecord.vepAnnotations(vc);
+                        //VepAnnotationObject vepA1 = currentCsqRecord.vepAnnotations(vc);
 
                         //System.out.println(currentCsqObject.getCsqObject());
 
@@ -229,22 +232,21 @@ public class VepVcf {
 
                 //Associate the variant object with the CsqObject on a per record basis
                 variantHashMap.put(variantObject, currentCsqObject);
+
+
+                //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
+
+                //CSQObject t = new CSQObject(c.vepHeaders(), c.vepAnnotations(vc));
+                //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
+                //t.tester();
+
+                //Testing to determine what is inside each CsqObject- working on access
+                //System.out.println(currentCsqObject.getCsqObject());
+                //System.out.println(currentCsqObject.getEntireCsqObject());
+                //System.out.println(currentCsqObject.getCsqObjectVepAnnotationValues(1));
+                //System.out.println(currentCsqObject.getCsqObject2(1));
+                //System.out.println(currentCsqObject.getCsqObject3(1));
             }
-
-
-            //csqObject.vepHashMap(csqObject.vepHeaders(vcfFile),csqObject.vepAnnotations(vc)); //FIX THIS LINE
-
-            //CSQObject t = new CSQObject(c.vepHeaders(), c.vepAnnotations(vc));
-            //csqObject.vepAnnotations(vc).toString().replaceAll("^\\[","").replaceAll("\\]$",""));
-            //t.tester();
-
-            //Testing to determine what is inside each CsqObject- working on access
-            //System.out.println(currentCsqObject.getCsqObject());
-            //System.out.println(currentCsqObject.getEntireCsqObject());
-            //System.out.println(currentCsqObject.getCsqObjectVepAnnotationValues(1));
-            //System.out.println(currentCsqObject.getCsqObject2(1));
-            //System.out.println(currentCsqObject.getCsqObject3(1));
-
         }
 
         //Test hash map is working correctly
