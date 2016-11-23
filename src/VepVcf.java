@@ -119,6 +119,7 @@ public class VepVcf {
 
                     //System.out.println(Alleles.getBaseString());
                     altAllele = Alleles.getBaseString();
+                    //System.out.println(altAllele); //This is the alternate allele
 
                     //Create the GenomeVariant object to act as a key for this allele
                     GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
@@ -128,7 +129,9 @@ public class VepVcf {
 
                     //Obtain variant object for this allele
                     //How many are there?
-                    for (int i = 0; i < altAlleles.size(); i++){
+
+                    //May be able to remove this second loop- COMMENTED OUT 23/11/2016 16:45
+                    //for (int i = 0; i < altAlleles.size(); i++){
                         //System.out.println(i);
                         //The entire CSQ record including all of the entries for this variant context
                         CsqUtilities currentCsqRecord = new CsqUtilities();
@@ -153,14 +156,24 @@ public class VepVcf {
 
                         //System.out.println(currentCsqObject.getCsqObject());
 
+                        //This for loop needs to start at 1 because of the current naming of the CSQ Objects numerically
                         for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++ ){
 
                             VepAnnotationObject vepAnn = currentCsqObject.getSpecificCsqObject(j);
+
                             System.out.println(vepAnn.getAlleleNum());
+                            //System.out.println(altAllele);
+                            //System.out.println(altAlleles);
+
+                            int alleleIndex = (Integer.parseInt(vepAnn.getAlleleNum()) - 1); //Java is zero-indexed
+
+                            System.out.println(altAlleles.get(alleleIndex));
+
+
 
                         }
 
-                    }
+                   // }
 
                 }
 
