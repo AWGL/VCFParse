@@ -52,14 +52,14 @@ public class Main {
         ////obj2.parseVepVcf(); //Write this method
         ////System.out.println(obj2.openFiles());
         ////System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
-        LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
+        //LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
 
-        System.out.println(obj3);
+        //System.out.println(obj3);
         //System.out.println(obj3.getCsqObject());
 
         //For multisample vcf
-        //TestMultisampleVcf obj4 = new TestMultisampleVcf();
-        //obj4.openMultisampleVcf(vcf_file);
+        TestMultisampleVcf obj4 = new TestMultisampleVcf();
+        obj4.openMultisampleVcf(vcf_file);
 
     }
 

@@ -149,7 +149,7 @@ public class VepVcf {
                 //System.out.println(alleleCsq.keySet());
 
                 for (String key : alleleCsq.keySet()){
-                    ArrayList<VepAnnotationObject> forCsq = new ArrayList<VepAnnotationObject>(alleleCsq.get(key)); //Get the correct type for this object
+                    //ArrayList<VepAnnotationObject> forCsq = new ArrayList<VepAnnotationObject>(alleleCsq.get(key)); //Get the correct type for this object
                     //System.out.println(key + " " + alleleCsq.get(key));
 
                     altAllele = key; //Makes this robust to any changes in the order as the key is dynamically determined
