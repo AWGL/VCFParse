@@ -35,5 +35,20 @@ public class SpareCode {
 
             Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
         }
+
+
+        //Just some code to show that the convert to minimal representation method of GenomeVariant works
+            /*
+            System.out.println(variantObject);
+            System.out.println(variantObject.getRef());
+            System.out.println(variantObject.getAlt());
+            variantObject.convertToMinimalRepresentation();
+            System.out.println(variantObject.getRef());
+            System.out.println(variantObject.getAlt());
+            */
+
+
+
+
     }
 }

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10edee24-1962-47e7-b801-2ab1b897df9b" name="Default" comment="Additional modifications">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CsqObject.java" afterPath="$PROJECT_DIR$/src/CsqObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CsqUtilities.java" afterPath="$PROJECT_DIR$/src/CsqUtilities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SpareCode.java" afterPath="$PROJECT_DIR$/src/SpareCode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VepAnnotationObject.java" afterPath="$PROJECT_DIR$/src/VepAnnotationObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VepVcf.java" afterPath="$PROJECT_DIR$/src/VepVcf.java" />
     </list>
     <ignored path="VEPVCFtoTxt.iws" />
@@ -29,13 +31,13 @@
       <file leaf-file-name="VepVcf.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/VepVcf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="136" column="109" lean-forward="false" selection-start-line="136" selection-start-column="109" selection-end-line="136" selection-end-column="109" />
+            <state relative-caret-position="130">
+              <caret line="147" column="18" lean-forward="false" selection-start-line="147" selection-start-column="18" selection-end-line="147" selection-end-column="18" />
               <folding>
-                <element signature="e#0#15223#0" expanded="true" />
+                <element signature="e#0#9452#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#1076#1102#0" expanded="true" />
-                <element signature="e#9858#9879#0" expanded="true" />
+                <element signature="e#1123#1149#0" expanded="true" />
+                <element signature="e#6648#6669#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/src/CsqObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="34" column="51" lean-forward="false" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,7 +58,7 @@
       <file leaf-file-name="VepAnnotation.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VepAnnotation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="578">
               <caret line="38" column="10" lean-forward="false" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
               <folding />
             </state>
@@ -66,9 +68,11 @@
       <file leaf-file-name="VepAnnotationObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/VepAnnotationObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-              <folding />
+            <state relative-caret-position="255">
+              <caret line="27" column="50" lean-forward="true" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,11 +118,11 @@
       <file leaf-file-name="CsqUtilities.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CsqUtilities.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-425">
-              <caret line="77" column="128" lean-forward="false" selection-start-line="77" selection-start-column="128" selection-end-line="77" selection-end-column="128" />
+            <state relative-caret-position="204">
+              <caret line="60" column="62" lean-forward="true" selection-start-line="60" selection-start-column="62" selection-end-line="60" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2054#2075#0" expanded="true" />
+                <element signature="e#2100#2121#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,16 +159,16 @@
         <option value="$PROJECT_DIR$/src/VEPVCF.java" />
         <option value="$MAVEN_REPOSITORY$/com/github/samtools/htsjdk/2.7.0/htsjdk-2.7.0.jar!/htsjdk/variant/example/PrintVariantsExample.class" />
         <option value="$PROJECT_DIR$/src/GenomeVariant.java" />
-        <option value="$PROJECT_DIR$/src/SpareCode.java" />
         <option value="$PROJECT_DIR$/src/t.java" />
         <option value="$PROJECT_DIR$/src/CSQObject.java" />
         <option value="$PROJECT_DIR$/src/CSQ.java" />
         <option value="$PROJECT_DIR$/src/TestMultisampleVcf.java" />
-        <option value="$PROJECT_DIR$/src/VepAnnotationObject.java" />
         <option value="$PROJECT_DIR$/src/VepAnnotation.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/CsqObject.java" />
+        <option value="$PROJECT_DIR$/src/SpareCode.java" />
         <option value="$PROJECT_DIR$/src/CsqUtilities.java" />
+        <option value="$PROJECT_DIR$/src/CsqObject.java" />
+        <option value="$PROJECT_DIR$/src/VepAnnotationObject.java" />
         <option value="$PROJECT_DIR$/src/VepVcf.java" />
       </list>
     </option>
@@ -739,12 +743,12 @@
       <workItem from="1479848525820" duration="745000" />
       <workItem from="1479850440010" duration="3734000" />
       <workItem from="1479898819740" duration="16536000" />
-      <workItem from="1479981670355" duration="18292000" />
+      <workItem from="1479981670355" duration="21610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197610000" />
+    <option name="totallyTimeSpent" value="200928000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
@@ -770,7 +774,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32732734" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32732734" sideWeight="0.496875" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18828125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -853,7 +857,7 @@
           <caret line="66" column="61" lean-forward="false" selection-start-line="66" selection-start-column="61" selection-end-line="66" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2054#2075#0" expanded="true" />
+            <element signature="e#2100#2121#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,7 +876,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="14" column="10" lean-forward="false" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -941,10 +947,10 @@
         <state relative-caret-position="1836">
           <caret line="130" column="53" lean-forward="false" selection-start-line="130" selection-start-column="53" selection-end-line="130" selection-end-column="53" />
           <folding>
-            <element signature="e#0#15223#0" expanded="true" />
+            <element signature="e#0#9452#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1076#1102#0" expanded="true" />
-            <element signature="e#9858#9879#0" expanded="true" />
+            <element signature="e#1123#1149#0" expanded="true" />
+            <element signature="e#6648#6669#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -955,7 +961,7 @@
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2054#2075#0" expanded="true" />
+            <element signature="e#2100#2121#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -964,7 +970,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1025,10 +1033,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15223#0" expanded="true" />
+            <element signature="e#0#9452#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1076#1102#0" expanded="true" />
-            <element signature="e#9858#9879#0" expanded="true" />
+            <element signature="e#1123#1149#0" expanded="true" />
+            <element signature="e#6648#6669#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1039,7 +1047,7 @@
           <caret line="34" column="58" lean-forward="false" selection-start-line="34" selection-start-column="58" selection-end-line="34" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2054#2075#0" expanded="true" />
+            <element signature="e#2100#2121#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1101,10 +1109,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15223#0" expanded="true" />
+            <element signature="e#0#9452#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1076#1102#0" expanded="true" />
-            <element signature="e#9858#9879#0" expanded="true" />
+            <element signature="e#1123#1149#0" expanded="true" />
+            <element signature="e#6648#6669#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1156,10 +1164,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15223#0" expanded="true" />
+            <element signature="e#0#9452#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1076#1102#0" expanded="true" />
-            <element signature="e#9858#9879#0" expanded="true" />
+            <element signature="e#1123#1149#0" expanded="true" />
+            <element signature="e#6648#6669#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1314,18 +1322,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SpareCode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#690#691#0" expanded="false" />
-            <element signature="e#736#737#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CSQ.java" />
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1338,9 +1334,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/SpareCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="47" column="14" lean-forward="false" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CsqUtilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="60" column="62" lean-forward="true" selection-start-line="60" selection-start-column="62" selection-end-line="60" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2100#2121#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CsqObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/VepAnnotation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="578">
           <caret line="38" column="10" lean-forward="false" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
           <folding />
         </state>
@@ -1348,42 +1373,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VepAnnotationObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="17" column="57" lean-forward="false" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CsqObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="34" column="51" lean-forward="false" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+        <state relative-caret-position="255">
+          <caret line="27" column="50" lean-forward="true" selection-start-line="27" selection-start-column="50" selection-end-line="27" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CsqUtilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="77" column="128" lean-forward="false" selection-start-line="77" selection-start-column="128" selection-end-line="77" selection-end-column="128" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2054#2075#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VepVcf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="136" column="109" lean-forward="false" selection-start-line="136" selection-start-column="109" selection-end-line="136" selection-end-column="109" />
+        <state relative-caret-position="130">
+          <caret line="147" column="18" lean-forward="false" selection-start-line="147" selection-start-column="18" selection-end-line="147" selection-end-column="18" />
           <folding>
-            <element signature="e#0#15223#0" expanded="true" />
+            <element signature="e#0#9452#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1076#1102#0" expanded="true" />
-            <element signature="e#9858#9879#0" expanded="true" />
+            <element signature="e#1123#1149#0" expanded="true" />
+            <element signature="e#6648#6669#0" expanded="true" />
           </folding>
         </state>
       </provider>

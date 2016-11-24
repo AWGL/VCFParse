@@ -1,6 +1,7 @@
 import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Sara on 17-Nov-16.
@@ -12,19 +13,19 @@ class CsqObject {
     //Inside the HashMap is a VepAnnotation object
 
 
-    private HashMap<Integer, VepAnnotationObject> csqHashMap;
+    private LinkedHashMap<Integer, VepAnnotationObject> csqHashMap;
     //private Set<Integer> csqID = this.csqHashMap.keySet();
     //private Collection<VepAnnotationObject> vepAnn = this.csqHashMap.values();
     private CsqObject csqer;
 
     //public CsqObject() {    }
 
-    public void setCsqObject(HashMap<Integer,VepAnnotationObject> csqHashMap){
+    public void setCsqObject(LinkedHashMap<Integer,VepAnnotationObject> csqHashMap){
         this.csqHashMap = csqHashMap;
         //this.csqHashMap = csqer;
     }
 
-    public HashMap getCsqObject(){
+    public LinkedHashMap getCsqObject(){
         return this.csqHashMap;
     }
 

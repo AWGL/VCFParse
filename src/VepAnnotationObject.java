@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Sara on 16-Nov-16.
@@ -10,15 +11,15 @@ public class VepAnnotationObject {
 
     //This class is designed to hold the HashMap of each VEP annotation record held in each separate CSQ field
 
-    private HashMap<String, String> vepAnnotationHashMap;
+    private LinkedHashMap<String, String> vepAnnotationHashMap;
 
     public VepAnnotationObject() {}
 
-    public void setVepRecord(HashMap<String,String> vepAnnotationHashMap) {
+    public void setVepRecord(LinkedHashMap<String,String> vepAnnotationHashMap) {
         this.vepAnnotationHashMap = vepAnnotationHashMap;
     }
 
-    public HashMap getVepRecord(){
+    public LinkedHashMap getVepRecord(){
         //Returns entire vep record entry as a hash map
         return this.vepAnnotationHashMap;
     }
