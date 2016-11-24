@@ -59,25 +59,9 @@ public class CsqUtilities {
             //System.out.println((i+1)); // +1 so that entries start at 1 instead of 0
             //System.out.println(csqRecord.get(i));
 
-            //Creating a HashMap of objects
-            //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
-            VepAnnotation currentVepAnnotation = new VepAnnotation();
-            currentVepAnnotation.setVepAnnotation(variantHeaders, csqRec.get(i)); //Data in to the VepAnnotation as Strings
-
-            //Check that it works now it has been split out- Working- comment out later
-            //System.out.println(currentVepAnnotation.vepAnnotationRecord());
-
-            //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
-            VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
-            //Populate the object with the hash map
-            //headers to data hashmap retrieved
-            currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
-
-            //VepAnnotationObject tr = currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
-
-            //Testing the object is a VepAnnotationObject going in to the csq hashmap
-            //System.out.println("Ann obj is " + currentVepAnnotationObject);
-            //System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
+            CsqUtilities csq = new CsqUtilities();
+            VepAnnotationObject currentVepAnnotationObject =
+                    csq.createVepAnnotationObject(variantHeaders, csqRec.get(i));
 
             //Create hashmap of objects
             csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)
@@ -91,6 +75,36 @@ public class CsqUtilities {
         }
         //Return the hash map
         return csqMap;
+    }
+
+    public VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
+        //Creating a HashMap of objects
+        //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
+        VepAnnotation currentVepAnnotation = new VepAnnotation();
+        currentVepAnnotation.setVepAnnotation(variantHeaders, vepAnnotation); //Data in to the VepAnnotation as Strings
+
+        //Check that it works now it has been split out- Working- comment out later
+        //System.out.println(currentVepAnnotation.vepAnnotationRecord());
+
+        //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
+        VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
+        //Populate the object with the hash map
+        //headers to data hashmap retrieved
+        currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
+
+        //VepAnnotationObject tr = currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
+
+        //Testing the object is a VepAnnotationObject going in to the csq hashmap
+        //System.out.println("Ann obj is " + currentVepAnnotationObject);
+        //System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
+
+        return currentVepAnnotationObject; //Change this
+    }
+
+    public HashMap<Integer,VepAnnotationObject> createCsqRecord(){
+        HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
+
+
     }
 
     public String parseCsq(VariantContext vc) {
