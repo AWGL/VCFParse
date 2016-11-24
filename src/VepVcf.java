@@ -197,8 +197,9 @@ public class VepVcf {
 
                 //Retrieve all entries for each allele- how to achieve this
                 for (String key : alleleCsq.keySet()){
-                    //System.out.println(alleleCsq.get(key).getClass());
+                    System.out.println(alleleCsq.get(key).getClass());
                     //System.out.println(alleleCsq.get(key));
+                    Object test = alleleCsq.get(key); //Get the correct type for this object
                     System.out.println(key + " " + alleleCsq.get(key));
 
                     for (VepAnnotationObject vepEntry : alleleCsq.get(key)){ //Iterate through Collection<VepAnnotationObject>
