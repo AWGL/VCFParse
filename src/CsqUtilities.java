@@ -5,7 +5,6 @@ import htsjdk.variant.variantcontext.VariantContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -102,7 +101,7 @@ public class CsqUtilities {
         return currentVepAnnotationObject; //Change this
     }
 
-    public HashMap<Integer,VepAnnotationObject> createCsqRecord(List<VepAnnotationObject> vepAnnColl){
+    public HashMap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
         HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
 
         for (int i=0; i<vepAnnColl.size(); i++){

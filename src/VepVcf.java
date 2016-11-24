@@ -1,8 +1,6 @@
-//Dependencies htsjdk library 2.7.0 and gatk utils 2.6
+//Dependencies htsjdk library 2.7.0
 /*
-The issue with opening the file twice should be resolved soon in the tribble package (the VariantContextAdaptors
-package referred to in the htsjdk doccumentation appears to be part of gatk and getting that set up properly did not
-look very easy
+Comment here
  */
 
 import java.io.*;
@@ -20,9 +18,11 @@ import java.util.LinkedHashMap;
 
 import htsjdk.variant.utils.*;
 import java.util.List;
+import java.util.ArrayList;
 import org.broadinstitute.hellbender.utils.reference.ReferenceUtils.*;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
 import java.util.Collection;
 
 
@@ -157,6 +157,7 @@ public class VepVcf {
                         currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
                                 currentCsqRecord.vepAnnotations(vc))));
 
+                        //See what is in the current CSQ object- this contains all the csq entries for ALL alternate alleles
                         //System.out.println(currentCsqObject.getEntireCsqObject());
                         //System.out.println(currentCsqObject.getCsqObjectVepAnnotationValues(1));
 
@@ -195,16 +196,32 @@ public class VepVcf {
                 //Test Multimap contains all expected data- NOTE Multimap is PER variant entry at present
                 //System.out.println(alleleCsq); // This dictionary contains all the data for all alleles
 
-                //Retrieve all entries for each allele- how to achieve this
+                //Retrieve all entries for each allele and generate a csq object
                 for (String key : alleleCsq.keySet()){
-                    System.out.println(alleleCsq.get(key).getClass());
+                    //System.out.println(alleleCsq.get(key).getClass());
                     //System.out.println(alleleCsq.get(key));
-                    Object test = alleleCsq.get(key); //Get the correct type for this object
+                    //Collection<VepAnnotationObject> m = alleleCsq.get(key);
+                    ArrayList forCsq = new ArrayList(alleleCsq.get(key)); //Get the correct type for this object
                     System.out.println(key + " " + alleleCsq.get(key));
+                    //System.out.println(test.getClass());
+                    //System.out.println(m);
+                    //System.out.println(forCsq.get(0));
+
+                    CsqUtilities currentCsqRecord = new CsqUtilities();
+                    System.out.println(currentCsqRecord.createCsqRecord(forCsq)); //Creation of csqObject
+
+                    //Need to create a new csqObject to put into the variant hashmap, as the previous one is associated
+                    //with the entire CSQ for all alternate alleles
+
+                    /*
+                    CsqObject currentCsqObject = new CsqObject(); //Empty object created
+                    currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
+                            currentCsqRecord.vepAnnotations(vc))));
 
                     for (VepAnnotationObject vepEntry : alleleCsq.get(key)){ //Iterate through Collection<VepAnnotationObject>
                         System.out.println(vepEntry);
                     }
+                    */
 
                     //Turn the multiple VepAnnotationObject entries into a CsqObject
 
