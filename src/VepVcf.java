@@ -157,33 +157,21 @@ public class VepVcf {
                     GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
                             vc.getReference().toString().replaceAll("\\*", ""), altAllele);
 
-                    System.out.println(variantObject);
+                    //System.out.println(variantObject);
 
 
                     CsqUtilities alleleCsqRecord = new CsqUtilities();
-                    System.out.println(alleleCsqRecord.createCsqRecord(forCsq)); //Creation of csqObject- this isn't being properly created
-                    System.out.println(alleleCsqRecord.createCsqRecord(forCsq).getClass());
+                    //System.out.println(alleleCsqRecord.createCsqRecord(forCsq)); //Creation of csqObject- this isn't being properly created
 
-                    /////variantHashMap.put(variantObject, alleleCsqRecord);
+                    CsqObject alleleCsqObject = new CsqObject();
+                    //System.out.println(alleleCsqRecord.createCsqRecord(forCsq).getClass());
+
+                    alleleCsqObject.setCsqObject((alleleCsqRecord.createCsqRecordOfVepAnnObjects(
+                        alleleCsqRecord.vepHeaders(vcfFile), alleleCsqRecord.vepAnnotations(vc))));
 
 
-                    //Create a CsqObject to hold the data paired with the Genome Variant object as the key
-                    //////CsqObject currentCsqObject = new CsqObject(); //Empty object created
-                    /////currentCsqObject.setCsqObject((currentCsqRecord.createCsqRecordOfVepAnnObjects(
-                            /////currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
+                    variantHashMap.put(variantObject, alleleCsqObject);
 
-                    //Need to create a new csqObject to put into the variant hashmap, as the previous one is associated
-                    //with the entire CSQ for all alternate alleles
-
-                    /*
-                    CsqObject currentCsqObject = new CsqObject(); //Empty object created
-                    currentCsqObject.setCsqObject((currentCsqRecord.csqRecord(currentCsqRecord.vepHeaders(vcfFile),
-                            currentCsqRecord.vepAnnotations(vc))));
-
-                    for (VepAnnotationObject vepEntry : alleleCsq.get(key)){ //Iterate through Collection<VepAnnotationObject>
-                        System.out.println(vepEntry);
-                    }
-                    */
 
                     //Turn the multiple VepAnnotationObject entries into a CsqObject
 
@@ -198,7 +186,7 @@ public class VepVcf {
                 GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
                         vc.getReference().toString().replaceAll("\\*", ""), altAllele);
 
-                System.out.println(variantObject);
+                //System.out.println(variantObject);
 
                 //Associate the variant object with the CsqObject on a per record basis
                 variantHashMap.put(variantObject, currentCsqObject);
