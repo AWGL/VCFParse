@@ -48,10 +48,10 @@ public class CsqUtilities {
     }
 
 
-    public HashMap<Integer,VepAnnotationObject> csqRecord(String variantHeaders, ArrayList<String> csqRec) {
+    public HashMap<Integer,VepAnnotationObject> createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
 
-        //ArrayList<Integer,CSQObject> csqArray = new ArrayList<Integer,CSQObject>();
-        HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
+        ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
+        //HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
 
             //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
 
@@ -63,8 +63,8 @@ public class CsqUtilities {
             VepAnnotationObject currentVepAnnotationObject =
                     csq.createVepAnnotationObject(variantHeaders, csqRec.get(i));
 
-            //Create hashmap of objects
-            csqMap.put((i+1),currentVepAnnotationObject); //In here put the key and the value pair- see the model class (CSQObject)
+            //Create ArrayList of VepAnnotationObjects
+            csqArray.add(currentVepAnnotationObject);
 
             //See if it is working
             //System.out.println(csqMap);
@@ -74,7 +74,8 @@ public class CsqUtilities {
 
         }
         //Return the hash map
-        return csqMap;
+        CsqUtilities csqUtil = new CsqUtilities();
+        return csqUtil.createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
     }
 
     public VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
@@ -98,13 +99,14 @@ public class CsqUtilities {
         //System.out.println("Ann obj is " + currentVepAnnotationObject);
         //System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
 
-        return currentVepAnnotationObject; //Change this
+        return currentVepAnnotationObject; //Change this potentially
     }
 
     public HashMap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
         HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
 
         for (int i=0; i<vepAnnColl.size(); i++){
+
             csqMap.put((i+1),vepAnnColl.get(i));
         }
         return csqMap;
