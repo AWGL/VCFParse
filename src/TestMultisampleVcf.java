@@ -1,5 +1,8 @@
 import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.vcf.VCFFileReader;
+import htsjdk.variant.variantcontext.Genotype;
+
+import java.util.Iterator;
 
 import java.io.*;
 
@@ -21,6 +24,14 @@ public class TestMultisampleVcf {
             System.out.println(vc);
             x+=1;
             System.out.println(x);
+
+            Iterator<Genotype> gt = vc.getGenotypes().iterator();
+
+            while (gt.hasNext()) {
+                System.out.println(gt.next());
+            }
+
+
             break;
         }
 
