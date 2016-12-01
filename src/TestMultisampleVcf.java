@@ -2,6 +2,8 @@ import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.vcf.VCFFileReader;
 import htsjdk.variant.variantcontext.Genotype;
 
+import htsjdk.variant.variantcontext.GenotypesContext;
+
 import java.util.Iterator;
 
 import java.io.*;
@@ -25,10 +27,23 @@ public class TestMultisampleVcf {
             x+=1;
             System.out.println(x);
 
+            //System.out.println(vc.getGenotypes());
+
+            //gen.copy(gen);
+
+            //System.out.println(copy(vc.getGenotypes() 'TGA');
+
+            GenotypesContext gen = vc.getGenotypes();
             Iterator<Genotype> gt = vc.getGenotypes().iterator();
 
+            System.out.println(gen.get(1).getAllele(0));
+
             while (gt.hasNext()) {
+                //System.out.println(gt); // Iterator Object
                 System.out.println(gt.next());
+                //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
+                System.out.println(gt.next().getAlleles());
+
             }
 
 
