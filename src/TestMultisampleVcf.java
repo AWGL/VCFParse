@@ -40,9 +40,14 @@ public class TestMultisampleVcf {
 
             while (gt.hasNext()) {
                 //System.out.println(gt); // Iterator Object
-                System.out.println(gt.next());
+                Genotype currentGenotype = gt.next();
+                System.out.println(currentGenotype);
                 //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
-                System.out.println(gt.next().getAlleles());
+                System.out.println(currentGenotype.getSampleName());
+                System.out.println(currentGenotype.getAlleles());
+                System.out.println(currentGenotype.isFiltered());
+                //System.out.println(currentGenotype.getAnyAttribute("GQ"));
+                System.out.println(currentGenotype.getAD());
 
             }
 
