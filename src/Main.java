@@ -35,6 +35,7 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         //path="C:\\Users\\Admin\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
