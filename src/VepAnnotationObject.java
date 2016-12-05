@@ -26,7 +26,6 @@ public class VepAnnotationObject {
 
     public Collection<String> getEntireVepRecordValues() {
         return this.vepAnnotationHashMap.values();
-
         }
 
     public String getAlleleNum(){

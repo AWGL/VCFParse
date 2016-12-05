@@ -64,6 +64,8 @@ public class VepVcf {
         //For the alternate alleles
         //Required for code execution as otherwise variable is initialised only in else clause
         String altAllele = null;
+        boolean variantFiltered = false; //Default setting
+        boolean variantSite = false; //Default setting
         for (final VariantContext vc : vcfFile){
             List<Allele> altAlleles = vc.getAlternateAlleles();
             ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
@@ -82,6 +84,10 @@ public class VepVcf {
                     currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop//
 
+            variantFiltered = vc.isFiltered();
+            variantSite = vc.isVariant();
+
+
             GenotypesContext gt = vc.getGenotypes();
             Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
             while (gtIter.hasNext()) {
@@ -89,13 +95,11 @@ public class VepVcf {
                 Genotype currentGenotype = gtIter.next();
                 //System.out.println(currentGenotype);
                 //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
-                System.out.println(currentGenotype.getSampleName());
-
-                System.out.println(currentGenotype.isNoCall()); //./.
-                System.out.println(currentGenotype.isHomRef());
-                System.out.println(currentGenotype.isFiltered());
+                //System.out.println(currentGenotype.getSampleName());
+                //System.out.println(currentGenotype.isNoCall()); //./.
+                //System.out.println(currentGenotype.isHomRef());
+                //System.out.println(currentGenotype.isFiltered());
             }
-
 
             if (altAlleles.size() > 1){
                 //Create an appropriate store to associate the specific csq entries with the alt allele
@@ -143,9 +147,10 @@ public class VepVcf {
 
                     variantHashMap.put(variantObject, alleleCsqObject);
 
+                    System.out.println(variantFiltered);
+                    System.out.println(variantSite);
 
                     //Turn the multiple VepAnnotationObject entries into a CsqObject
-
 
                 }
 
@@ -162,12 +167,13 @@ public class VepVcf {
                 //Associate the variant object with the CsqObject on a per record basis
                 variantHashMap.put(variantObject, currentCsqObject);
 
+                System.out.println(variantFiltered);
+                System.out.println(variantSite);
+
             }
         }
 
         //Test hash map is working correctly
-        //System.out.println(variantHashMap);
-        //System.out.print("\n");
         return variantHashMap;
 
     }
