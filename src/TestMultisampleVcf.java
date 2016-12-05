@@ -21,12 +21,13 @@ public class TestMultisampleVcf {
         VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
         int x=0;
         for (final VariantContext vc : vcfFile){
-            System.out.println(vc.getContig());
-            System.out.println(vc.getStart());
+            //System.out.println(vc.getContig());
+            //System.out.println(vc.getStart());
             System.out.println(vc);
-            System.out.println(vc.getAlleles());
-            x+=1;
-            System.out.println(x);
+            //System.out.println(vc.getAlleles());
+            System.out.println(vc.isVariant()); //This region called in the gVCF is a variant site
+            //x+=1;
+            //System.out.println(x);
 
             //System.out.println(vc.getGenotypes());
 
@@ -37,26 +38,33 @@ public class TestMultisampleVcf {
             GenotypesContext gt = vc.getGenotypes();
             Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
 
-            System.out.println(gt.get(0).getAllele(0)); //First allele from first genotype entry
-            System.out.println(gt.get(0).getAllele(1)); //Second allele from first genotype entry
+            //System.out.println(gt.get(0).getAllele(0)); //First allele from first genotype entry
+            //System.out.println(gt.get(0).getAllele(1)); //Second allele from first genotype entry
 
+
+            //for each sample in turn
             while (gtIter.hasNext()) {
                 //System.out.println(gt); // Iterator Object
                 Genotype currentGenotype = gtIter.next();
-                System.out.println(currentGenotype);
+                //System.out.println(currentGenotype);
                 //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
                 System.out.println(currentGenotype.getSampleName());
-                System.out.println(currentGenotype.getAlleles());
+
+                System.out.println(currentGenotype.isNoCall()); //./.
+                System.out.println(currentGenotype.isHomRef());
                 System.out.println(currentGenotype.isFiltered());
+
+                //System.out.println(currentGenotype.getAlleles());
+                //System.out.println(currentGenotype.isFiltered());
                 //System.out.println(currentGenotype.getAnyAttribute("GQ"));
-                System.out.println(currentGenotype.getAlleles());
-                int[] alleleDepths =  currentGenotype.getAD();
-                System.out.println(currentGenotype.getDP());
+                //int[] alleleDepths =  currentGenotype.getAD();
+                //System.out.println(currentGenotype.getDP());
 
-                System.out.print(currentGenotype.getGQ());
+                //System.out.println(currentGenotype.getGQ());
+                //System.out.println(currentGenotype.getPL());
 
-                for (int ad : alleleDepths){System.out.print(ad + ", ");}
-                System.out.print("\n");
+                //for (int ad : alleleDepths){System.out.print(ad + ", ");}
+                //System.out.print("\n");
             }
 
             break;

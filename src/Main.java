@@ -35,7 +35,10 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         //path="C:\\Users\\Admin\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
-        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_test.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles_test.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
@@ -50,18 +53,16 @@ public class Main {
         ////t obj2 = new t(vcf_file); //temp for testing purposes
 
         //Open the file
-        ////obj2.parseVepVCF(obj2.openFiles(vcf_file));
-        ////obj2.parseVepVcf(); //Write this method
-        ////System.out.println(obj2.openFiles());
-        ////System.out.println(obj2.parseVepVCF(obj2.openFiles(vcf_file)));
-        //LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
+        LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
+        System.out.println(obj3);
 
-        //System.out.println(obj3);
+        System.out.println();
+
         //System.out.println(obj3.getCsqObject());
 
         //For multisample vcf
-        TestMultisampleVcf obj4 = new TestMultisampleVcf();
-        obj4.openMultisampleVcf(vcf_file);
+        //TestMultisampleVcf obj4 = new TestMultisampleVcf();
+        //obj4.openMultisampleVcf(vcf_file);
 
     }
 

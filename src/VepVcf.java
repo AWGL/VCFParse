@@ -5,6 +5,7 @@ Comment here
 
 import java.io.*;
 import java.io.IOException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import htsjdk.samtools.*;
@@ -14,16 +15,12 @@ import htsjdk.variant.variantcontext.*;
 import htsjdk.variant.variantcontext.writer.*;
 import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.*;
-import java.util.LinkedHashMap;
 
 import htsjdk.variant.utils.*;
-import java.util.List;
-import java.util.ArrayList;
 import org.broadinstitute.hellbender.utils.reference.ReferenceUtils.*;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
-import java.util.Collection;
 import com.google.common.collect.TreeMultimap;
 
 
@@ -68,45 +65,7 @@ public class VepVcf {
         //Required for code execution as otherwise variable is initialised only in else clause
         String altAllele = null;
         for (final VariantContext vc : vcfFile){
-            //System.out.println(vc.getContig());
-            //System.out.print(vc.getContig());
-            //System.out.print("\t");
-            //System.out.print(vc.getStart());
-            //System.out.print("\t");
-            //System.out.print(vc.getEnd()); //Could be useful for indels etc.
-            //System.out.print("\t");
-            //System.out.print(vc.getAttributeAsList("ID")); //This is returning null at present- no key found?
-            //System.out.print("\t");
-            //Allele refAl = vc.getReference();
-            //System.out.print(refAl); //Reference allele
-            //System.out.print("\t");
-            //System.out.println(vc.getAlleles()); //Returns all the alleles
             List<Allele> altAlleles = vc.getAlternateAlleles();
-            //System.out.println(altAlleles); //Returns all the potential alternate alleles- test with an indel
-            //System.out.print("\t");
-            //System.out.print(vc.getID());
-            //System.out.print("\t");
-            //System.out.print(vc.getPhredScaledQual());
-            //System.out.print("\t");
-            //System.out.print(vc.isFiltered());
-            //System.out.print("\t");
-            //System.out.print(vc.getAttribute("DP")); //Depth
-            //System.out.print("\t");
-            //System.out.print(vc.getAttribute("CSQ")); //Long- commented out for now
-            //System.out.print("\t");
-            //Need to find a better way of getting a transcript
-            ///System.out.print(VariantContextUtils.match(VariantContext vc, ));
-            //System.out.print("\t");
-
-            //System.out.print(vc.hasAttribute("Transcript")); //To see if a particular attribute is available as a key
-            //System.out.print("\t");
-
-
-            ///Requires further parsing- do later
-            //System.out.print(vc.getGenotypes());
-            //System.out.print("\t");
-
-
             ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
 
 
@@ -123,7 +82,19 @@ public class VepVcf {
                     currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop//
 
+            GenotypesContext gt = vc.getGenotypes();
+            Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
+            while (gtIter.hasNext()) {
+                //System.out.println(gt); // Iterator Object
+                Genotype currentGenotype = gtIter.next();
+                //System.out.println(currentGenotype);
+                //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
+                System.out.println(currentGenotype.getSampleName());
 
+                System.out.println(currentGenotype.isNoCall()); //./.
+                System.out.println(currentGenotype.isHomRef());
+                System.out.println(currentGenotype.isFiltered());
+            }
 
 
             if (altAlleles.size() > 1){
