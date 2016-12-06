@@ -20,7 +20,7 @@ public class SampleVariantDataObject {
     }
 
     public String getSampleName(){return this.sampleName;}
-    public GenomeVariant getvariantObjectKey(){return this.variantObjectKey;}
+    public GenomeVariant getVariantObjectKey(){return this.variantObjectKey;}
     public boolean getFiltered(){return this.filtered;}
     public boolean getMixed(){return this.mixed;}
     public int getPloidy(){return this.ploidy;}

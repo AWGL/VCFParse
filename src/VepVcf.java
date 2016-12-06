@@ -35,8 +35,16 @@ public class VepVcf {
 
     //Maybe move this inside the method
     //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
+
+    //HashMap containing per-variant and allele information
     private LinkedHashMap<GenomeVariant, VariantDataObject> variantHashMap =  new LinkedHashMap<GenomeVariant, VariantDataObject>();
-    private LinkedHashMap<String, SampleVariantDataObject> sampleHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
+
+    //HashMap containing per sample, per position (and contig), (and including alternate allele information)
+    private LinkedHashMap<SampleVariant, SampleVariantDataObject> sampleVariantHashMap =  new LinkedHashMap<SampleVariant, SampleVariantDataObject>();
+
+
+    //HashMap containing
+    //private LinkedHashMap<String, SampleVariantDataObject> sampleHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
     //Constructor- invoked at the time of object creation
     //public VepVcf(File vcfFilePath) {
         //this.vcfFilePath = vcfFilePath;
@@ -186,17 +194,34 @@ public class VepVcf {
                 if(currentGenotype.isHomRef() || currentGenotype.isNoCall()){System.out.println("skip record");}
                 else{
                     System.out.println(currentGenotype.getSampleName());
+
+                    SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
+                     vc.getContig(), vc.getStart(), currentGenotype.getAlleles());
+                     ////vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+                    System.out.println(currentSampleVariant);
+
+
                     //Locate what is the key in the variantHashMap for the specific allele
-                    GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
-                            vc.getReference().toString().replaceAll("\\*", ""), altAllele);
-                    System.out.println(keyForVariant);
+                    //Generate keyForVariant
+                    for (Allele al : currentGenotype.getAlleles()){
+                        System.out.println(vc.getReference());
+                        System.out.println(al.toString().replaceAll("\\*", ""));
+
+                        GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
+                                vc.getReference().toString().replaceAll("\\*", ""),
+                                al.toString().replaceAll("\\*", ""));
+                        System.out.println(keyForVariant);
 
                     SampleVariantDataObject currentSampleVariantDataObject =
                             new SampleVariantDataObject(currentGenotype.getSampleName(),
                             keyForVariant, currentGenotype.isFiltered(), currentGenotype.isMixed(),
                             currentGenotype.getPloidy());
 
-                    sampleHashMap.put(currentGenotype.getSampleName(), currentSampleVariantDataObject);
+                    sampleVariantHashMap.put(currentSampleVariant, currentSampleVariantDataObject);
+
+                    }
+
+
 
                     //System.out.println(currentGenotype.isFiltered());
                     //System.out.println(currentGenotype.isMixed());
@@ -219,13 +244,12 @@ public class VepVcf {
 
             }
 
-            break; //first allele only for ease of testing
+            //break; //first allele only for ease of testing
 
         }
 
         //Test hash map is working correctly
-        System.out.println(sampleHashMap);
-        System.out.println(sampleHashMap.get("1M"));
+        System.out.println(sampleVariantHashMap);
         return variantHashMap;
         //return sampleHashMap
 
