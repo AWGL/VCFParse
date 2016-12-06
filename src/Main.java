@@ -34,7 +34,7 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_minimisation.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         //path="C:\\Users\\Admin\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
-        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles.vcf";

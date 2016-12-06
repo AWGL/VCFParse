@@ -36,7 +36,7 @@ public class VepVcf {
     //Maybe move this inside the method
     //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
     private LinkedHashMap<GenomeVariant, VariantDataObject> variantHashMap =  new LinkedHashMap<GenomeVariant, VariantDataObject>();
-
+    private LinkedHashMap<String, SampleVariantDataObject> sampleHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
     //Constructor- invoked at the time of object creation
     //public VepVcf(File vcfFilePath) {
         //this.vcfFilePath = vcfFilePath;
@@ -85,8 +85,8 @@ public class VepVcf {
                     currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop//
 
-            //variantFiltered = vc.isFiltered();
-            //variantSite = vc.isVariant();
+            variantFiltered = vc.isFiltered();
+            variantSite = vc.isVariant();
 
 
             //This part of the code associates a specific alternate allele with its data in the CSQ field
@@ -180,11 +180,29 @@ public class VepVcf {
                 //System.out.println(gt); // Iterator Object
                 Genotype currentGenotype = gtIter.next();
                 System.out.println(currentGenotype);
-                System.out.println(currentGenotype.isHomRef());
 
 
-                //if(currentGenotype.isNoCall())
-                    //System.out.println("skip record");
+                //Don't add the variant to the sample if there is no call
+                if(currentGenotype.isHomRef() || currentGenotype.isNoCall()){System.out.println("skip record");}
+                else{
+                    System.out.println(currentGenotype.getSampleName());
+                    //Locate what is the key in the variantHashMap for the specific allele
+                    GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
+                            vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+                    System.out.println(keyForVariant);
+
+                    SampleVariantDataObject currentSampleVariantDataObject =
+                            new SampleVariantDataObject(currentGenotype.getSampleName(),
+                            keyForVariant, currentGenotype.isFiltered(), currentGenotype.isMixed(),
+                            currentGenotype.getPloidy());
+
+                    sampleHashMap.put(currentGenotype.getSampleName(), currentSampleVariantDataObject);
+
+                    //System.out.println(currentGenotype.isFiltered());
+                    //System.out.println(currentGenotype.isMixed());
+                    //System.out.println(currentGenotype.getPloidy());
+                }
+
 
 
                 //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
@@ -201,12 +219,16 @@ public class VepVcf {
 
             }
 
-
+            break; //first allele only for ease of testing
 
         }
 
         //Test hash map is working correctly
+        System.out.println(sampleHashMap);
+        System.out.println(sampleHashMap.get("1M"));
         return variantHashMap;
+        //return sampleHashMap
 
     }
+
 }
