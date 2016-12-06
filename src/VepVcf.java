@@ -34,7 +34,8 @@ public class VepVcf {
     //private File vcfFilePath;
 
     //Maybe move this inside the method
-    private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
+    //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
+    private LinkedHashMap<GenomeVariant, VariantDataObject> variantHashMap =  new LinkedHashMap<GenomeVariant, VariantDataObject>();
 
     //Constructor- invoked at the time of object creation
     //public VepVcf(File vcfFilePath) {
@@ -84,23 +85,11 @@ public class VepVcf {
                     currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop//
 
-            variantFiltered = vc.isFiltered();
-            variantSite = vc.isVariant();
+            //variantFiltered = vc.isFiltered();
+            //variantSite = vc.isVariant();
 
 
-            GenotypesContext gt = vc.getGenotypes();
-            Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
-            while (gtIter.hasNext()) {
-                //System.out.println(gt); // Iterator Object
-                Genotype currentGenotype = gtIter.next();
-                //System.out.println(currentGenotype);
-                //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
-                //System.out.println(currentGenotype.getSampleName());
-                //System.out.println(currentGenotype.isNoCall()); //./.
-                //System.out.println(currentGenotype.isHomRef());
-                //System.out.println(currentGenotype.isFiltered());
-            }
-
+            //This part of the code associates a specific alternate allele with its data in the CSQ field
             if (altAlleles.size() > 1){
                 //Create an appropriate store to associate the specific csq entries with the alt allele
                 Multimap<String,VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
@@ -144,11 +133,15 @@ public class VepVcf {
                     alleleCsqObject.setCsqObject((alleleCsqRecord.createCsqRecordOfVepAnnObjects(
                         alleleCsqRecord.vepHeaders(vcfFile), alleleCsqRecord.vepAnnotations(vc))));
 
+                    VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsqObject,
+                            variantFiltered, variantSite);
 
-                    variantHashMap.put(variantObject, alleleCsqObject);
+                    variantHashMap.put(variantObject, currentVariantDataObject );
 
-                    System.out.println(variantFiltered);
-                    System.out.println(variantSite);
+                    //variantHashMap.put(variantObject, alleleCsqObject);
+
+                    //System.out.println(variantFiltered);
+                    //System.out.println(variantSite);
 
                     //Turn the multiple VepAnnotationObject entries into a CsqObject
 
@@ -164,13 +157,52 @@ public class VepVcf {
 
                 //System.out.println(variantObject);
 
-                //Associate the variant object with the CsqObject on a per record basis
-                variantHashMap.put(variantObject, currentCsqObject);
+                VariantDataObject currentVariantDataObject = new VariantDataObject(currentCsqObject,
+                        variantFiltered, variantSite);
 
-                System.out.println(variantFiltered);
-                System.out.println(variantSite);
+                variantHashMap.put(variantObject, currentVariantDataObject );
+
+                //Associate the variant object with the CsqObject on a per record basis
+                //variantHashMap.put(variantObject, currentCsqObject);
+
+                //System.out.println(variantFiltered);
+                //System.out.println(variantSite);
 
             }
+
+            //This part of the code associates the specific alleles and some additional specific sample-allele metadata
+            //with the different samples present in the vcf
+            System.out.println(vc);
+            //Extract data associated with each specific genotype within the variant context
+            GenotypesContext gt = vc.getGenotypes();
+            Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
+            while (gtIter.hasNext()) {
+                //System.out.println(gt); // Iterator Object
+                Genotype currentGenotype = gtIter.next();
+                System.out.println(currentGenotype);
+                System.out.println(currentGenotype.isHomRef());
+
+
+                //if(currentGenotype.isNoCall())
+                    //System.out.println("skip record");
+
+
+                //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
+                //System.out.println(currentGenotype.getSampleName());
+                //System.out.println(currentGenotype.isNoCall()); //./.
+                //System.out.println(currentGenotype.isHomRef());
+                //System.out.println(currentGenotype.isFiltered());
+                //System.out.println(currentGenotype.getPloidy());
+
+                //At the end of this loop, we will know which variants belong to this sample
+                //Some testing here to check how this might work in terms of storing the output
+
+
+
+            }
+
+
+
         }
 
         //Test hash map is working correctly
