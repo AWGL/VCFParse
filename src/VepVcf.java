@@ -185,71 +185,60 @@ public class VepVcf {
             GenotypesContext gt = vc.getGenotypes();
             Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
             while (gtIter.hasNext()) {
+
+                String zygosity = null;
+
                 //System.out.println(gt); // Iterator Object
                 Genotype currentGenotype = gtIter.next();
                 System.out.println(currentGenotype);
 
 
-                //Don't add the variant to the sample if there is no call
-                if(currentGenotype.isHomRef() || currentGenotype.isNoCall()){System.out.println("skip record");}
+                //Don't add the variant to the sample if there is no call or only a hom ref call
+                //Could re-do this logic here
+                if(currentGenotype.isHomRef() || currentGenotype.isNoCall()){continue;}
                 else{
-                    System.out.println(currentGenotype.getSampleName());
+                    List<Allele> currentGenotypeAlleles = currentGenotype.getAlleles();
 
                     SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
-                     vc.getContig(), vc.getStart(), currentGenotype.getAlleles());
-                     ////vc.getReference().toString().replaceAll("\\*", ""), altAllele);
-                    System.out.println(currentSampleVariant);
+                            vc.getContig(), vc.getStart(), currentGenotypeAlleles);
+                    ////vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+                    //System.out.println(currentSampleVariant);
 
 
+                    //Zygosity
+                    if (currentGenotype.isHom()){zygosity = "HOM";}
+                    else if (currentGenotype.isHet()){zygosity = "HET";}
+                    else System.out.println(zygosity = "UNDETERMINED");
+
+                    //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
-                    for (Allele al : currentGenotype.getAlleles()){
-                        System.out.println(vc.getReference());
-                        System.out.println(al.toString().replaceAll("\\*", ""));
-
+                    for (Allele currentAllele : currentGenotypeAlleles){
                         GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
                                 vc.getReference().toString().replaceAll("\\*", ""),
-                                al.toString().replaceAll("\\*", ""));
+                                currentAllele.toString().replaceAll("\\*", ""));
                         System.out.println(keyForVariant);
 
                     SampleVariantDataObject currentSampleVariantDataObject =
                             new SampleVariantDataObject(currentGenotype.getSampleName(),
                             keyForVariant, currentGenotype.isFiltered(), currentGenotype.isMixed(),
-                            currentGenotype.getPloidy());
+                            currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
 
                     sampleVariantHashMap.put(currentSampleVariant, currentSampleVariantDataObject);
 
                     }
 
-
-
-                    //System.out.println(currentGenotype.isFiltered());
-                    //System.out.println(currentGenotype.isMixed());
-                    //System.out.println(currentGenotype.getPloidy());
                 }
-
-
-
-                //System.out.println(gt.next().getClass()); //Can use methods associated with FastGenotype
-                //System.out.println(currentGenotype.getSampleName());
-                //System.out.println(currentGenotype.isNoCall()); //./.
-                //System.out.println(currentGenotype.isHomRef());
-                //System.out.println(currentGenotype.isFiltered());
-                //System.out.println(currentGenotype.getPloidy());
-
-                //At the end of this loop, we will know which variants belong to this sample
-                //Some testing here to check how this might work in terms of storing the output
-
-
 
             }
 
-            //break; //first allele only for ease of testing
+            break; //first allele only for ease of testing
 
         }
 
         //Test hash map is working correctly
         System.out.println(sampleVariantHashMap);
+        System.out.println(variantHashMap);
         return variantHashMap;
         //return sampleHashMap
 
