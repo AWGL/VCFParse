@@ -68,7 +68,13 @@ public class VepVcf {
         String altAllele = null;
         boolean variantFiltered = false; //Default setting
         boolean variantSite = false; //Default setting
+
         for (final VariantContext vc : vcfFile){
+
+            ///Work on allele minimisation here?///- no- this is all the variants- maybe do per sample?
+
+
+
             List<Allele> altAlleles = vc.getAlternateAlleles();
             ///System.out.print(vc.getAttributes()); //Allows to obtain what is in the INFO field
 
@@ -122,7 +128,11 @@ public class VepVcf {
                     GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
                             vc.getReference().toString().replaceAll("\\*", ""), altAllele);
 
-                    //System.out.println(variantObject);
+                    System.out.println("New variant");
+                    System.out.println(variantObject);
+                    variantObject.convertToMinimalRepresentation();
+                    //System.out.println("Minimal representation");
+                    System.out.println(variantObject);
 
 
                     CsqUtilities alleleCsqRecord = new CsqUtilities();
