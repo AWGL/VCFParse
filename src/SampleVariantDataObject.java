@@ -4,31 +4,22 @@
 public class SampleVariantDataObject {
 
     //private VariantDataObject variant;
-    private String sampleName;
     private GenomeVariant variantObjectKey;
-    private boolean filtered;
-    private boolean mixed;
-    private int ploidy;
-    private String zygosity;
-    private int genotypeQuality;
+    private SampleDataObject sampleDataObject;
 
 
-    public SampleVariantDataObject(String sampleName, GenomeVariant variantObjectKey, boolean filtered,
-                                   boolean mixed, int ploidy, String zygosity, int genotypeQuality){
-        this.sampleName = sampleName;
+    public SampleVariantDataObject(GenomeVariant variantObjectKey, SampleDataObject sampleDataObject){
         this.variantObjectKey = variantObjectKey;
-        this.filtered = filtered;
-        this.mixed = mixed;
-        this.ploidy = ploidy;
-        this.zygosity = zygosity;
-        this.genotypeQuality = genotypeQuality;
+        this.sampleDataObject = sampleDataObject;
     }
 
-    public String getSampleName(){return this.sampleName;}
-    public GenomeVariant getVariantObjectKey(){return this.variantObjectKey;}
-    public boolean getFiltered(){return this.filtered;}
-    public boolean getMixed(){return this.mixed;}
-    public int getPloidy(){return this.ploidy;}
-    private String getZygosity() {return this.zygosity;}
-    private int getGenotypeQuality(){return this.genotypeQuality;}
+    public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
+    public SampleDataObject getsampleDataObject(){return this.sampleDataObject;}
+    public String getVariantObjectKey() {return this.variantObjectKey.toString();}
+
+    //@Override
+    //public String toString() {
+        //return contig + ":" + Integer.toString(pos) + ref + ">" + alt;
+    //}
+
 }

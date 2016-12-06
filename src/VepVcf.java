@@ -37,10 +37,10 @@ public class VepVcf {
     //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
 
     //HashMap containing per-variant and allele information
-    private LinkedHashMap<GenomeVariant, VariantDataObject> variantHashMap =  new LinkedHashMap<GenomeVariant, VariantDataObject>();
+    private LinkedHashMap<String, VariantDataObject> variantHashMap =  new LinkedHashMap<String, VariantDataObject>();
 
     //HashMap containing per sample, per position (and contig), (and including alternate allele information)
-    private LinkedHashMap<SampleVariant, SampleVariantDataObject> sampleVariantHashMap =  new LinkedHashMap<SampleVariant, SampleVariantDataObject>();
+    private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap =  new LinkedHashMap<String, SampleVariantDataObject>();
 
 
     //HashMap containing
@@ -144,7 +144,7 @@ public class VepVcf {
                     VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsqObject,
                             variantFiltered, variantSite);
 
-                    variantHashMap.put(variantObject, currentVariantDataObject );
+                    variantHashMap.put(variantObject.toString(), currentVariantDataObject );
 
                     //variantHashMap.put(variantObject, alleleCsqObject);
 
@@ -168,7 +168,7 @@ public class VepVcf {
                 VariantDataObject currentVariantDataObject = new VariantDataObject(currentCsqObject,
                         variantFiltered, variantSite);
 
-                variantHashMap.put(variantObject, currentVariantDataObject );
+                variantHashMap.put(variantObject.toString(), currentVariantDataObject );
 
                 //Associate the variant object with the CsqObject on a per record basis
                 //variantHashMap.put(variantObject, currentCsqObject);
@@ -180,7 +180,7 @@ public class VepVcf {
 
             //This part of the code associates the specific alleles and some additional specific sample-allele metadata
             //with the different samples present in the vcf
-            System.out.println(vc);
+            //System.out.println(vc);
             //Extract data associated with each specific genotype within the variant context
             GenotypesContext gt = vc.getGenotypes();
             Iterator<Genotype> gtIter = vc.getGenotypes().iterator();
@@ -199,8 +199,6 @@ public class VepVcf {
                 else{
                     List<Allele> currentGenotypeAlleles = currentGenotype.getAlleles();
 
-                    SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
-                            vc.getContig(), vc.getStart(), currentGenotypeAlleles);
                     ////vc.getReference().toString().replaceAll("\\*", ""), altAllele);
                     //System.out.println(currentSampleVariant);
 
@@ -208,7 +206,14 @@ public class VepVcf {
                     //Zygosity
                     if (currentGenotype.isHom()){zygosity = "HOM";}
                     else if (currentGenotype.isHet()){zygosity = "HET";}
-                    else System.out.println(zygosity = "UNDETERMINED");
+                    else {zygosity = "UNDETERMINED";}
+
+                    //Creation of SampleData object
+                    SampleDataObject currentSampleDataObject =
+                            new SampleDataObject(currentGenotype.getSampleName(),
+                                    currentGenotype.isFiltered(), currentGenotype.isMixed(),
+                                    currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
+
 
                     //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
@@ -217,14 +222,14 @@ public class VepVcf {
                         GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
                                 vc.getReference().toString().replaceAll("\\*", ""),
                                 currentAllele.toString().replaceAll("\\*", ""));
-                        System.out.println(keyForVariant);
+                        //System.out.println(keyForVariant);
+                        SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
+                                vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele);
 
-                    SampleVariantDataObject currentSampleVariantDataObject =
-                            new SampleVariantDataObject(currentGenotype.getSampleName(),
-                            keyForVariant, currentGenotype.isFiltered(), currentGenotype.isMixed(),
-                            currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
+                        SampleVariantDataObject currentSampleVariantDataObject =
+                            new SampleVariantDataObject(keyForVariant, currentSampleDataObject);
 
-                    sampleVariantHashMap.put(currentSampleVariant, currentSampleVariantDataObject);
+                    sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
 
                     }
 
@@ -239,6 +244,27 @@ public class VepVcf {
         //Test hash map is working correctly
         System.out.println(sampleVariantHashMap);
         System.out.println(variantHashMap);
+
+        System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA"));
+        System.out.println(sampleVariantHashMap.get("23M,1:241663902 T").getVariantObjectKey());
+        System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA").getVariantObjectKey());
+        System.out.println(variantHashMap.get(sampleVariantHashMap.get("23M,1:241663902 TGAGA").getVariantObjectKey()));
+        System.out.println(variantHashMap.get("1:241663902TGA>TGAGA"));
+
+
+        Iterator<VepAnnotationObject> vpIter = variantHashMap.get(sampleVariantHashMap.get("23M,1:241663902 TGAGA").
+                getVariantObjectKey()).getCsqObject().getEntireCsqObject().iterator();
+        while (vpIter.hasNext()){
+            System.out.println(vpIter.next().getVepRecord());
+    }
+
+
+        //This is hom ref so although it is in the sample variant hash map it won't be found in the variant hash map
+        //This is het ref not hom ref, hom ref has not been stored
+        System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
+
+
+
         return variantHashMap;
         //return sampleHashMap
 
