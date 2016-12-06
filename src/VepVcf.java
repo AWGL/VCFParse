@@ -30,7 +30,7 @@ import com.google.common.collect.TreeMultimap;
 
 public class VepVcf {
 
-    private static final Logger Log = Logger.getLogger(OpenVEPVCF.class.getName());
+    private static final Logger Log = Logger.getLogger(VepVcf.class.getName());
     //private File vcfFilePath;
 
     //Maybe move this inside the method
@@ -42,13 +42,6 @@ public class VepVcf {
     //HashMap containing per sample, per position (and contig), (and including alternate allele information)
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap =  new LinkedHashMap<String, SampleVariantDataObject>();
 
-
-    //HashMap containing
-    //private LinkedHashMap<String, SampleVariantDataObject> sampleHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
-    //Constructor- invoked at the time of object creation
-    //public VepVcf(File vcfFilePath) {
-        //this.vcfFilePath = vcfFilePath;
-    //}
 
     public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
         Log.log(Level.INFO, "Opening VEP VCF file");
