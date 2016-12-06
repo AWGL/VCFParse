@@ -190,7 +190,7 @@ public class VepVcf {
 
                 //System.out.println(gt); // Iterator Object
                 Genotype currentGenotype = gtIter.next();
-                System.out.println(currentGenotype);
+                //System.out.println(currentGenotype);
 
 
                 //Don't add the variant to the sample if there is no call or only a hom ref call
@@ -242,9 +242,11 @@ public class VepVcf {
         }
 
         //Test hash map is working correctly
+
         System.out.println(sampleVariantHashMap);
         System.out.println(variantHashMap);
 
+        /*
         System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA"));
         System.out.println(sampleVariantHashMap.get("23M,1:241663902 T").getVariantObjectKey());
         System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA").getVariantObjectKey());
@@ -256,12 +258,14 @@ public class VepVcf {
                 getVariantObjectKey()).getCsqObject().getEntireCsqObject().iterator();
         while (vpIter.hasNext()){
             System.out.println(vpIter.next().getVepRecord());
-    }
 
+        }
+
+        */
 
         //This is hom ref so although it is in the sample variant hash map it won't be found in the variant hash map
         //This is het ref not hom ref, hom ref has not been stored
-        System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
+        //System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
 
 
 
@@ -269,5 +273,7 @@ public class VepVcf {
         //return sampleHashMap
 
     }
+
+
 
 }

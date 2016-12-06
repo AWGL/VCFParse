@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10edee24-1962-47e7-b801-2ab1b897df9b" name="Default" comment="Additional modifications">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SampleVariant.java" afterPath="$PROJECT_DIR$/src/SampleVariant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SampleVariantDataObject.java" afterPath="$PROJECT_DIR$/src/SampleVariantDataObject.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/VepVcf.java" afterPath="$PROJECT_DIR$/src/VepVcf.java" />
     </list>
     <ignored path="VEPVCFtoTxt.iws" />
@@ -42,8 +40,8 @@
       <file leaf-file-name="VepVcf.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/VepVcf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="257" column="59" lean-forward="false" selection-start-line="257" selection-start-column="59" selection-end-line="257" selection-end-column="59" />
+            <state relative-caret-position="2907">
+              <caret line="192" column="18" lean-forward="false" selection-start-line="192" selection-start-column="18" selection-end-line="192" selection-end-column="18" />
               <folding>
                 <element signature="e#1246#1273#0" expanded="true" />
                 <element signature="e#1487#1520#0" expanded="true" />
@@ -765,12 +763,12 @@
       <workItem from="1480702504698" duration="43000" />
       <workItem from="1480931736501" duration="15418000" />
       <workItem from="1480962013674" duration="309000" />
-      <workItem from="1481017718699" duration="24292000" />
+      <workItem from="1481017718699" duration="25227000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263213000" />
+    <option name="totallyTimeSpent" value="264148000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
@@ -796,7 +794,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2987988" sideWeight="0.49375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2987988" sideWeight="0.49375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17890625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1287,8 +1285,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VepVcf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="257" column="59" lean-forward="false" selection-start-line="257" selection-start-column="59" selection-end-line="257" selection-end-column="59" />
+        <state relative-caret-position="2907">
+          <caret line="192" column="18" lean-forward="false" selection-start-line="192" selection-start-column="18" selection-end-line="192" selection-end-column="18" />
           <folding>
             <element signature="e#1246#1273#0" expanded="true" />
             <element signature="e#1487#1520#0" expanded="true" />
