@@ -76,8 +76,8 @@ public class VepVcf {
             //Associate each allele with an allelenum (in case ordering is changed later on and so that the
             //genotyping part of the code has access to this information)
 
-            //Create an object to store the alleles- preferably immutable as allelenum will be dependent on order
-            List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
+            //Create an object to store the alleles- preferably immutable as allelenum will be dependent on order- not needed
+            //List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
 
             //Store the alleles that are not the reference allele
             List<Allele> altAlleles = vc.getAlternateAlleles();
@@ -103,26 +103,13 @@ public class VepVcf {
 
             //This part of the code associates a specific alternate allele with its data in the CSQ field
             if (altAlleles.size() > 1) {
-                //Create an appropriate store to associate the specific csq entries with the alt allele
-                Multimap<String, VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
-
-                //Create a map associating multiple CSQ entries with the correct alternate allele
-                //This for loop needs to start at 1 because of the current naming of the CSQ Objects numerically
-                for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++) {
-
-                    VepAnnotationObject vepAnn = currentCsqObject.getSpecificCsqObject(j); //This is the particular Vep record
-                    int alleleIndex = (Integer.parseInt(vepAnn.getAlleleNum()) - 1); //Java is zero-indexed (-1)
-
-                    //System.out.println(altAlleles.get(alleleIndex));
-                    alleleCsq.put((altAlleles.get(alleleIndex).getBaseString()), (vepAnn));
-
-                    //System.out.println(alleleCsq); //Could be a useful statement when deciding on which for loops to keep
-                }
-
                 //Retrieve all entries for each allele and generate a csq object
 
                 //System.out.println(alleleCsq.keys());
                 //System.out.println(alleleCsq.keySet());
+
+                Multimap<String, VepAnnotationObject> alleleCsq = parseMultipleAlleles(currentCsqObject, altAlleles);
+
 
                 for (String key : alleleCsq.keySet()) {
                     //ArrayList<VepAnnotationObject> forCsq = new ArrayList<VepAnnotationObject>(alleleCsq.get(key)); //Get the correct type for this object
@@ -330,12 +317,26 @@ public class VepVcf {
 
     }
 
-    public void parseMultipleAlleles() { //LinkedHashMap
+    public Multimap<String, VepAnnotationObject> parseMultipleAlleles(CsqObject currentCsqObject,
+                                                                      List<Allele> altAlleles) { //LinkedHashMap
         Log.log(Level.INFO, "Parsing Alleles");
+        //Create an appropriate store to associate the specific csq entries with the alt allele
+        Multimap<String, VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
 
+        //Create a map associating multiple CSQ entries with the correct alternate allele
+        //This for loop needs to start at 1 because of the current naming of the CSQ Objects numerically
+        for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++) {
 
+            VepAnnotationObject vepAnn = currentCsqObject.getSpecificCsqObject(j); //This is the particular Vep record
+            int alleleIndex = (Integer.parseInt(vepAnn.getAlleleNum()) - 1); //Java is zero-indexed (-1)
 
+            //System.out.println(altAlleles.get(alleleIndex));
+            alleleCsq.put((altAlleles.get(alleleIndex).getBaseString()), (vepAnn));
 
+            //System.out.println(alleleCsq); //Could be a useful statement when deciding on which for loops to keep
+        }
+
+        return alleleCsq;
         //return variantObject;
 
     }
