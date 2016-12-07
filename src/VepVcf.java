@@ -37,10 +37,13 @@ public class VepVcf {
     //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
 
     //HashMap containing per-variant and allele information
-    private LinkedHashMap<String, VariantDataObject> variantHashMap =  new LinkedHashMap<String, VariantDataObject>();
+    private LinkedHashMap<String, VariantDataObject> variantHashMap = new LinkedHashMap<String, VariantDataObject>();
 
     //HashMap containing per sample, per position (and contig), (and including alternate allele information)
-    private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap =  new LinkedHashMap<String, SampleVariantDataObject>();
+    private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
+
+    //Complete this
+    private LinkedHashMap<String, String> finalHashMap = new LinkedHashMap<String, String>();
 
 
     public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
@@ -50,18 +53,16 @@ public class VepVcf {
         //VCFHeader currentHeader = vcfFile.getFileHeader();
         //System.out.println(currentHeader); //The file header
 
-        try{
+        try {
             final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
             return vcfFile;
-        }catch(Exception e) {
+        } catch (Exception e) {
             Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
         }
         return null; //This is what it returns if the try catch block fails- syntax??
     }
 
-    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile)
-
-    {
+    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile) {
         Log.log(Level.INFO, "Parsing VEP VCF file");
         //For the alternate alleles
         //Required for code execution as otherwise variable is initialised only in else clause
@@ -69,7 +70,7 @@ public class VepVcf {
         boolean variantFiltered = false; //Default setting
         boolean variantSite = false; //Default setting
 
-        for (final VariantContext vc : vcfFile){
+        for (final VariantContext vc : vcfFile) {
 
             ///Work on allele minimisation here?///- no- this is all the variants- maybe do per sample?
             //Associate each allele with an allelenum (in case ordering is changed later on and so that the
@@ -101,19 +102,19 @@ public class VepVcf {
 
 
             //This part of the code associates a specific alternate allele with its data in the CSQ field
-            if (altAlleles.size() > 1){
+            if (altAlleles.size() > 1) {
                 //Create an appropriate store to associate the specific csq entries with the alt allele
-                Multimap<String,VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
+                Multimap<String, VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
 
                 //Create a map associating multiple CSQ entries with the correct alternate allele
                 //This for loop needs to start at 1 because of the current naming of the CSQ Objects numerically
-                for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++ ){
+                for (int j = 1; j <= currentCsqObject.getCsqObject().size(); j++) {
 
                     VepAnnotationObject vepAnn = currentCsqObject.getSpecificCsqObject(j); //This is the particular Vep record
                     int alleleIndex = (Integer.parseInt(vepAnn.getAlleleNum()) - 1); //Java is zero-indexed (-1)
 
                     //System.out.println(altAlleles.get(alleleIndex));
-                    alleleCsq.put((altAlleles.get(alleleIndex).getBaseString()),(vepAnn));
+                    alleleCsq.put((altAlleles.get(alleleIndex).getBaseString()), (vepAnn));
 
                     //System.out.println(alleleCsq); //Could be a useful statement when deciding on which for loops to keep
                 }
@@ -123,7 +124,7 @@ public class VepVcf {
                 //System.out.println(alleleCsq.keys());
                 //System.out.println(alleleCsq.keySet());
 
-                for (String key : alleleCsq.keySet()){
+                for (String key : alleleCsq.keySet()) {
                     //ArrayList<VepAnnotationObject> forCsq = new ArrayList<VepAnnotationObject>(alleleCsq.get(key)); //Get the correct type for this object
                     //System.out.println(key + " " + alleleCsq.get(key));
 
@@ -148,10 +149,8 @@ public class VepVcf {
                     //System.out.println(alleleCsqRecord.createCsqRecord(forCsq).getClass());
 
                     alleleCsqObject.setCsqObject((alleleCsqRecord.createCsqRecordOfVepAnnObjects(
-                        alleleCsqRecord.vepHeaders(vcfFile), alleleCsqRecord.vepAnnotations(vc))));
+                            alleleCsqRecord.vepHeaders(vcfFile), alleleCsqRecord.vepAnnotations(vc))));
 
-                    VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsqObject,
-                            variantFiltered, variantSite);
 
                     //Testing to view the individual VEP records entries- how alleles are represented, could also be
                     //useful for investigating better way of representing CSQ objects
@@ -164,8 +163,6 @@ public class VepVcf {
                         }
                     */
 
-                    variantHashMap.put(variantObject.toString(), currentVariantDataObject);
-
 
                     //variantHashMap.put(variantObject, alleleCsqObject);
 
@@ -174,30 +171,30 @@ public class VepVcf {
 
                     //Turn the multiple VepAnnotationObject entries into a CsqObject
 
+                    VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsqObject,
+                            variantFiltered, variantSite);
+
+                    variantHashMap.put(variantObject.toString(), currentVariantDataObject);
+
                 }
 
 
-            }else {
-                altAllele = altAlleles.get(0).getBaseString(); //Requires String for GenomeVariant class
-
-                //This is intended as the key to the hashmap
-                GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
-                        vc.getReference().toString().replaceAll("\\*", ""), altAllele);
-
-                //System.out.println(variantObject);
-
+            } else {
+                GenomeVariant variantObject = parseSingleAllele(vc, altAlleles);
                 VariantDataObject currentVariantDataObject = new VariantDataObject(currentCsqObject,
                         variantFiltered, variantSite);
 
-                variantHashMap.put(variantObject.toString(), currentVariantDataObject );
-
-                //Associate the variant object with the CsqObject on a per record basis
-                //variantHashMap.put(variantObject, currentCsqObject);
-
-                //System.out.println(variantFiltered);
-                //System.out.println(variantSite);
+                variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
             }
+
+
+            //Associate the variant object with the CsqObject on a per record basis
+            //variantHashMap.put(variantObject, currentCsqObject);
+
+            //System.out.println(variantFiltered);
+            //System.out.println(variantSite);
+
 
             //This part of the code associates the specific alleles and some additional specific sample-allele metadata
             //with the different samples present in the vcf
@@ -216,8 +213,9 @@ public class VepVcf {
 
                 //Don't add the variant to the sample if there is no call or only a hom ref call
                 //Could re-do this logic here
-                if(currentGenotype.isHomRef() || currentGenotype.isNoCall()){continue;}
-                else{
+                if (currentGenotype.isHomRef() || currentGenotype.isNoCall()) {
+                    continue;
+                } else {
                     List<Allele> currentGenotypeAlleles = currentGenotype.getAlleles();
                     //System.out.println(currentGenotypeAlleles);
 
@@ -226,9 +224,13 @@ public class VepVcf {
 
 
                     //Zygosity
-                    if (currentGenotype.isHom()){zygosity = "HOM";}
-                    else if (currentGenotype.isHet()){zygosity = "HET";}
-                    else {zygosity = "UNDETERMINED";}
+                    if (currentGenotype.isHom()) {
+                        zygosity = "HOM";
+                    } else if (currentGenotype.isHet()) {
+                        zygosity = "HET";
+                    } else {
+                        zygosity = "UNDETERMINED";
+                    }
 
                     //Creation of SampleData object
                     SampleDataObject currentSampleDataObject =
@@ -240,7 +242,7 @@ public class VepVcf {
                     //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
-                    for (Allele currentAllele : currentGenotypeAlleles){
+                    for (Allele currentAllele : currentGenotypeAlleles) {
                         GenomeVariant keyForVariant = new GenomeVariant(vc.getContig(), vc.getStart(),
                                 vc.getReference().toString().replaceAll("\\*", ""),
                                 currentAllele.toString().replaceAll("\\*", ""));
@@ -250,9 +252,9 @@ public class VepVcf {
                                 vc.getReference());
 
                         SampleVariantDataObject currentSampleVariantDataObject =
-                            new SampleVariantDataObject(keyForVariant, currentSampleDataObject);
+                                new SampleVariantDataObject(keyForVariant, currentSampleDataObject);
 
-                    sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
+                        sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
 
                     }
 
@@ -260,7 +262,7 @@ public class VepVcf {
 
             }
 
-            //break; //first allele only for ease of testing
+            break; //first allele only for ease of testing
 
         }
 
@@ -271,7 +273,7 @@ public class VepVcf {
 
         System.out.println(variantHashMap.keySet());
 
-        for (String test : sampleVariantHashMap.keySet()){
+        for (String test : sampleVariantHashMap.keySet()) {
             //System.out.println(test);
             //System.out.println(sampleVariantHashMap.get(test));
             String[] splitted = test.split(",");
@@ -279,7 +281,7 @@ public class VepVcf {
             //System.out.println(splitted[1]);
             //System.out.println(splitted[2]);
             //System.out.println(splitted[1]+splitted[2]);
-            String forVariantRetrieval = splitted[1]+splitted[2];
+            String forVariantRetrieval = splitted[1] + splitted[2];
             //tested below as working- retrieves the same variant data object for the same
             System.out.println(forVariantRetrieval);
             //This is null where the allele is the same as the reference for that sample- may want to remove later
@@ -309,12 +311,32 @@ public class VepVcf {
         //System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
 
 
-
         return variantHashMap;
         //return sampleHashMap
 
     }
 
+    public GenomeVariant parseSingleAllele(VariantContext vc, List<Allele> altAlleles) { //LinkedHashMap
+        Log.log(Level.INFO, "Parsing Alleles");
+        String altAllele = altAlleles.get(0).getBaseString(); //Requires String for GenomeVariant class
+
+        //This is intended as the key to the hashmap
+        GenomeVariant variantObject = new GenomeVariant(vc.getContig(), vc.getStart(),
+                vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+
+        //System.out.println(variantObject);
+
+        return variantObject;
+
+    }
+
+    public void parseMultipleAlleles() { //LinkedHashMap
+        Log.log(Level.INFO, "Parsing Alleles");
 
 
+
+
+        //return variantObject;
+
+    }
 }
