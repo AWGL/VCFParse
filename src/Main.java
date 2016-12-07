@@ -55,6 +55,8 @@ public class Main {
         //Open the file
         LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
         //System.out.println(obj3);
+        System.out.println(obj2.getSampleVariantHashMap());
+        System.out.println(obj2.getVariantHashMap());
 
 
         //System.out.println(obj3.getCsqObject());
