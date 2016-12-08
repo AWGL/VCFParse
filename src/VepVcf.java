@@ -76,7 +76,7 @@ public class VepVcf {
             //genotyping part of the code has access to this information)
 
             //Create an object to store the alleles- preferably immutable as allelenum will be dependent on order- not needed
-            //List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
+            List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
 
             //Store the alleles that are not the reference allele
             List<Allele> altAlleles = vc.getAlternateAlleles();
@@ -136,13 +136,13 @@ public class VepVcf {
             //Iterate through each sample entry within the variant context
             Iterator<Genotype> gtIter = gt.iterator();
             while (gtIter.hasNext()) {
-
                 Genotype currentGenotype = gtIter.next();
 
                 //Don't add the variant to the sample if there is no call or only a hom ref call
-                if (!(currentGenotype.isHomRef()) || !(currentGenotype.isNoCall())) {
+                if (!(currentGenotype.isHomRef()) && !(currentGenotype.isNoCall())) {
 
-                    List<Allele> currentGenotypeAlleles = currentGenotype.getAlleles();
+                    //Create immutable list here as order is important
+                    List<Allele> currentGenotypeAlleles = Collections.unmodifiableList(currentGenotype.getAlleles());
 
                     //Zygosity
                     String zygosity = obtainZygosity(currentGenotype);
@@ -156,21 +156,37 @@ public class VepVcf {
                                     currentGenotype.isFiltered(), currentGenotype.isMixed(),
                                     currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
 
+                    //Testing
+                    /*
+                    for (int a = 0 ; a < currentGenotype.getAD().length; a++) {
+                        System.out.println(vc.getAlleles().get(a));
+                        System.out.println(currentGenotype.getAD()[a]);
+                    }
+                    */
+
+                    //System.out.println(currentGenotypeAlleles);
+
 
                     //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
                     for (Allele currentAllele : currentGenotypeAlleles) {
 
+                        System.out.println(currentAllele.toString().replaceAll("\\*", ""));
+                        //System.out.println(allAlleles.indexOf(currentAllele));
+
+                        System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
+
                         GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
 
-                        //System.out.println(keyForVariant);
                         SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
                                 vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele,
                                 vc.getReference());
 
                         SampleVariantDataObject currentSampleVariantDataObject =
-                                new SampleVariantDataObject(keyForVariant, currentSampleDataObject);
+                                new SampleVariantDataObject(keyForVariant,
+                                        currentGenotype.getAD()[allAlleles.indexOf(currentAllele)],
+                                        currentSampleDataObject);
 
                         sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
 
@@ -189,6 +205,7 @@ public class VepVcf {
         System.out.println(sampleVariantHashMap);
         System.out.println(variantHashMap);
 
+        /* Important for testing purposes
         System.out.println(variantHashMap.keySet());
 
         for (String test : sampleVariantHashMap.keySet()) {
@@ -206,6 +223,7 @@ public class VepVcf {
             System.out.println(variantHashMap.get(forVariantRetrieval));
 
         }
+        */
 
         /*
         System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA"));

@@ -5,16 +5,19 @@ public class SampleVariantDataObject {
 
     //private VariantDataObject variant;
     private GenomeVariant variantObjectKey;
+    private int alleleDepth;
     private SampleDataObject sampleDataObject;
 
 
-    public SampleVariantDataObject(GenomeVariant variantObjectKey, SampleDataObject sampleDataObject){
+    public SampleVariantDataObject(GenomeVariant variantObjectKey, int alleleDepth, SampleDataObject sampleDataObject){
         this.variantObjectKey = variantObjectKey;
+        this.alleleDepth = alleleDepth;
         this.sampleDataObject = sampleDataObject;
     }
 
     public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
-    public SampleDataObject getsampleDataObject(){return this.sampleDataObject;}
+    public int getAlleleDepth(){return this.alleleDepth;}
+    public SampleDataObject getSampleDataObject(){return this.sampleDataObject;}
     public String getVariantObjectKey() {return this.variantObjectKey.toString();}
 
     //@Override
