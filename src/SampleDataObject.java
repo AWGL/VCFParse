@@ -26,7 +26,7 @@ public class SampleDataObject {
     public boolean getFiltered(){return this.filtered;}
     public boolean getMixed(){return this.mixed;}
     public int getPloidy(){return this.ploidy;}
-    private String getZygosity() {return this.zygosity;}
-    private int getGenotypeQuality(){return this.genotypeQuality;}
+    public String getZygosity() {return this.zygosity;}
+    public int getGenotypeQuality(){return this.genotypeQuality;}
 
 }

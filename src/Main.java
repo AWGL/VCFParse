@@ -50,23 +50,63 @@ public class Main {
         //System.out.println(vcf_file);
 
         //Instantiate second class
-        VepVcf obj2 = new VepVcf(); //When return to data retrieval//!!
+        VepVcf retrieveVepVcfData = new VepVcf(); //When return to data retrieval//!!
         ////t obj2 = new t(vcf_file); //temp for testing purposes
 
         //Open the file
-        LinkedHashMap obj3 = obj2.parseVepVcf(obj2.openFiles(vcf_file)); //When return to data retrieval//!!
+        retrieveVepVcfData.parseVepVcf(retrieveVepVcfData.openFiles(vcf_file)); //When return to data retrieval//!!
         //System.out.println(obj3);
-        System.out.println(obj2.getSampleVariantHashMap());
-        System.out.println(obj2.getVariantHashMap());
+        //System.out.println(retrieveVepVcfData.getSampleVariantHashMap());
+        //System.out.println(retrieveVepVcfData.getVariantHashMap());
+
+        LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap =
+                retrieveVepVcfData.getSampleVariantHashMap();
+        LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
+
+        ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
+        retrieveData.readOutTest();
 
 
+
+        /*
+        for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
+            //System.out.println(test);
+            //System.out.println(sampleVariantHashMap.get(test));
+            String[] splitted = sampleVariantHashMapKey.split(",");
+            //System.out.println(splitted[0]);
+            //System.out.println(splitted[1]);
+            //System.out.println(splitted[2]);
+            //System.out.println(splitted[1]+splitted[2]);
+            String forVariantRetrieval = splitted[1] + splitted[2];
+            //tested below as working- retrieves the same variant data object for the same
+            ////System.out.println(forVariantRetrieval);
+            //This is null where the allele is the same as the reference for that sample- may want to remove later
+            ////System.out.println(variantHashMap.get(forVariantRetrieval));
+
+            //System.out.println(sampleVariantHashMap.get(forVariantRetrieval));
+
+            //System.out.println(sampleVariantHashMapKey);
+            //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleDepth());
+            //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+
+            //Searching for errored samples
+            if ((sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleDepth() == 0) &&
+                    (sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality() != 0)){
+
+                System.out.println(sampleVariantHashMapKey);
+                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleDepth());
+                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getZygosity());
+            }
+            */
+
+        }
         //System.out.println(obj3.getCsqObject());
 
         //For multisample vcf
         //TestMultisampleVcf obj4 = new TestMultisampleVcf();
         //obj4.openMultisampleVcf(vcf_file);
 
-    }
 
     //Method probably not needed- delete later
     public static File getAbsoluteFile(File root, String path)  {

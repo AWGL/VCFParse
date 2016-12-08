@@ -43,7 +43,7 @@ public class VepVcf {
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
 
     //Complete this
-    private LinkedHashMap<String, String> finalHashMap = new LinkedHashMap<String, String>();
+    //private LinkedHashMap<String, String> finalHashMap = new LinkedHashMap<String, String>();
 
 
     public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
@@ -62,7 +62,7 @@ public class VepVcf {
         return null; //This is what it returns if the try catch block fails- syntax??
     }
 
-    public LinkedHashMap parseVepVcf(VCFFileReader vcfFile) {
+    public void parseVepVcf(VCFFileReader vcfFile) {
         Log.log(Level.INFO, "Parsing VEP VCF file");
         //For the alternate alleles
         //Required for code execution as otherwise variable is initialised only in else clause
@@ -196,7 +196,7 @@ public class VepVcf {
 
             }
 
-            break; //first allele only for ease of testing
+            //break; //first allele only for ease of testing
 
         }
 
@@ -204,26 +204,6 @@ public class VepVcf {
 
         //System.out.println(sampleVariantHashMap);
         //System.out.println(variantHashMap);
-
-        /* Important for testing purposes
-        System.out.println(variantHashMap.keySet());
-
-        for (String test : sampleVariantHashMap.keySet()) {
-            //System.out.println(test);
-            //System.out.println(sampleVariantHashMap.get(test));
-            String[] splitted = test.split(",");
-            //System.out.println(splitted[0]);
-            //System.out.println(splitted[1]);
-            //System.out.println(splitted[2]);
-            //System.out.println(splitted[1]+splitted[2]);
-            String forVariantRetrieval = splitted[1] + splitted[2];
-            //tested below as working- retrieves the same variant data object for the same
-            System.out.println(forVariantRetrieval);
-            //This is null where the allele is the same as the reference for that sample- may want to remove later
-            System.out.println(variantHashMap.get(forVariantRetrieval));
-
-        }
-        */
 
         /*
         System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA"));
@@ -247,13 +227,13 @@ public class VepVcf {
         //System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
 
 
-        return variantHashMap;
+        //return variantHashMap;
         //return sampleHashMap
 
     }
 
     public GenomeVariant createAlleleKey(VariantContext vc, String altAllele) { //LinkedHashMap
-        Log.log(Level.INFO, "Parsing Alleles");
+        //Log.log(Level.INFO, "Parsing Alleles");
         //Requires String for GenomeVariant class
         //This is intended as the key to the hashmap
         return new GenomeVariant(vc.getContig(), vc.getStart(),
@@ -262,7 +242,7 @@ public class VepVcf {
 
     public Multimap<String, VepAnnotationObject> linkMultipleAllelesToCsq(CsqObject currentCsqObject,
                                                                           List<Allele> altAlleles) { //LinkedHashMap
-        Log.log(Level.INFO, "Parsing Alleles");
+        //Log.log(Level.INFO, "Parsing Alleles");
         //Create an appropriate store to associate the specific csq entries with the alt allele
         Multimap<String, VepAnnotationObject> alleleCsq = ArrayListMultimap.create();
 
