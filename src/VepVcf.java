@@ -172,10 +172,10 @@ public class VepVcf {
                     //Generate keyForVariant
                     for (Allele currentAllele : currentGenotypeAlleles) {
 
-                        System.out.println(currentAllele.toString().replaceAll("\\*", ""));
+                        //System.out.println(currentAllele.toString().replaceAll("\\*", ""));
                         //System.out.println(allAlleles.indexOf(currentAllele));
 
-                        System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
+                        //System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
 
                         GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
 
@@ -202,8 +202,8 @@ public class VepVcf {
 
         //Test hash map is working correctly
 
-        System.out.println(sampleVariantHashMap);
-        System.out.println(variantHashMap);
+        //System.out.println(sampleVariantHashMap);
+        //System.out.println(variantHashMap);
 
         /* Important for testing purposes
         System.out.println(variantHashMap.keySet());
