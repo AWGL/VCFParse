@@ -101,6 +101,8 @@ public class VepVcf {
             variantSite = vc.isVariant();
             idField = vc.getID();
 
+
+            /* COMMENTED OUT FOR TESTING
             //This part of the code associates a specific alternate allele with its data in the CSQ field
             if (altAlleles.size() > 1) {
                 //Retrieve all entries for each allele and generate a csq object
@@ -167,7 +169,7 @@ public class VepVcf {
 
                     //System.out.println(currentGenotypeAlleles);
 
-
+                    /* //COMMENTED OUT FOR TESTING
                     //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
@@ -222,9 +224,10 @@ public class VepVcf {
         while (vpIter.hasNext()){
             System.out.println(vpIter.next().getVepRecord());
 
+        */
         }
 
-        */
+
 
         //This is hom ref so although it is in the sample variant hash map it won't be found in the variant hash map
         //This is het ref not hom ref, hom ref has not been stored
@@ -233,7 +236,6 @@ public class VepVcf {
 
         //return variantHashMap;
         //return sampleHashMap
-
     }
 
     public GenomeVariant createAlleleKey(VariantContext vc, String altAllele) { //LinkedHashMap

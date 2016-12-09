@@ -67,7 +67,7 @@ public class CsqUtilities {
             VepAnnotationObject currentVepAnnotationObject =
                     csq.createVepAnnotationObject(variantHeaders, csqRec.get(i)); //Returned from function below
 
-
+            /*
             if (currentVepAnnotationObject.getAlleleNum().equals("1")) {
 
                 System.out.println(currentVepAnnotationObject.getEntireVepRecordValues());
@@ -76,6 +76,7 @@ public class CsqUtilities {
                 Collection<String> aL = currentVepAnnotationObject.getEntireVepRecordValues();
 
             }
+            */
 
 
             //Create ArrayList of VepAnnotationObjects

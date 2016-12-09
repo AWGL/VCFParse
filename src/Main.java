@@ -63,8 +63,10 @@ public class Main {
                 retrieveVepVcfData.getSampleVariantHashMap();
         LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
 
-        ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
-        retrieveData.readOutTest();
+
+        //COMMENTED OUT FOR TESTING
+        //ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
+        //retrieveData.readOutTest();
 
 
 
