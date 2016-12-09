@@ -87,6 +87,14 @@ public class VepVcf {
             //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
             //Obtain keys for each transcript entry (header in vcf file)
 
+            CsqUtilities currentCsqRecord = new CsqUtilities();
+            System.out.println(vc.getAttributeAsString("CSQ", "null"));
+            System.out.println(currentCsqRecord.vepAnnotations(vc));
+            System.out.println(currentCsqRecord.createCsqRecordOfVepAnnObjectsTEST(currentCsqRecord.vepHeaders(vcfFile),
+                    vc.getAttributeAsString("CSQ", "null")));
+
+
+            /* OLD CODE FOR CSQUTILITIES METHOD
             //The entire CSQ record including all of the entries for this variant context
             CsqUtilities currentCsqRecord = new CsqUtilities();
             //System.out.println(csqObject); //Just gives a reference to the object
@@ -96,6 +104,7 @@ public class VepVcf {
             currentCsqObject.setCsqObject((currentCsqRecord.createCsqRecordOfVepAnnObjects(
                     currentCsqRecord.vepHeaders(vcfFile), currentCsqRecord.vepAnnotations(vc))));
             //Might be worth retrieving the headers outside of this loop//
+            */
 
             variantFiltered = vc.isFiltered();
             variantSite = vc.isVariant();

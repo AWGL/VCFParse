@@ -32,7 +32,7 @@ public class CsqUtilities {
 
     public ArrayList<String> vepAnnotations(VariantContext vc){
 
-        ArrayList<String> entries = new ArrayList<>(); //Note: Should this be new ArrayList<String>?
+        ArrayList<String> entries = new ArrayList<String>(); //Note: Should this be new ArrayList<String>?
 
         //Access the data in the CSQ field of the INFO field- per record
         //Obtain the CSQ field and remove the square brackets
@@ -49,6 +49,50 @@ public class CsqUtilities {
         //System.out.println("Entries are " + entries);
         return entries; //Return the Array
     }
+
+
+    public LinkedHashMap<Integer,VepAnnotationObject>
+        createCsqRecordOfVepAnnObjectsTEST(String variantHeaders, String csqRec) {
+
+        ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
+        //HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
+
+        //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
+
+        System.out.println(csqRec.split("\\,"));
+        String[] csqStr = (csqRec.split("\\,"));
+
+        ///*
+        for (int i = 0; i < csqStr.length; i++){
+            //System.out.println((i+1)); // +1 so that entries start at 1 instead of 0
+            //System.out.println(csqRecord.get(i));
+
+            CsqUtilities csq = new CsqUtilities();
+            VepAnnotationObject currentVepAnnotationObject =
+                    csq.createVepAnnotationObject(variantHeaders, csqStr[i]); //Returned from function below
+
+
+            //Create ArrayList of VepAnnotationObjects
+            csqArray.add(currentVepAnnotationObject);
+
+            //See if it is working
+            //System.out.println(csqMap);
+
+            //Retrieve allele num ????????
+            //System.out.println();
+
+        }
+        //*/
+
+        //Return the hash map
+        CsqUtilities csqUtil = new CsqUtilities();
+        return csqUtil.createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
+    }
+
+
+
+
+
 
 
     public LinkedHashMap<Integer,VepAnnotationObject>
