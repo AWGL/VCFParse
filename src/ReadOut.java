@@ -19,6 +19,10 @@ public class ReadOut {
     public void readOutTest(){
 
         for (String sampleVariantHashMapKey : sampleVariants.keySet()) {
+
+            //Skip hom ref sites, which we don't want to readout- or should we vaoid storing them
+
+
             //System.out.println(test);
             //System.out.println(sampleVariantHashMap.get(test));
             String[] splitted = sampleVariantHashMapKey.split(",");
@@ -37,6 +41,21 @@ public class ReadOut {
             System.out.println(sampleVariantHashMapKey);
             //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleDepth());
             //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getSampleName());
+            System.out.println(forVariantRetrieval);
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getVariantObjectKey()); //Check data correct
+            //Allele frequency
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+            System.out.println(variants);
+            System.out.println(variants.get(forVariantRetrieval).getIdField());
+
+
+
+
+
+            //Calculate allele frequency
+
         }
 
     }

@@ -68,12 +68,13 @@ public class VepVcf {
         //Required for code execution as otherwise variable is initialised only in else clause
         boolean variantFiltered = false; //Default setting
         boolean variantSite = false; //Default setting
+        String idField = null; //Default setting
 
         for (final VariantContext vc : vcfFile) {
 
             ///Work on allele minimisation here?///- no- this is all the variants- maybe do per sample?
             //Associate each allele with an allelenum (in case ordering is changed later on and so that the
-            //genotyping part of the code has access to this information)
+            //genotyping part of the code has access to this information)- not done
 
             //Create an object to store the alleles- preferably immutable as allelenum will be dependent on order- not needed
             List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
@@ -98,7 +99,7 @@ public class VepVcf {
 
             variantFiltered = vc.isFiltered();
             variantSite = vc.isVariant();
-
+            idField = vc.getID();
 
             //This part of the code associates a specific alternate allele with its data in the CSQ field
             if (altAlleles.size() > 1) {
@@ -109,7 +110,7 @@ public class VepVcf {
                     GenomeVariant variantObject = createAlleleKey(vc, key); //Robust to any changes in allele ordering
 
                     VariantDataObject currentVariantDataObject = new VariantDataObject(currentCsqObject,
-                            variantFiltered, variantSite);
+                            variantFiltered, variantSite, idField);
 
                     variantHashMap.put(variantObject.toString(), currentVariantDataObject);
                 }
@@ -121,7 +122,7 @@ public class VepVcf {
                 GenomeVariant variantObject = createAlleleKey(vc, altAllele);
 
                 VariantDataObject currentVariantDataObject = new VariantDataObject(currentCsqObject,
-                        variantFiltered, variantSite);
+                        variantFiltered, variantSite, idField);
 
                 variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
