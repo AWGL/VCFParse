@@ -38,17 +38,25 @@ public class ReadOut {
 
             //System.out.println(sampleVariantHashMap.get(forVariantRetrieval));
 
-            System.out.println(sampleVariantHashMapKey);
-            //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleDepth());
-            //System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+            //System.out.println(sampleVariantHashMapKey);
+            //System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getSampleName());
 
-            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getSampleName());
+            /* Commented out to work on CSQ identification, duplication issue and logic changes to link ONLY the
+               relevant VepAnnotationObjects to each allele. At present all (for each variant context) are linked
+               to every allele in that variant context.
+
+
             System.out.println(forVariantRetrieval);
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getVariantObjectKey()); //Check data correct
             //Allele frequency
-            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
-            System.out.println(variants);
+            //System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
+            //System.out.println(variants);
             System.out.println(variants.get(forVariantRetrieval).getIdField());
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum());
+            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getEntireCsqObject());
+            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getSpecificCsqObject(1));
+            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getCsqObjectVepAnnotationValues(1));
+            */
 
 
 

@@ -6,6 +6,7 @@ import htsjdk.variant.variantcontext.VariantContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Collection;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -64,7 +65,18 @@ public class CsqUtilities {
 
             CsqUtilities csq = new CsqUtilities();
             VepAnnotationObject currentVepAnnotationObject =
-                    csq.createVepAnnotationObject(variantHeaders, csqRec.get(i));
+                    csq.createVepAnnotationObject(variantHeaders, csqRec.get(i)); //Returned from function below
+
+
+            if (currentVepAnnotationObject.getAlleleNum().equals("1")) {
+
+                System.out.println(currentVepAnnotationObject.getEntireVepRecordValues());
+                System.out.println(currentVepAnnotationObject.getEntireVepRecordValues().hashCode());
+
+                Collection<String> aL = currentVepAnnotationObject.getEntireVepRecordValues();
+
+            }
+
 
             //Create ArrayList of VepAnnotationObjects
             csqArray.add(currentVepAnnotationObject);
@@ -102,6 +114,8 @@ public class CsqUtilities {
         //System.out.println("Ann obj is " + currentVepAnnotationObject);
         //System.out.println(currentVepAnnotationObject.getVepRecord()); //test using VepAnnotationObject methods
 
+        //System.out.println(currentVepAnnotationObject.getAlleleNum()); //Identify the allele (09/12/16)
+
         return currentVepAnnotationObject; //Change this potentially
     }
 
@@ -115,11 +129,5 @@ public class CsqUtilities {
         return csqMap;
     }
 
-    public String parseCsq(VariantContext vc) {
-
-
-        return "test";
-
-    }
 
 }

@@ -172,24 +172,27 @@ public class VepVcf {
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
                     for (Allele currentAllele : currentGenotypeAlleles) {
+                        if (currentAllele.isNonReference()) {
 
-                        //System.out.println(currentAllele.toString().replaceAll("\\*", ""));
-                        //System.out.println(allAlleles.indexOf(currentAllele));
+                            //System.out.println(currentAllele.toString().replaceAll("\\*", ""));
+                            //System.out.println(allAlleles.indexOf(currentAllele));
 
-                        //System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
+                            //System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
 
-                        GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
+                            int alleleNum = allAlleles.indexOf(currentAllele);
 
-                        SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
-                                vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele,
-                                vc.getReference());
+                            GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
 
-                        SampleVariantDataObject currentSampleVariantDataObject =
-                                new SampleVariantDataObject(keyForVariant,
-                                        currentGenotype.getAD()[allAlleles.indexOf(currentAllele)],
-                                        currentSampleDataObject);
+                            SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
+                                    vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele,
+                                    vc.getReference());
 
-                        sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
+                            SampleVariantDataObject currentSampleVariantDataObject =
+                                    new SampleVariantDataObject(keyForVariant, currentGenotype.getAD()[alleleNum],
+                                            alleleNum, currentSampleDataObject);
+
+                            sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
+                        }
 
                     }
 
@@ -197,7 +200,7 @@ public class VepVcf {
 
             }
 
-            //break; //first allele only for ease of testing
+            break; //first allele only for ease of testing
 
         }
 

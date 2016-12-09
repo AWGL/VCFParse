@@ -22,6 +22,7 @@ public class SampleVariant {
         this.alleleList = alleleList;
         this.allele = allele;
         this.refAllele = refAllele;
+
     }
 
     public String getSampleName() {return this.sampleName;}

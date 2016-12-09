@@ -18,6 +18,7 @@ public class VariantDataObject {
         this.csqObject = csqObject;
         this.variantFiltered = variantFiltered;
         this.variantSite = variantSite;
+        this.idField = idField;
     }
 
     public CsqObject getCsqObject() { return this.csqObject; }
