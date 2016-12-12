@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Collection;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.ArrayListMultimap;
+
 /**
  * Created by Sara on 15-Nov-16.
  */
@@ -51,7 +54,7 @@ public class CsqUtilities {
     }
 
 
-    public LinkedHashMap<Integer,VepAnnotationObject>
+    public Multimap<Integer,VepAnnotationObject>
         createCsqRecordOfVepAnnObjectsTEST(String variantHeaders, String csqRec) {
 
         ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
@@ -59,7 +62,7 @@ public class CsqUtilities {
 
         //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
 
-        System.out.println(csqRec.split("\\,"));
+        //System.out.println(csqRec.split("\\,"));
         String[] csqStr = (csqRec.split("\\,"));
 
         ///*
@@ -67,13 +70,15 @@ public class CsqUtilities {
             //System.out.println((i+1)); // +1 so that entries start at 1 instead of 0
             //System.out.println(csqRecord.get(i));
 
-            CsqUtilities csq = new CsqUtilities();
+            //CsqUtilities csq = new CsqUtilities();
             VepAnnotationObject currentVepAnnotationObject =
-                    csq.createVepAnnotationObject(variantHeaders, csqStr[i]); //Returned from function below
+                    createVepAnnotationObject(variantHeaders, csqStr[i]); //Returned from function below
 
 
             //Create ArrayList of VepAnnotationObjects
             csqArray.add(currentVepAnnotationObject);
+
+            //System.out.println(currentVepAnnotationObject.getAlleleNum());
 
             //See if it is working
             //System.out.println(csqMap);
@@ -85,8 +90,7 @@ public class CsqUtilities {
         //*/
 
         //Return the hash map
-        CsqUtilities csqUtil = new CsqUtilities();
-        return csqUtil.createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
+        return createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
     }
 
 
@@ -94,7 +98,7 @@ public class CsqUtilities {
 
 
 
-
+/*
     public LinkedHashMap<Integer,VepAnnotationObject>
         createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
 
@@ -111,6 +115,7 @@ public class CsqUtilities {
             VepAnnotationObject currentVepAnnotationObject =
                     csq.createVepAnnotationObject(variantHeaders, csqRec.get(i)); //Returned from function below
 
+            */
             /*
             if (currentVepAnnotationObject.getAlleleNum().equals("1")) {
 
@@ -122,7 +127,7 @@ public class CsqUtilities {
             }
             */
 
-
+            /*
             //Create ArrayList of VepAnnotationObjects
             csqArray.add(currentVepAnnotationObject);
 
@@ -137,6 +142,8 @@ public class CsqUtilities {
         CsqUtilities csqUtil = new CsqUtilities();
         return csqUtil.createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
     }
+
+*/
 
     public VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
         //Creating a HashMap of objects
@@ -164,12 +171,12 @@ public class CsqUtilities {
         return currentVepAnnotationObject; //Change this potentially
     }
 
-    public LinkedHashMap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
-        LinkedHashMap<Integer,VepAnnotationObject> csqMap = new LinkedHashMap<Integer,VepAnnotationObject>();
+    public Multimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
+        Multimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
         for (int i=0; i<vepAnnColl.size(); i++){
 
-            csqMap.put((i+1),vepAnnColl.get(i));
+            csqMap.put(Integer.parseInt(vepAnnColl.get(i).getAlleleNum()),vepAnnColl.get(i));
         }
         return csqMap;
     }
