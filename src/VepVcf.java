@@ -135,19 +135,13 @@ public class VepVcf {
             for (int allele = 0; allele < altAlleles.size(); allele++){
                 System.out.println(altAlleles.get(allele));
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
-                System.out.println(variantObject);
 
-                System.out.println(currentCsqObject.getSpecificCsqObject((allele+1))); //AlleleNum starts at 1
-
-                System.out.println(currentCsqObject.getSpecificCsqObject((allele+1)).getClass());
-
-                System.out.println(currentCsqObject.getSpecificCsqObject((allele+1)).get(0));
-
-                System.out.println(currentCsqObject.getSpecificCsqObject(allele+1).iterator());
-
-                Iterator csqIter = currentCsqObject.getSpecificCsqObject(allele+1).iterator();
-                //while (csqIter.hasNext()) {
-                    //VepAnnotationObject csqEntry = csqIter.next();
+                Iterator<VepAnnotationObject> csqIter = currentCsqObject.getSpecificCsqObject(allele+1).iterator();
+                while (csqIter.hasNext()) {
+                    VepAnnotationObject csqEntry = csqIter.next();
+                    System.out.println(csqEntry);
+                    System.out.println(csqEntry.getEntireVepRecordValues());
+                }
 
 
                 Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele);

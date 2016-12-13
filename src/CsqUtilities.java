@@ -96,7 +96,7 @@ public class CsqUtilities {
         csqHashMap = createCsqRecord(csqArray);
 
         //Return the hash map
-        return csqHashMap; //Return is a call to another function. Could be changed if flexibility needed
+        return csqHashMap; //Could return is a call to another function
     }
 
 
@@ -184,8 +184,6 @@ public class CsqUtilities {
 
             csqMap.put(Integer.parseInt(vepAnnColl.get(i).getAlleleNum()),vepAnnColl.get(i));
         }
-        System.out.println(csqMap);
-        System.out.println(csqMap.get(1).getClass());
         return csqMap;
     }
 
