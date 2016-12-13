@@ -48,6 +48,20 @@ public class VepAnnotationObject {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VepAnnotationObject that = (VepAnnotationObject) o;
+
+        return vepAnnotationHashMap != null ? vepAnnotationHashMap.equals(that.vepAnnotationHashMap) : that.vepAnnotationHashMap == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return vepAnnotationHashMap != null ? vepAnnotationHashMap.hashCode() : 0;
+    }
 }
 
 

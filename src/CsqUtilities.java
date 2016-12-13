@@ -67,7 +67,8 @@ public class CsqUtilities {
         //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
 
         //System.out.println(csqRec.split("\\,"));
-        String[] csqStr = (csqRec.split("\\,"));
+        String[] csqStr = (csqRec.split("\\,")); //THIS IS WHERE THE ISSUE WITH THE EXTRA [[]] AND THE MISSING ENTRIES IS CAUSED
+        System.out.println(csqRec.split("\\,")); //TESTING HERE
 
         ///*
         for (int i = 0; i < csqStr.length; i++){

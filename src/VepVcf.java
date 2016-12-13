@@ -141,6 +141,7 @@ public class VepVcf {
                     VepAnnotationObject csqEntry = csqIter.next();
                     System.out.println(csqEntry);
                     System.out.println(csqEntry.getEntireVepRecordValues());
+                    System.out.println(csqEntry.getEntireVepRecordValues().hashCode());
                 }
 
 
