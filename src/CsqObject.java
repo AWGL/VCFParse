@@ -2,8 +2,10 @@ import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import com.google.common.collect.Multimap;
+import com.google.common.collect.ListMultimap;
 
 /**
  * Created by Sara on 17-Nov-16.
@@ -15,24 +17,34 @@ class CsqObject {
     //Inside the HashMap is a VepAnnotation object
 
 
-    private Multimap<Integer, VepAnnotationObject> csqHashMap;
+    private ListMultimap<Integer, VepAnnotationObject> csqHashMap;
     //private Set<Integer> csqID = this.csqHashMap.keySet();
     //private Collection<VepAnnotationObject> vepAnn = this.csqHashMap.values();
-    private CsqObject csqer;
 
     //public CsqObject() {    }
 
-    public void setCsqObject(Multimap<Integer,VepAnnotationObject> csqHashMap){
+    public void setCsqObject(ListMultimap<Integer, VepAnnotationObject> csqHashMap){
         this.csqHashMap = csqHashMap;
         //this.csqHashMap = csqer;
     }
 
-    public Multimap getCsqObject(){
+    public ListMultimap getCsqObject(){
         return this.csqHashMap;
     }
 
-    public Collection<VepAnnotationObject> getSpecificCsqObject(int alleleNum) { return this.csqHashMap.get(alleleNum); }
+    public List<VepAnnotationObject> getSpecificCsqObject(int alleleNum) { return this.csqHashMap.get(alleleNum); }
 
+    //public VepAnnotationObject getTest(int alleleNum){ return this.csqHashMap.get(alleleNum)[0]; }
+
+    //public Collection<String> getVepAnnObjects(int alleleNum) { return this.csqHashMap.getVepRecord; } //view what is inside object
+
+    /*
+    public Vep getVepAnnObjects() {
+        for (vepAnn :this.csqHashMap){
+
+        }
+    }
+*/
 
 
 

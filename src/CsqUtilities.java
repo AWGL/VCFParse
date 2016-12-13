@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -54,10 +55,13 @@ public class CsqUtilities {
     }
 
 
-    public Multimap<Integer,VepAnnotationObject>
+    public ListMultimap<Integer,VepAnnotationObject>
         createCsqRecordOfVepAnnObjectsTEST(String variantHeaders, String csqRec) {
 
         ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
+
+        ListMultimap<Integer,VepAnnotationObject> csqHashMap = ArrayListMultimap.create();
+
         //HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
 
         //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
@@ -89,8 +93,10 @@ public class CsqUtilities {
         }
         //*/
 
+        csqHashMap = createCsqRecord(csqArray);
+
         //Return the hash map
-        return createCsqRecord(csqArray); //Return is a call to another function. Could be changed if flexibility needed
+        return csqHashMap; //Return is a call to another function. Could be changed if flexibility needed
     }
 
 
@@ -171,13 +177,15 @@ public class CsqUtilities {
         return currentVepAnnotationObject; //Change this potentially
     }
 
-    public Multimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
-        Multimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
+    public ListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
+        ListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
         for (int i=0; i<vepAnnColl.size(); i++){
 
             csqMap.put(Integer.parseInt(vepAnnColl.get(i).getAlleleNum()),vepAnnColl.get(i));
         }
+        System.out.println(csqMap);
+        System.out.println(csqMap.get(1).getClass());
         return csqMap;
     }
 

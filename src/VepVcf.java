@@ -22,6 +22,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.TreeMultimap;
+import com.google.common.collect.ListMultimap;
 
 
 /**
@@ -90,7 +91,7 @@ public class VepVcf {
             CsqUtilities currentCsqRecord = new CsqUtilities();
             //System.out.println(vc.getAttributeAsString("CSQ", "null"));
             //System.out.println(currentCsqRecord.vepAnnotations(vc));
-            Multimap<Integer,VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjectsTEST(
+            ListMultimap<Integer,VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjectsTEST(
                     currentCsqRecord.vepHeaders(vcfFile), vc.getAttributeAsString("CSQ", "null"));
 
             //Create a CsqObject (optional step)
@@ -137,6 +138,18 @@ public class VepVcf {
                 System.out.println(variantObject);
 
                 System.out.println(currentCsqObject.getSpecificCsqObject((allele+1))); //AlleleNum starts at 1
+
+                System.out.println(currentCsqObject.getSpecificCsqObject((allele+1)).getClass());
+
+                System.out.println(currentCsqObject.getSpecificCsqObject((allele+1)).get(0));
+
+                System.out.println(currentCsqObject.getSpecificCsqObject(allele+1).iterator());
+
+                Iterator csqIter = currentCsqObject.getSpecificCsqObject(allele+1).iterator();
+                //while (csqIter.hasNext()) {
+                    //VepAnnotationObject csqEntry = csqIter.next();
+
+
                 Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele);
 
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
