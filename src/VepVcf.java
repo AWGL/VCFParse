@@ -92,7 +92,9 @@ public class VepVcf {
             //System.out.println(vc.getAttributeAsString("CSQ", "null"));
             //System.out.println(currentCsqRecord.vepAnnotations(vc));
             ListMultimap<Integer,VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjectsTEST(
-                    currentCsqRecord.vepHeaders(vcfFile), vc.getAttributeAsString("CSQ", "null"));
+                    currentCsqRecord.vepHeaders(vcfFile), (ArrayList<String>) vc.getAttribute("CSQ", "null"));
+
+            //System.out.println(vc.getAttribute("CSQ", "null").getClass());
 
             //Create a CsqObject (optional step)
             CsqObject currentCsqObject = new CsqObject();
@@ -136,16 +138,34 @@ public class VepVcf {
                 System.out.println(altAlleles.get(allele));
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
 
+                //Csq object numbering starts at 1 for historical reasons- could be changed
                 Iterator<VepAnnotationObject> csqIter = currentCsqObject.getSpecificCsqObject(allele+1).iterator();
+
+                /*
+                VepAnnotationObject prevVepAnn = null;
                 while (csqIter.hasNext()) {
                     VepAnnotationObject csqEntry = csqIter.next();
                     System.out.println(csqEntry);
-                    System.out.println(csqEntry.getEntireVepRecordValues());
-                    System.out.println(csqEntry.getEntireVepRecordValues().hashCode());
+                    //System.out.println(csqEntry.getEntireVepRecordValues());
+                    //System.out.println(csqEntry.getEntireVepRecordValues().hashCode());
+                    if (csqEntry.equals(prevVepAnn)) {
+                        System.out.println("same");
+                    }
+
+                    prevVepAnn = csqEntry;
+                    System.out.println(prevVepAnn);
                 }
+                */
+
+                System.out.println(currentCsqObject.getSpecificCsqObject(allele+1));
 
 
-                Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele);
+                HashSet<VepAnnotationObject> setted =
+                        new HashSet<VepAnnotationObject>(currentCsqObject.getSpecificCsqObject(allele+1));
+                System.out.println(setted);
+
+
+                Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele+1);
 
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
                         variantFiltered, variantSite, idField);

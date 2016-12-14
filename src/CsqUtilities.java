@@ -56,10 +56,9 @@ public class CsqUtilities {
 
 
     public ListMultimap<Integer,VepAnnotationObject>
-        createCsqRecordOfVepAnnObjectsTEST(String variantHeaders, String csqRec) {
+        createCsqRecordOfVepAnnObjectsTEST(String variantHeaders, ArrayList<String> csqRec) {
 
         ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
-
         ListMultimap<Integer,VepAnnotationObject> csqHashMap = ArrayListMultimap.create();
 
         //HashMap<Integer,VepAnnotationObject> csqMap = new HashMap<Integer,VepAnnotationObject>();
@@ -67,17 +66,45 @@ public class CsqUtilities {
         //Identify a useful unique identifier for each transcript- OUTSTANDING- currently using 'record number'
 
         //System.out.println(csqRec.split("\\,"));
-        String[] csqStr = (csqRec.split("\\,")); //THIS IS WHERE THE ISSUE WITH THE EXTRA [[]] AND THE MISSING ENTRIES IS CAUSED
-        System.out.println(csqRec.split("\\,")); //TESTING HERE
+        //System.out.println(csqRec);
+        //System.out.println(csqRec.getClass());
+        //System.out.println(csqRec.replaceAll("^\\["," ").replaceAll("\\]$",""));
+        //String csqRecStripped = csqRec.replaceAll("^\\["," ").replaceAll("\\]$","");
+        //System.out.println(csqRecStripped.split("\\,"));
+        //String[] csqRecStripSplit = csqRecStripped.split("\\,");
+
+        //String[] csqRecSplit = csqRec.split("\\,");
+
+        //for (String entry : csqRec){
+            //System.out.println(entry);
+        //}
+
+
+        //String[] csqStr = (csqRec.replaceAll("^\\["," ").replaceAll("\\]$","n ").split("\\,")); //THIS IS WHERE THE ISSUE WITH THE EXTRA [[]] AND THE MISSING ENTRIES IS CAUSED
+        //System.out.println(csqRec.replaceAll("^\\["," ").replaceAll("\\]$","n ").split("\\,")); //TESTING HERE
 
         ///*
-        for (int i = 0; i < csqStr.length; i++){
+
+        //Is retrieved as object array containing a string array
+        //Object[] objects = (Object[]) csqRec;
+        //String[] csqReci = (String[])objects[0];
+
+        //if(csqRec instanceof Object){System.out.println("object");}
+
+        //for (Object t : csqRec ){
+            //System.out.println(t);
+        //}
+
+
+
+
+        for (int i = 0; i < csqRec.size(); i++){
             //System.out.println((i+1)); // +1 so that entries start at 1 instead of 0
             //System.out.println(csqRecord.get(i));
 
             //CsqUtilities csq = new CsqUtilities();
             VepAnnotationObject currentVepAnnotationObject =
-                    createVepAnnotationObject(variantHeaders, csqStr[i]); //Returned from function below
+                    createVepAnnotationObject(variantHeaders, csqRec.get(i)); //Returned from function below
 
 
             //Create ArrayList of VepAnnotationObjects
