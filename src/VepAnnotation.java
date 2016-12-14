@@ -22,17 +22,19 @@ class VepAnnotation {
         ArrayList<String> vepEntries = new ArrayList<>();
         LinkedHashMap<String, String> vepHashMap = new LinkedHashMap<String, String>();
 
-        String[] annotations = variantAnnPerCSQ.split("\\|");
+        String[] annotations = variantAnnPerCSQ.split("\\|", -1);
         String[] headers = variantHeaders.split("\\|");
-        for (String element: annotations) {
-            //Obtain each element of the CSQ entry and append to an array
-            vepEntries.add(element);
-        }
+
+        System.out.println(variantAnnPerCSQ);
+        System.out.println(headers.length);
+        System.out.println(annotations.length);
+
+        //This will store empty entries where the CSQ does not contain any data for that header (headers.length)
         for (int i=0 ; i < annotations.length; i++) {
             //System.out.println(headers[i]);
             //System.out.println(vepEntries.get(i));
             //Generate HashMap on the fly
-            vepHashMap.put(headers[i],vepEntries.get(i));
+            vepHashMap.put(headers[i],annotations[i]);
             //System.out.println(vepHashMap);
         }
         //Test output

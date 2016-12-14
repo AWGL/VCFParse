@@ -29,7 +29,10 @@ public class CsqUtilities {
         VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
         //System.out.println(vepInfo);
         //System.out.println(vepInfo.getDescription());
-        String vepHeader = vepInfo.getDescription().split("\\.")[1].split(":")[1].trim();
+        //System.out.println(vepInfo.getDescription().split("Format:")[1]);
+
+        String vepHeader = vepInfo.getDescription().split("Format:")[1].trim();
+        //String vepHeader = vepInfo.getDescription().split("\\.")[1].split(":")[1].trim();
         //System.out.println(vepHeader); //prints the header
         return vepHeader; //returns the header
     }
@@ -109,6 +112,8 @@ public class CsqUtilities {
 
             //Create ArrayList of VepAnnotationObjects
             csqArray.add(currentVepAnnotationObject);
+            System.out.println(currentVepAnnotationObject.getVepHeaders());
+            System.out.println(currentVepAnnotationObject.getEntireVepRecordValues());
 
             //System.out.println(currentVepAnnotationObject.getAlleleNum());
 
@@ -182,17 +187,24 @@ public class CsqUtilities {
     public VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
         //Creating a HashMap of objects
         //Create vepAnnotation object- this is where we decide which CSQ to retrieve the VEP annotations for
-        VepAnnotation currentVepAnnotation = new VepAnnotation();
-        currentVepAnnotation.setVepAnnotation(variantHeaders, vepAnnotation); //Data in to the VepAnnotation as Strings
+        LinkedHashMap<String, String> vepHashMap = new LinkedHashMap<String, String>();
 
-        //Check that it works now it has been split out- Working- comment out later
-        //System.out.println(currentVepAnnotation.vepAnnotationRecord());
+        String[] annotations = vepAnnotation.split("\\|", -1); //-1 stops this removing empty trailing spaces
+        String[] headers = variantHeaders.split("\\|");
+
+        for (int i=0 ; i < annotations.length; i++) {
+            //System.out.println(headers[i]);
+            //System.out.println(vepEntries.get(i));
+            //Generate HashMap on the fly
+            vepHashMap.put(headers[i],annotations[i]);
+            //System.out.println(vepHashMap);
+        }
 
         //Create a variant annotation object to hold the k,v pairs for each vep annotation for each csq entry
         VepAnnotationObject currentVepAnnotationObject = new VepAnnotationObject();
         //Populate the object with the hash map
         //headers to data hashmap retrieved
-        currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
+        currentVepAnnotationObject.setVepRecord(vepHashMap);
 
         //VepAnnotationObject tr = currentVepAnnotationObject.setVepRecord(currentVepAnnotation.vepAnnotationRecord());
 

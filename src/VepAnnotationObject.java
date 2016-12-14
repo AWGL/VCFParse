@@ -24,6 +24,8 @@ public class VepAnnotationObject {
         return this.vepAnnotationHashMap;
     }
 
+    public Collection<String> getVepHeaders() { return this.vepAnnotationHashMap.keySet(); }
+
     public Collection<String> getEntireVepRecordValues() {
         return this.vepAnnotationHashMap.values();
         }
