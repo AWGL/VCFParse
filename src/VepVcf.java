@@ -91,7 +91,7 @@ public class VepVcf {
             CsqUtilities currentCsqRecord = new CsqUtilities();
             //System.out.println(vc.getAttributeAsString("CSQ", "null"));
             //System.out.println(currentCsqRecord.vepAnnotations(vc));
-            ListMultimap<Integer,VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjectsTEST(
+            ListMultimap<Integer,VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(
                     currentCsqRecord.vepHeaders(vcfFile), (ArrayList<String>) vc.getAttribute("CSQ", "null"));
 
             //System.out.println(vc.getAttribute("CSQ", "null").getClass());
@@ -104,7 +104,7 @@ public class VepVcf {
             //System.out.println(currentCsqObject.getClass());
             //System.out.println(csq.get(1));
             //System.out.println(currentCsqObject.get(1));
-            System.out.println(currentCsqObject.getCsqObject());
+            //System.out.println(currentCsqObject.getCsqObject());
 
 
             /* OLD CODE FOR CSQUTILITIES METHOD
@@ -169,6 +169,8 @@ public class VepVcf {
 
                 //Check that this +1 here is correct
                 Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele+1);
+
+                System.out.println(alleleCsq);
 
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
                         variantFiltered, variantSite, idField);
