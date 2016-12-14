@@ -41,9 +41,11 @@ public class ReadOut {
             //System.out.println(sampleVariantHashMapKey);
             //System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getSampleName());
 
-            /* Commented out to work on CSQ identification, duplication issue and logic changes to link ONLY the
-               relevant VepAnnotationObjects to each allele. At present all (for each variant context) are linked
-               to every allele in that variant context.
+
+
+            //Commented out to work on CSQ identification, duplication issue and logic changes to link ONLY the
+               //relevant VepAnnotationObjects to each allele. At present all (for each variant context) are linked
+               //to every allele in that variant context.
 
 
             System.out.println(forVariantRetrieval);
@@ -51,12 +53,15 @@ public class ReadOut {
             //Allele frequency
             //System.out.println(sampleVariants.get(sampleVariantHashMapKey).getSampleDataObject().getGenotypeQuality());
             //System.out.println(variants);
-            System.out.println(variants.get(forVariantRetrieval).getIdField());
-            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum());
-            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getEntireCsqObject());
-            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getSpecificCsqObject(1));
-            System.out.println(variants.get(forVariantRetrieval).getCsqObject().getCsqObjectVepAnnotationValues(1));
-            */
+            System.out.println(variants.get(forVariantRetrieval).getIdField()); //dbSNP
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum()); //null pointer exception for ref allele-FIX
+
+            System.out.println(variants.get(forVariantRetrieval).getCsqObject());
+
+
+            //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getEntireCsqObject());
+            //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getSpecificCsqObject(1));
+            //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getCsqObjectVepAnnotationValues(1));
 
 
 

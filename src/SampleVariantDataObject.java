@@ -7,22 +7,40 @@ public class SampleVariantDataObject {
     private GenomeVariant variantObjectKey;
     private int alleleDepth;
     private int alleleNum;
-    private SampleDataObject sampleDataObject;
+    private String sampleName;
+    private boolean filtered;
+    private boolean mixed;
+    private int ploidy;
+    private String zygosity;
+    private int genotypeQuality;
 
 
     public SampleVariantDataObject(GenomeVariant variantObjectKey, int alleleDepth, int alleleNum,
-                                   SampleDataObject sampleDataObject){
+                                   String sampleName, boolean filtered, boolean mixed, int ploidy,
+                                   String zygosity, int genotypeQuality){
         this.variantObjectKey = variantObjectKey;
         this.alleleDepth = alleleDepth;
-        this.sampleDataObject = sampleDataObject;
+        //this.sampleDataObject = sampleDataObject;
         this.alleleNum = alleleNum;
+        this.sampleName = sampleName;
+        this.filtered = filtered;
+        this.mixed = mixed;
+        this.ploidy = ploidy;
+        this.zygosity = zygosity;
+        this.genotypeQuality = genotypeQuality;
     }
 
     public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
     public int getAlleleDepth(){return this.alleleDepth;}
-    public SampleDataObject getSampleDataObject(){return this.sampleDataObject;}
+    //public SampleDataObject getSampleDataObject(){return this.sampleDataObject;}
     public String getVariantObjectKey() {return this.variantObjectKey.toString();}
     public int getAlleleNum() {return this.alleleNum;}
+    public String getSampleName(){return this.sampleName;}
+    public boolean getFiltered(){return this.filtered;}
+    public boolean getMixed(){return this.mixed;}
+    public int getPloidy(){return this.ploidy;}
+    public String getZygosity() {return this.zygosity;}
+    public int getGenotypeQuality(){return this.genotypeQuality;}
 
     //@Override
     //public String toString() {
