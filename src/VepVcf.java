@@ -156,17 +156,18 @@ public class VepVcf {
                     System.out.println(prevVepAnn);
                 }
                 */
-
+                /*
                 System.out.println(currentCsqObject.getSpecificCsqObject(allele+1));
 
-                //Check that this +1 here is correct
+
                 HashSet<VepAnnotationObject> setted =
                         new HashSet<VepAnnotationObject>(currentCsqObject.getSpecificCsqObject(allele+1));
                 System.out.println(setted);
 
                 //HashSet<CsqObject> settedhash = new HashSet<CsqObject>(currentCsqObject);
+                */
 
-
+                //Check that this +1 here is correct
                 Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele+1);
 
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,

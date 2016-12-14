@@ -3,14 +3,13 @@ import htsjdk.variant.vcf.VCFHeader;
 import htsjdk.variant.vcf.VCFInfoHeaderLine;
 import htsjdk.variant.variantcontext.VariantContext;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Collection;
+import java.util.*;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Created by Sara on 15-Nov-16.
@@ -112,8 +111,6 @@ public class CsqUtilities {
 
             //Create ArrayList of VepAnnotationObjects
             csqArray.add(currentVepAnnotationObject);
-            System.out.println(currentVepAnnotationObject.getVepHeaders());
-            System.out.println(currentVepAnnotationObject.getEntireVepRecordValues());
 
             //System.out.println(currentVepAnnotationObject.getAlleleNum());
 
@@ -126,9 +123,28 @@ public class CsqUtilities {
         }
         //*/
 
-        csqHashMap = createCsqRecord(csqArray);
+        //Remove duplicates from the array before populating the hashmap
+        //System.out.println(csqArray);
+
+        //the set doesn't need to preserve the order of the elements in the ArrayList as the association with the
+        //allele num is retrieved from within the set- for comparison purposes it would be useful if it did however
+        /*
+        Set<VepAnnotationObject> csqSet =
+                new HashSet<VepAnnotationObject>(csqArray);
+        System.out.println(csqSet);
+        */
+
+        ImmutableSet<VepAnnotationObject> csqImmutableSet = ImmutableSet.copyOf(csqArray);
+        //System.out.println(csqImmutableSet);
+
+        ImmutableList<VepAnnotationObject> csqImmutableList = ImmutableList.copyOf(csqImmutableSet);
+        //System.out.println(csqImmutableList);
+
+
+        csqHashMap = createCsqRecord(csqImmutableList);
 
         //Return the hash map
+        //System.out.println(csqHashMap);
         return csqHashMap; //Could return is a call to another function
     }
 
@@ -217,12 +233,18 @@ public class CsqUtilities {
         return currentVepAnnotationObject; //Change this potentially
     }
 
-    public ListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnColl){
+    public ListMultimap<Integer,VepAnnotationObject> createCsqRecord(ImmutableList<VepAnnotationObject> vepAnnList){
         ListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
-        for (int i=0; i<vepAnnColl.size(); i++){
+        //Iterator<VepAnnotationObject> vepAnnIter = vepAnnSet.iterator();
 
-            csqMap.put(Integer.parseInt(vepAnnColl.get(i).getAlleleNum()),vepAnnColl.get(i));
+        //while (vepAnnIter.hasNext()){
+
+         //System.out.println(vepAnnSet);
+         //System.out.println(vepAnnIter);
+        for (int i=0; i<vepAnnList.size(); i++){
+
+            csqMap.put(Integer.parseInt(vepAnnList.get(i).getAlleleNum()),vepAnnList.get(i));
         }
         return csqMap;
     }
