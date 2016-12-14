@@ -56,7 +56,16 @@ public class ReadOut {
             System.out.println(variants.get(forVariantRetrieval).getIdField()); //dbSNP
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum()); //null pointer exception for ref allele-FIX
 
-            System.out.println(variants.get(forVariantRetrieval).getCsqObject());
+            //Allele depth
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleDepth());
+
+            System.out.println(variants.get(forVariantRetrieval).getCsqObject()); //Multiple VepAnnotation objects for this variant
+
+            for (VepAnnotationObject vepAnnObj : variants.get(forVariantRetrieval).getCsqObject()) {
+                System.out.println(vepAnnObj.getEntireVepRecordValues());
+            }
+
+            //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getClass());
 
 
             //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getEntireCsqObject());

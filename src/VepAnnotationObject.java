@@ -34,6 +34,8 @@ public class VepAnnotationObject {
         return this.vepAnnotationHashMap.get("ALLELE_NUM");
     } //Note, this is a String
 
+    //public int getAlleleDepth() {return this.vepAnnotationHashMap.get("");}
+
     public void getVepAnnotationObjectFromAlleleNum(String inp){ //Change from void to correct output
         //Get the allele number
 

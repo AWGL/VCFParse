@@ -104,7 +104,7 @@ public class VepVcf {
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
-                Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificCsqObject(allele+1);
+                Collection<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele+1);
 
                 //System.out.println(alleleCsq);
 

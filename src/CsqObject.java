@@ -32,7 +32,9 @@ class CsqObject {
         return this.csqHashMap;
     }
 
-    public List<VepAnnotationObject> getSpecificCsqObject(int alleleNum) { return this.csqHashMap.get(alleleNum); }
+    //public CsqObject getSpecificCsqObject(int alleleNum) {return this.csqHashMap.get(alleleNum); }
+
+    public List<VepAnnotationObject> getSpecificVepAnnObjects(int alleleNum) { return this.csqHashMap.get(alleleNum); }
 
     //public VepAnnotationObject getTest(int alleleNum){ return this.csqHashMap.get(alleleNum)[0]; }
 
