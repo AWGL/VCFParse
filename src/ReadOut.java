@@ -57,7 +57,7 @@ public class ReadOut {
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum()); //null pointer exception for ref allele-FIX
 
             //Allele depth
-            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleDepth());
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleFrequency());
 
             System.out.println(variants.get(forVariantRetrieval).getCsqObject()); //Multiple VepAnnotation objects for this variant
 

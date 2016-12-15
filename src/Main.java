@@ -34,12 +34,13 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_minimisation.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
         //path="C:\\Users\\Admin\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles.vcf";
-        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_annotated_multialleles_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\vcf.vcf";
+        //path="gatk_37.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
@@ -62,6 +63,12 @@ public class Main {
         LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap =
                 retrieveVepVcfData.getSampleVariantHashMap();
         LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
+
+        //Sort out allele frequency
+        //Retrieval from sample variant data object for calculation of allele frequency
+        for (String sampleName : sampleVariantHashMap.keySet()) {
+            System.out.println(sampleName);
+        }
 
 
         //TESTING READOUT

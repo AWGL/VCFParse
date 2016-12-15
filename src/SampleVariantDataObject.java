@@ -13,11 +13,12 @@ public class SampleVariantDataObject {
     private int ploidy;
     private String zygosity;
     private int genotypeQuality;
+    private double alleleFrequency;
 
 
     public SampleVariantDataObject(GenomeVariant variantObjectKey, int alleleDepth, int alleleNum,
                                    String sampleName, boolean filtered, boolean mixed, int ploidy,
-                                   String zygosity, int genotypeQuality){
+                                   String zygosity, int genotypeQuality, double alleleFrequency){
         this.variantObjectKey = variantObjectKey;
         this.alleleDepth = alleleDepth;
         //this.sampleDataObject = sampleDataObject;
@@ -28,6 +29,7 @@ public class SampleVariantDataObject {
         this.ploidy = ploidy;
         this.zygosity = zygosity;
         this.genotypeQuality = genotypeQuality;
+        this.alleleFrequency = alleleFrequency;
     }
 
     public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
@@ -41,6 +43,7 @@ public class SampleVariantDataObject {
     public int getPloidy(){return this.ploidy;}
     public String getZygosity() {return this.zygosity;}
     public int getGenotypeQuality(){return this.genotypeQuality;}
+    public double getAlleleFrequency(){return this.alleleFrequency;}
 
     //@Override
     //public String toString() {

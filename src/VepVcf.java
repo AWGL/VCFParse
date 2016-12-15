@@ -146,13 +146,28 @@ public class VepVcf {
                                     //currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
 
 
+                    //Obtain depth of both alleles at the locus
+                    int locusDepth = calcLocusDepth(currentGenotypeAlleles, allAlleles, currentGenotype);
+
+                    /*
+                    int locusDepth = 0; //Better solution for an empty integer? -1?- reset at each allele
+                    for (Allele currentAllele : currentGenotypeAlleles) {
+                        locusDepth += (currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
+                    }
+                    */
+
+                    //System.out.println(locusDepth);
+
                     //Creation of the SampleVariantData object and sampleVariantHashMap
                     //Locate what is the key in the variantHashMap for the specific allele
                     //Generate keyForVariant
                     for (Allele currentAllele : currentGenotypeAlleles) {
+
                         if (currentAllele.isNonReference()) {
 
                             int alleleNum = allAlleles.indexOf(currentAllele);
+                            int alleleDepth = currentGenotype.getAD()[alleleNum];
+                            double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
 
                             GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
 
@@ -163,10 +178,10 @@ public class VepVcf {
 
                             //Data
                             SampleVariantDataObject currentSampleVariantDataObject =
-                                    new SampleVariantDataObject(keyForVariant, currentGenotype.getAD()[alleleNum],
-                                            alleleNum, currentGenotype.getSampleName(), currentGenotype.isFiltered(),
+                                    new SampleVariantDataObject(keyForVariant, alleleDepth, alleleNum,
+                                            currentGenotype.getSampleName(), currentGenotype.isFiltered(),
                                             currentGenotype.isMixed(), currentGenotype.getPloidy(), zygosity,
-                                            currentGenotype.getGQ());
+                                            currentGenotype.getGQ(), alleleFrequency);
 
                             sampleVariantHashMap.put(currentSampleVariant.toString(), currentSampleVariantDataObject);
                         }
@@ -180,6 +195,7 @@ public class VepVcf {
             break; //first allele only for ease of testing
 
         }
+
 
         //Test hash map is working correctly
 
@@ -200,7 +216,7 @@ public class VepVcf {
             System.out.println(vpIter.next().getVepRecord());
 
         */
-        }
+    }
 
 
 
@@ -239,6 +255,24 @@ public class VepVcf {
         }
 
         return zygosity;
+    }
+
+    public double calcAlleleFrequency(int locusDepth, int alleleDepth) {
+        double alleleFrequency = ((double)alleleDepth/(double)locusDepth);
+        //System.out.println(alleleDepth);
+        //System.out.println(locusDepth);
+        //System.out.println(alleleFrequency);
+
+        return alleleFrequency;
+    }
+
+    public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
+        int locusDepth = -1;
+        for (Allele currentAllele : Alleles) {
+
+            locusDepth += (currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
+        }
+        return locusDepth;
     }
 
 
