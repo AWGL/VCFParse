@@ -98,7 +98,14 @@ public class VepVcf {
             idField = vc.getID();
 
             for (int allele = 0; allele < altAlleles.size(); allele++){
-                //System.out.println(altAlleles.get(allele));
+
+                //Avoid storing an empty object (as there are no Vep annotations) nested within the VariantDataObject
+                //* just denotes an overlapping indel and is not a SNV at that position
+                if (altAlleles.get(allele).toString().equals("*")){
+                    //Break out of for loop and start next iteration
+                    continue;
+
+                }
 
                 //Key
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
@@ -165,6 +172,17 @@ public class VepVcf {
 
                         if (currentAllele.isNonReference()) {
 
+                            //Skip the overlapping indel case- does this fuck up the allele depth??
+                            //* just denotes an overlapping indel and is not a SNV at that position
+                            if (currentAllele.toString().equals("*")){
+                                //Break out of for loop and start next iteration
+                                System.out.println(allAlleles);
+                                System.out.println(allAlleles.indexOf(currentAllele));
+                                System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
+                                continue;
+
+                            }
+
                             int alleleNum = allAlleles.indexOf(currentAllele);
                             int alleleDepth = currentGenotype.getAD()[alleleNum];
                             double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
@@ -192,7 +210,7 @@ public class VepVcf {
 
             }
 
-            break; //first allele only for ease of testing
+            //break; //first allele only for ease of testing
 
         }
 

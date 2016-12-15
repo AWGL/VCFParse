@@ -64,11 +64,8 @@ public class Main {
                 retrieveVepVcfData.getSampleVariantHashMap();
         LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
 
-        //Sort out allele frequency
-        //Retrieval from sample variant data object for calculation of allele frequency
-        for (String sampleName : sampleVariantHashMap.keySet()) {
-            System.out.println(sampleName);
-        }
+        System.out.println(sampleVariantHashMap);
+        System.out.println(variantHashMap);
 
 
         //TESTING READOUT
