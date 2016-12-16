@@ -15,7 +15,7 @@ public class VepAnnotationObject {
 
     public VepAnnotationObject() {}
 
-    public void setVepRecord(LinkedHashMap<String,String> vepAnnotationHashMap) {
+    public void setVepRecord(LinkedHashMap<String, String> vepAnnotationHashMap) {
         this.vepAnnotationHashMap = vepAnnotationHashMap;
     }
 
@@ -33,6 +33,10 @@ public class VepAnnotationObject {
     public String getAlleleNum(){
         return this.vepAnnotationHashMap.get("ALLELE_NUM");
     } //Note, this is a String
+
+    public LinkedHashMap<String, String> getVepAnnotationHashMap() { return this.vepAnnotationHashMap;}
+
+    public String getVepEntry(String key) { return vepAnnotationHashMap.get(key); }
 
     //public int getAlleleDepth() {return this.vepAnnotationHashMap.get("");}
 

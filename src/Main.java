@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sara on 07-Nov-16.
@@ -64,8 +66,8 @@ public class Main {
                 retrieveVepVcfData.getSampleVariantHashMap();
         LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
 
-        System.out.println(sampleVariantHashMap);
-        System.out.println(variantHashMap);
+        //System.out.println(sampleVariantHashMap);
+        //System.out.println(variantHashMap);
 
 
         //TESTING READOUT
@@ -76,34 +78,49 @@ public class Main {
         //WriteOut writeData = new WriteOut();
 
         //Temp write out all vep annotations
-
-        //Retrieve vep annotations
-        System.out.println(variantHashMap.values());
-        for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
-            String[] splitKey = sampleVariantHashMapKey.split(",");
-            String forVariantRetrieval = splitKey[1] + splitKey[2];
-
-            System.out.println(variantHashMap.get(forVariantRetrieval).getCsqObject().get(0).getVepHeaders());
-            System.out.println(variantHashMap.get(forVariantRetrieval).getVepAnnotationHeaders());
-
-            //System.out.println(variantHashMap.get(forVariantRetrieval).getCsqObject().getVepHeaders());
-            for (VepAnnotationObject vepAnnObj : variantHashMap.get(forVariantRetrieval).getCsqObject()) {
-                System.out.println(vepAnnObj.getEntireVepRecordValues());
-            }
-
-
-
-        }
-
-
-
         final File outputFile = new File("C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt");
         //outputFile.createNewFile();
 
         //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(outputFile), "utf-8"))){
-                writer.write("bibble");
+                //writer.write("bibble");
+
+            //System.out.println(arr.size());
+
+
+            for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
+                String[] splitKey = sampleVariantHashMapKey.split(",");
+                String forVariantRetrieval = splitKey[1] + splitKey[2];
+
+                //writer.write("test");
+                for (VepAnnotationObject vepAnnObj : variantHashMap.get(forVariantRetrieval).getCsqObject()) {
+
+                    //Create key array for robust lookup ordering to ensure that there are no issues if order changes
+                    List<String> keyArray = new ArrayList<String>();
+
+                    //Write headers
+                    for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
+                        keyArray.add(key);
+                        writer.write("\t");
+                        writer.write(key);
+                    }
+
+                    writer.newLine();
+
+                    writer.write(sampleVariantHashMapKey.split(",")[0]);
+                    writer.write("\t");
+
+                    //writer.newLine();
+                    for (String key : keyArray){
+                        writer.write(vepAnnObj.getVepEntry(key));
+                        writer.write("\t");
+                    }
+
+                    writer.newLine();
+                }
+
+            }
         }
 
 

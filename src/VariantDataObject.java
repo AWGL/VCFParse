@@ -26,6 +26,15 @@ public class VariantDataObject {
 
     public ArrayList<VepAnnotationObject> getCsqObject() { return this.vepAnnotationObjects; }
     public Collection<String> getVepAnnotationHeaders() {return this.vepAnnotationObjects.get(0).getVepHeaders();}
+
+    public ArrayList<String> getOrderedVepAnnotationHeaders() {
+        ArrayList<String> vepAnns = new ArrayList<String>();
+        for (String header : (this.vepAnnotationObjects.get(0).getVepHeaders())) {
+            vepAnns.add(header);
+        }
+        return vepAnns;
+    }
+
     public boolean getIsVariantFiltered() { return this.variantFiltered; }
     public boolean getIsVariantSite() { return this.variantSite; }
     public String getIdField() { return this.idField; }

@@ -220,7 +220,7 @@ public class VepVcf {
 
             }
 
-            //break; //first allele only for ease of testing
+            break; //first allele only for ease of testing
 
         }
     }
