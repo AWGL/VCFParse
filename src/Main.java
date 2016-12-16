@@ -75,55 +75,8 @@ public class Main {
         //retrieveData.readOutTest();
 
         //TESTING WRITEOUT
-        //WriteOut writeData = new WriteOut();
-
-        //Temp write out all vep annotations
-        final File outputFile = new File("C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt");
-        //outputFile.createNewFile();
-
-        //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream
-        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(outputFile), "utf-8"))){
-                //writer.write("bibble");
-
-            //System.out.println(arr.size());
-
-
-            for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
-                String[] splitKey = sampleVariantHashMapKey.split(",");
-                String forVariantRetrieval = splitKey[1] + splitKey[2];
-
-                //writer.write("test");
-                for (VepAnnotationObject vepAnnObj : variantHashMap.get(forVariantRetrieval).getCsqObject()) {
-
-                    //Create key array for robust lookup ordering to ensure that there are no issues if order changes
-                    List<String> keyArray = new ArrayList<String>();
-
-                    //Write headers
-                    for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
-                        keyArray.add(key);
-                        writer.write("\t");
-                        writer.write(key);
-                    }
-
-                    writer.newLine();
-
-                    writer.write(sampleVariantHashMapKey.split(",")[0]);
-                    writer.write("\t");
-
-                    //writer.newLine();
-                    for (String key : keyArray){
-                        writer.write(vepAnnObj.getVepEntry(key));
-                        writer.write("\t");
-                    }
-
-                    writer.newLine();
-                }
-
-            }
-        }
-
-
+        WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
+        writeData.writeOutVepAnnotations();
 
 
         /*
