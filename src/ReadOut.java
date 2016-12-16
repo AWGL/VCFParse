@@ -9,8 +9,8 @@ public class ReadOut {
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariants;
 
 
-    public ReadOut(LinkedHashMap<String, VariantDataObject> variants,
-                   LinkedHashMap<String, SampleVariantDataObject> sampleVariants){
+    public ReadOut(LinkedHashMap<String, SampleVariantDataObject> sampleVariants,
+                   LinkedHashMap<String, VariantDataObject> variants){
         this.variants = variants;
         this.sampleVariants = sampleVariants;
     }
@@ -62,37 +62,41 @@ public class ReadOut {
             //Get required data from CSQ fields
 
             for (VepAnnotationObject vepAnnObj : variants.get(forVariantRetrieval).getCsqObject()) {
-                System.out.println(vepAnnObj.getVepRecord().get("AFR_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("AMR_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("EAS_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("EUR_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("SAS_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_AFR_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_AMR_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_EAS_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_FIN_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_NFE_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_OTH_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("ExAC_SAS_MAF"));
-                System.out.println(vepAnnObj.getVepRecord().get("Transcript"));
-                System.out.println(vepAnnObj.getVepRecord().get("PreferredTranscript"));
-                System.out.println(vepAnnObj.getVepRecord().get("Gene"));
-                System.out.println(vepAnnObj.getVepRecord().get("HGVSc"));
-                System.out.println(vepAnnObj.getVepRecord().get("HGVSp"));
-                System.out.println(vepAnnObj.getVepRecord().get("Consequence"));
-                System.out.println(vepAnnObj.getVepRecord().get("Exon/Intron"));
-                System.out.println(vepAnnObj.getVepRecord().get(""));
-                System.out.println(vepAnnObj.getVepRecord().get(""));
-                System.out.println(vepAnnObj.getVepRecord().get(""));
-                System.out.println(vepAnnObj.getVepRecord().get(""));
+                System.out.println(vepAnnObj);
+                System.out.println(vepAnnObj.getVepHeaders());
+                System.out.println(vepAnnObj.getEntireVepRecordValues());
+                System.out.println(vepAnnObj.getAlleleNum());
+                System.out.println(vepAnnObj.getVepEntry("AFR_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("AMR_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("EAS_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("EUR_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("SAS_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_AFR_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_AMR_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_EAS_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_FIN_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_NFE_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_OTH_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_SAS_MAF"));
+                //Transcript
+                System.out.println(vepAnnObj.getVepEntry("Feature"));
+                //Boolean- data not available for preferred transcript
+                //System.out.println(vepAnnObj.getVepEntry("PreferredTranscript"));
+
+                System.out.println(vepAnnObj.getVepEntry("Gene"));
+                System.out.println(vepAnnObj.getVepEntry("HGVSc"));
+                System.out.println(vepAnnObj.getVepEntry("HGVSp"));
+                System.out.println(vepAnnObj.getVepEntry("Consequence"));
+                System.out.println(vepAnnObj.getVepEntry("Exon/Intron"));
+
             }
 
 
-            System.out.println(variants.get(forVariantRetrieval).getCsqObject()); //Multiple VepAnnotation objects for this variant
+            //System.out.println(variants.get(forVariantRetrieval).getCsqObject()); //Multiple VepAnnotation objects for this variant
 
 
             for (VepAnnotationObject vepAnnObj : variants.get(forVariantRetrieval).getCsqObject()) {
-                System.out.println(vepAnnObj.getEntireVepRecordValues());
+                //System.out.println(vepAnnObj.getEntireVepRecordValues());
             }
 
             //System.out.println(variants.get(forVariantRetrieval).getCsqObject().getClass());

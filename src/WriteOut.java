@@ -39,8 +39,12 @@ public class WriteOut{
             String[] splitKey = sampleVariantHashMapKey.split(",");
             String forVariantRetrieval = splitKey[1] + splitKey[2];
 
+            //Retrieve id field which contains dbSNP identifier (if applicable)
+            VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
+            String dbSnp = variantDataObject.getIdField();
+
             //writer.write("test");
-            for (VepAnnotationObject vepAnnObj : variantHashMap.get(forVariantRetrieval).getCsqObject()) {
+            for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
 
                 //Create key array for robust lookup ordering to ensure that there are no issues if order changes
                 List<String> keyArray = new ArrayList<String>();
@@ -50,7 +54,13 @@ public class WriteOut{
                 writer.write("\t");
                 writer.write("Chromosome");
                 writer.write("\t");
-                writer.write("Position");
+                writer.write("Variant");
+                writer.write("\t");
+                writer.write("AlleleFrequency");
+                writer.write("\t");
+                writer.write("Quality");
+                writer.write("\t");
+                writer.write("dbSNP");
 
                 for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
                     keyArray.add(key);
@@ -68,11 +78,23 @@ public class WriteOut{
                 writer.write(sampleVariantHashMapKey.split(",")[1].split(":")[0]);
                 writer.write("\t");
 
-                //Sample position
+                //Sample variant as g.posref>alt
+                System.out.println("g." + + ;); //FINISH THIS!!
                 writer.write(sampleVariantHashMapKey.split(",")[1].split(":")[1]);
                 writer.write("\t");
 
-                //writer.newLine();
+                //Sample allele frequency
+                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency());
+                writer.write("\t");
+
+                //Sample quality
+                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality());
+                writer.write("\t");
+
+                //dbSNP
+                System.out.println(dbSnp);
+                writer.write("\t");
+
                 for (String key : keyArray){
                     writer.write(vepAnnObj.getVepEntry(key));
                     writer.write("\t");

@@ -71,7 +71,7 @@ public class Main {
 
 
         //TESTING READOUT
-        //ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
+        //ReadOut retrieveData = new ReadOut(sampleVariantHashMap, variantHashMap);
         //retrieveData.readOutTest();
 
         //TESTING WRITEOUT
