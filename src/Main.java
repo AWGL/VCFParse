@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         //Declare variables
         String path;
@@ -69,8 +69,43 @@ public class Main {
 
 
         //TESTING READOUT
-        ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
-        retrieveData.readOutTest();
+        //ReadOut retrieveData = new ReadOut(variantHashMap, sampleVariantHashMap);
+        //retrieveData.readOutTest();
+
+        //TESTING WRITEOUT
+        //WriteOut writeData = new WriteOut();
+
+        //Temp write out all vep annotations
+
+        //Retrieve vep annotations
+        System.out.println(variantHashMap.values());
+        for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
+            String[] splitKey = sampleVariantHashMapKey.split(",");
+            String forVariantRetrieval = splitKey[1] + splitKey[2];
+
+            System.out.println(variantHashMap.get(forVariantRetrieval).getCsqObject().get(0).getVepHeaders());
+            System.out.println(variantHashMap.get(forVariantRetrieval).getVepAnnotationHeaders());
+
+            //System.out.println(variantHashMap.get(forVariantRetrieval).getCsqObject().getVepHeaders());
+            for (VepAnnotationObject vepAnnObj : variantHashMap.get(forVariantRetrieval).getCsqObject()) {
+                System.out.println(vepAnnObj.getEntireVepRecordValues());
+            }
+
+
+
+        }
+
+
+
+        final File outputFile = new File("C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt");
+        //outputFile.createNewFile();
+
+        //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream
+        try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(outputFile), "utf-8"))){
+                writer.write("bibble");
+        }
+
 
 
 

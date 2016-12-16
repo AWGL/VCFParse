@@ -37,11 +37,11 @@ public class CsqUtilities {
     }
 
 
-    public ListMultimap<Integer,VepAnnotationObject>
+    public ArrayListMultimap<Integer,VepAnnotationObject>
         createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
 
         ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
-        ListMultimap<Integer,VepAnnotationObject> csqHashMap = ArrayListMultimap.create();
+        ArrayListMultimap<Integer,VepAnnotationObject> csqHashMap = ArrayListMultimap.create();
 
 
         for (int i = 0; i < csqRec.size(); i++){
@@ -57,15 +57,17 @@ public class CsqUtilities {
 
         //Remove duplicates from the array before populating the hashmap
         //the set doesn't need to preserve the order of the elements in the ArrayList as the association with the
-        //allele num is retrieved from within the set- for comparison purposes it would be useful if it did however
+        //allele num is retrieved from within the set
 
         ImmutableSet<VepAnnotationObject> csqImmutableSet = ImmutableSet.copyOf(csqArray);
         //System.out.println(csqImmutableSet);
 
-        ImmutableList<VepAnnotationObject> csqImmutableList = ImmutableList.copyOf(csqImmutableSet);
+        ArrayList<VepAnnotationObject> csqList = new ArrayList<VepAnnotationObject>(csqImmutableSet);
         //System.out.println(csqImmutableList);
 
-        csqHashMap = createCsqRecord(csqImmutableList);
+        //ArrayList<VepAnnotationObject> csqArrayList = new ArrayList<VepAnnotationObject>();
+
+        csqHashMap = createCsqRecord(csqList);
 
         //Return the hash map
         //System.out.println(csqHashMap);
@@ -96,8 +98,8 @@ public class CsqUtilities {
         return currentVepAnnotationObject; //Change this potentially
     }
 
-    public ListMultimap<Integer,VepAnnotationObject> createCsqRecord(ImmutableList<VepAnnotationObject> vepAnnList){
-        ListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
+    public ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
+        ArrayListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
         for (int i=0; i<vepAnnList.size(); i++){
 
