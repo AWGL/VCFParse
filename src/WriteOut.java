@@ -41,7 +41,6 @@ public class WriteOut{
 
             //Retrieve id field which contains dbSNP identifier (if applicable)
             VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
-            String dbSnp = variantDataObject.getIdField();
 
             //writer.write("test");
             for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
@@ -59,8 +58,6 @@ public class WriteOut{
                 writer.write("AlleleFrequency");
                 writer.write("\t");
                 writer.write("Quality");
-                writer.write("\t");
-                writer.write("dbSNP");
 
                 for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
                     keyArray.add(key);
@@ -79,20 +76,25 @@ public class WriteOut{
                 writer.write("\t");
 
                 //Sample variant as g.posref>alt
-                System.out.println("g." + + ;); //FINISH THIS!!
-                writer.write(sampleVariantHashMapKey.split(",")[1].split(":")[1]);
+                //System.out.println("g." + (sampleVariantHashMapKey.split(",")[1].split(":")[1]) +
+                    //(sampleVariantHashMapKey.split(",")[2]));
+
+                //Minimise alleles? GenomeVariant class
+                GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
+                        (sampleVariantHashMapKey.split(",")[2]));
+                genomeVariant.convertToMinimalRepresentation();
+                //System.out.println(genomeVariant);
+
+                writer.write("g." + (genomeVariant));
                 writer.write("\t");
 
                 //Sample allele frequency
-                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency());
+                //Truncate output
+                writer.write(String.format("%.2f", sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
                 writer.write("\t");
 
                 //Sample quality
-                System.out.println(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality());
-                writer.write("\t");
-
-                //dbSNP
-                System.out.println(dbSnp);
+                writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
                 writer.write("\t");
 
                 for (String key : keyArray){

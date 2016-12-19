@@ -87,8 +87,18 @@ public class VepVcf {
             //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
             //Obtain keys for each transcript entry (header in vcf file)
             CsqUtilities currentCsqRecord = new CsqUtilities();
+
+            //Bug fixing 19/12/2016- singletons weren't working
+            List attribute = vc.getAttributeAsList("CSQ");
+
+            ArrayList<String> attributeArr = new ArrayList<String>();
+
+            for (int i = 0; i < attribute.size(); i++){
+                attributeArr.add(attribute.get(i).toString());
+            }
+
             ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(
-                    currentCsqRecord.vepHeaders(vcfFile), (ArrayList<String>) vc.getAttribute("CSQ", "null"));
+                    currentCsqRecord.vepHeaders(vcfFile), attributeArr);
 
             //Create a CsqObject (optional step)
             CsqObject currentCsqObject = new CsqObject();
@@ -220,7 +230,7 @@ public class VepVcf {
 
             }
 
-            break; //first allele only for ease of testing
+            //break; //first allele only for ease of testing
 
         }
     }

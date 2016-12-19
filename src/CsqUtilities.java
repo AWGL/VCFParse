@@ -103,6 +103,7 @@ public class CsqUtilities {
 
         for (int i=0; i<vepAnnList.size(); i++){
 
+            //If fails here no allele number
             csqMap.put(Integer.parseInt(vepAnnList.get(i).getAlleleNum()),vepAnnList.get(i));
         }
         return csqMap;
