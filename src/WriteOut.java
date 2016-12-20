@@ -82,7 +82,7 @@ public class WriteOut{
                 //Minimise alleles? GenomeVariant class
                 GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
                         (sampleVariantHashMapKey.split(",")[2]));
-                genomeVariant.convertToMinimalRepresentation();
+                //genomeVariant.convertToMinimalRepresentation();
                 //System.out.println(genomeVariant);
 
                 writer.write("g." + (genomeVariant));

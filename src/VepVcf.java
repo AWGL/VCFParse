@@ -72,6 +72,9 @@ public class VepVcf {
         boolean variantSite = false; //Default setting
         String idField = null; //Default setting
 
+        //Obtain VEP Headers- same for the whole VCF file
+        String vHeaders = vepHeaders(vcfFile);
+
         for (final VariantContext vc : vcfFile) {
 
             ///Work on allele minimisation here?///- no- this is all the variants- maybe do per sample?
@@ -84,7 +87,6 @@ public class VepVcf {
             //Store the alleles that are not the reference allele
             List<Allele> altAlleles = vc.getAlternateAlleles();
 
-            //Make the object to hold the annotations- note this currently iterates every time and gets the same headers (same vcf)
             //Obtain keys for each transcript entry (header in vcf file)
             CsqUtilities currentCsqRecord = new CsqUtilities();
 
@@ -98,7 +100,7 @@ public class VepVcf {
             }
 
             ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(
-                    currentCsqRecord.vepHeaders(vcfFile), attributeArr);
+                    vHeaders, attributeArr);
 
             //Create a CsqObject (optional step)
             CsqObject currentCsqObject = new CsqObject();
@@ -299,21 +301,37 @@ public class VepVcf {
         double alleleFrequency = ((double)alleleDepth/(double)locusDepth);
         //System.out.println(alleleDepth);
         //System.out.println(locusDepth);
-        //System.out.println(alleleFrequency);
-
+        System.out.println(alleleDepth);
+        System.out.println(alleleFrequency);
         return alleleFrequency;
     }
 
     public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
-        int locusDepth = -1;
+        int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
 
             //System.out.println(currentAllele);
             locusDepth += (currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
         }
-
-        //System.out.println(locusDepth);
+        System.out.println(Alleles);
+        System.out.println(currentGenotype);
+        System.out.println(locusDepth);
         return locusDepth;
+    }
+
+    public String vepHeaders(VCFFileReader vcfFile)   {
+        //Create the VCF Header object
+        VCFHeader currentHeader = vcfFile.getFileHeader();
+        //System.out.println(currentHeader);
+        VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
+        //System.out.println(vepInfo);
+        //System.out.println(vepInfo.getDescription());
+        //System.out.println(vepInfo.getDescription().split("Format:")[1]);
+
+        String vepHeader = vepInfo.getDescription().split("Format:")[1].trim();
+        //String vepHeader = vepInfo.getDescription().split("\\.")[1].split(":")[1].trim();
+        //System.out.println(vepHeader); //prints the header
+        return vepHeader; //returns the header
     }
 
 
