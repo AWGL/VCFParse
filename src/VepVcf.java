@@ -237,36 +237,10 @@ public class VepVcf {
         }
     }
 
-
         //Test hash map is working correctly
-
         //System.out.println(sampleVariantHashMap);
         //System.out.println(variantHashMap);
 
-        /*
-        System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA"));
-        System.out.println(sampleVariantHashMap.get("23M,1:241663902 T").getVariantObjectKey());
-        System.out.println(sampleVariantHashMap.get("23M,1:241663902 TGAGA").getVariantObjectKey());
-        System.out.println(variantHashMap.get(sampleVariantHashMap.get("23M,1:241663902 TGAGA").getVariantObjectKey()));
-        System.out.println(variantHashMap.get("1:241663902TGA>TGAGA"));
-
-
-        Iterator<VepAnnotationObject> vpIter = variantHashMap.get(sampleVariantHashMap.get("23M,1:241663902 TGAGA").
-                getVariantObjectKey()).getCsqObject().getEntireCsqObject().iterator();
-        while (vpIter.hasNext()){
-            System.out.println(vpIter.next().getVepRecord());
-
-        */
-
-
-
-        //This is hom ref so although it is in the sample variant hash map it won't be found in the variant hash map
-        //This is het ref not hom ref, hom ref has not been stored
-        //System.out.println(variantHashMap.get("1:241663902TGA>TGA"));
-
-
-        //return variantHashMap;
-        //return sampleHashMap
 
     public GenomeVariant createAlleleKey(VariantContext vc, String altAllele) { //LinkedHashMap
         //Log.log(Level.INFO, "Parsing Alleles");
@@ -298,24 +272,23 @@ public class VepVcf {
     }
 
     public double calcAlleleFrequency(int locusDepth, int alleleDepth) {
-        double alleleFrequency = ((double)alleleDepth/(double)locusDepth);
+        double alleleFrequency = (((double)alleleDepth) / ((double)locusDepth));
         //System.out.println(alleleDepth);
         //System.out.println(locusDepth);
-        System.out.println(alleleDepth);
-        System.out.println(alleleFrequency);
+        //System.out.println(alleleFrequency);
         return alleleFrequency;
     }
 
     public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
         int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
-
+            //System.out.println(currentGenotype);
             //System.out.println(currentAllele);
             locusDepth += (currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
         }
-        System.out.println(Alleles);
-        System.out.println(currentGenotype);
-        System.out.println(locusDepth);
+        //System.out.println(Alleles);
+        //System.out.println(currentGenotype);
+        //System.out.println(locusDepth);
         return locusDepth;
     }
 

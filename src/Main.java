@@ -43,8 +43,13 @@ public class Main {
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\multisample_gatk3-6_altalleles_test.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\vcf.vcf";
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_36.vcf";
-        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\testingold.vcf";
-        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\testing.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_37.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\testingold.vcf";
+        //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\testing.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_36_new.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_37_new.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_36_newann.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_37_newann.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);
@@ -73,12 +78,12 @@ public class Main {
 
 
         //TESTING READOUT
-        //ReadOut retrieveData = new ReadOut(sampleVariantHashMap, variantHashMap);
-        //retrieveData.readOutTest();
+        ReadOut retrieveData = new ReadOut(sampleVariantHashMap, variantHashMap);
+        retrieveData.readOutTest();
 
         //TESTING WRITEOUT
-        WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
-        writeData.writeOutVepAnnotations();
+        //WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
+        //writeData.writeOutVepAnnotations();
 
 
         /*

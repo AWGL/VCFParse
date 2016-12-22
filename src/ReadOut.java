@@ -47,7 +47,6 @@ public class ReadOut {
                //relevant VepAnnotationObjects to each allele. At present all (for each variant context) are linked
                //to every allele in that variant context.
 
-
             System.out.println(forVariantRetrieval);
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getVariantObjectKey()); //Check data correct
             //Allele frequency
@@ -60,8 +59,8 @@ public class ReadOut {
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleFrequency());
 
             //Get required data from CSQ fields
-
             for (VepAnnotationObject vepAnnObj : variants.get(forVariantRetrieval).getCsqObject()) {
+                /*
                 System.out.println(vepAnnObj);
                 System.out.println(vepAnnObj.getVepHeaders());
                 System.out.println(vepAnnObj.getEntireVepRecordValues());
@@ -71,6 +70,10 @@ public class ReadOut {
                 System.out.println(vepAnnObj.getVepEntry("EAS_MAF"));
                 System.out.println(vepAnnObj.getVepEntry("EUR_MAF"));
                 System.out.println(vepAnnObj.getVepEntry("SAS_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("AA_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("EA_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_MAF"));
+                System.out.println(vepAnnObj.getVepEntry("ExAC_Adj_MAF"));
                 System.out.println(vepAnnObj.getVepEntry("ExAC_AFR_MAF"));
                 System.out.println(vepAnnObj.getVepEntry("ExAC_AMR_MAF"));
                 System.out.println(vepAnnObj.getVepEntry("ExAC_EAS_MAF"));
@@ -80,14 +83,31 @@ public class ReadOut {
                 System.out.println(vepAnnObj.getVepEntry("ExAC_SAS_MAF"));
                 //Transcript
                 System.out.println(vepAnnObj.getVepEntry("Feature"));
-                //Boolean- data not available for preferred transcript
+                //Boolean- data not available for preferred transcript- Matt
                 //System.out.println(vepAnnObj.getVepEntry("PreferredTranscript"));
 
-                System.out.println(vepAnnObj.getVepEntry("Gene"));
+                System.out.println(vepAnnObj.getVepEntry("Gene")); //Sometimes this is a number
                 System.out.println(vepAnnObj.getVepEntry("HGVSc"));
                 System.out.println(vepAnnObj.getVepEntry("HGVSp"));
                 System.out.println(vepAnnObj.getVepEntry("Consequence"));
-                System.out.println(vepAnnObj.getVepEntry("Exon/Intron"));
+                System.out.println(vepAnnObj.getVepEntry("Exon")); //Either or with Intron
+                System.out.println(vepAnnObj.getVepEntry("Intron")); //Either or with Exon
+                */
+
+                if (vepAnnObj.getVepEntry("SIFT").equals("")){
+                    continue; //Need to skip where it is empty or the [1] index won't work
+                }
+
+                //SIFT Result
+                System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[0]);
+                //SIFT Score
+                System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[1]);
+                //Polyphen Result
+                System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("\\(")[0]);
+                //Polyphen Score
+                System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("[\\(\\)]")[1]);
+
+
 
             }
 
