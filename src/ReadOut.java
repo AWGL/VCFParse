@@ -94,7 +94,7 @@ public class ReadOut {
                 System.out.println(vepAnnObj.getVepEntry("Intron")); //Either or with Exon
                 */
 
-                if (vepAnnObj.getVepEntry("SIFT").equals("")){
+                if (vepAnnObj.getVepEntry("SIFT").equals("") && vepAnnObj.getVepEntry("PolyPhen").equals("")){
                     continue; //Need to skip where it is empty or the [1] index won't work
                 }
 
