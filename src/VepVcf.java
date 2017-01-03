@@ -30,8 +30,6 @@ public class VepVcf {
     //HashMap containing per sample, per position (and contig), (and including alternate allele information)
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
 
-    //Complete this
-    //private LinkedHashMap<String, String> finalHashMap = new LinkedHashMap<String, String>();
 
 
     public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
@@ -85,7 +83,7 @@ public class VepVcf {
             ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(
                     vHeaders, attributeArr);
 
-            //Create a CsqObject (optional step)
+            //Create a CsqObject (optional step)- could leave as hashmap if desired
             CsqObject currentCsqObject = new CsqObject();
             currentCsqObject.setCsqObject(csq);
 
@@ -100,7 +98,6 @@ public class VepVcf {
                 if (altAlleles.get(allele).toString().equals("*")) {
                     //Break out of for loop and start next iteration
                     continue;
-
                 }
 
                 //Key
@@ -152,54 +149,31 @@ public class VepVcf {
                     //Obtain depth of both alleles at the locus
                     int locusDepth = calcLocusDepth(currentGenotypeAlleles, allAlleles, currentGenotype);
 
-                    /*
-                    int locusDepth = 0; //Better solution for an empty integer? -1?- reset at each allele
-                    for (Allele currentAllele : currentGenotypeAlleles) {
-                        locusDepth += (currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
-                    }
-                    */
-
-                    //System.out.println(locusDepth);
-
-                    //Creation of the SampleVariantData object and sampleVariantHashMap
-                    //Locate what is the key in the variantHashMap for the specific allele
-                    //Generate keyForVariant
+                    // Iterate through the max of two alleles in the current Genotype (there may be one if deletion ?)
                     for (Allele currentAllele : currentGenotypeAlleles) {
 
                         //System.out.println(currentAllele);
-
-                        //Skip alleles that we don't want to store. This won't create a problem for allele depth
-                        //as locus depth is calculated above
 
                         int alleleNum = allAlleles.indexOf(currentAllele);
                         int alleleDepth = currentGenotype.getAD()[alleleNum];
                         double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
 
-                        GenomeVariant keyForVariant = createSampleVariantKey(vc, currentAllele);
+                        // Key for variant object- to enable it to be linked up with the sample later
+                        GenomeVariant keyForVariant = createAlleleKey(vc,
+                                currentAllele.toString().replaceAll("\\*", ""));
 
-                        //Key
+                        // Key for sample variant object- stores variant and allele data which is sample specific
                         SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
                                 vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele,
                                 vc.getReference());
 
-                        //Skip reference allele (don't store it)
+                        // Skip reference allele and where there is an overlapping deletion (don't store it)
+                        // This won't create a problem for allele depth as locus depth is calculated above
                         if (currentAllele.isNonReference() && !(currentAllele.toString().equals("*"))) {
-
-                         /*
-                        //Skip the overlapping indel case (don't store reference allele)
-                        //* just denotes an overlapping indel and is not a SNV at that position
-                        if (currentAllele.toString().equals("*")){
-                                //Break out of for loop and start next iteration
-                                System.out.println(allAlleles);
-                                System.out.println(allAlleles.indexOf(currentAllele));
-                                System.out.println(currentGenotype.getAD()[allAlleles.indexOf(currentAllele)]);
-                                continue;
-                        }
-                        */
 
                             //System.out.println("Variant to store"); //for test
 
-                            //Data
+                            //Data which is associated with the variant and allele but is sample specific
                             SampleVariantDataObject currentSampleVariantDataObject =
                                     new SampleVariantDataObject(keyForVariant, alleleDepth, alleleNum,
                                             currentGenotype.getSampleName(), currentGenotype.isFiltered(),
@@ -233,13 +207,6 @@ public class VepVcf {
                 vc.getReference().toString().replaceAll("\\*", ""), altAllele);
     }
 
-
-    public GenomeVariant createSampleVariantKey(VariantContext vc, Allele currentAllele){
-
-        return new GenomeVariant(vc.getContig(), vc.getStart(), vc.getReference().toString().replaceAll("\\*", ""),
-                currentAllele.toString().replaceAll("\\*", ""));
-
-    }
 
     public String obtainZygosity(Genotype currentGenotype){
 

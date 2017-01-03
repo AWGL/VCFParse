@@ -17,10 +17,6 @@ import com.google.common.collect.ImmutableList;
 
 public class CsqUtilities {
 
-    //private VCFFileReader vcfFile;
-
-    //public CSQ()    { this.vcfFile = vcfFile; }
-
 
     public ArrayListMultimap<Integer,VepAnnotationObject>
         createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
