@@ -4,26 +4,12 @@ Comment here
  */
 
 import java.io.*;
-import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import htsjdk.samtools.*;
-import htsjdk.tribble.*;
-import htsjdk.tribble.readers.*;
 import htsjdk.variant.variantcontext.*;
-import htsjdk.variant.variantcontext.writer.*;
-import htsjdk.samtools.util.CloseableIterator;
 import htsjdk.variant.vcf.*;
-
-import htsjdk.variant.utils.*;
-import org.broadinstitute.hellbender.utils.reference.ReferenceUtils.*;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.TreeMultimap;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.ImmutableList;
 
 
 /**
@@ -51,17 +37,14 @@ public class VepVcf {
     public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
         Log.log(Level.INFO, "Opening VEP VCF file");
         //Read in the file
-        //try(final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false)){
-        //VCFHeader currentHeader = vcfFile.getFileHeader();
-        //System.out.println(currentHeader); //The file header
-
         try {
             final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
             return vcfFile;
         } catch (Exception e) {
             Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
+            System.exit(-1); //return -1 indicating error
         }
-        return null; //This is what it returns if the try catch block fails- syntax??
+        return null; //This is what it returns if the try catch block fails- needed for compilation but should never happen
     }
 
     public void parseVepVcf(VCFFileReader vcfFile) {
@@ -77,11 +60,10 @@ public class VepVcf {
 
         for (final VariantContext vc : vcfFile) {
 
-            ///Work on allele minimisation here?///- no- this is all the variants- maybe do per sample?
             //Each allele is associated with its allelenum (in case ordering is changed later on and so that the
             //genotyping part of the code has access to this information)
 
-            //Create an object to store the alleles- preferably immutable as allelenum will be dependent on order- not needed
+            //Create an object to store the alleles- preferably immutable (allelenum is dependent on order)
             List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
 
             //Store the alleles that are not the reference allele
@@ -90,11 +72,12 @@ public class VepVcf {
             //Obtain keys for each transcript entry (header in vcf file)
             CsqUtilities currentCsqRecord = new CsqUtilities();
 
-            //Bug fixing 19/12/2016- singletons weren't working
             List attribute = vc.getAttributeAsList("CSQ");
 
-            ArrayList<String> attributeArr = new ArrayList<String>();
+            ArrayList<String> attributeArr = new ArrayList<String>(); // ArrayLists are ordered and can be indexed into
 
+            // Bug fixed 19/12/2016 to fix issue where variant contexts with only one CSQ entry were erroring
+            // This was caused by single objects not being correctly stored as a list of Strings using the htsjdk method
             for (int i = 0; i < attribute.size(); i++){
                 attributeArr.add(attribute.get(i).toString());
             }

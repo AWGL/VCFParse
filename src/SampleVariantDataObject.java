@@ -3,7 +3,6 @@
  */
 public class SampleVariantDataObject {
 
-    //private VariantDataObject variant;
     private GenomeVariant variantObjectKey;
     private int alleleDepth;
     private int alleleNum;
@@ -21,7 +20,6 @@ public class SampleVariantDataObject {
                                    String zygosity, int genotypeQuality, double alleleFrequency){
         this.variantObjectKey = variantObjectKey;
         this.alleleDepth = alleleDepth;
-        //this.sampleDataObject = sampleDataObject;
         this.alleleNum = alleleNum;
         this.sampleName = sampleName;
         this.filtered = filtered;
@@ -34,7 +32,6 @@ public class SampleVariantDataObject {
 
     public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
     public int getAlleleDepth(){return this.alleleDepth;}
-    //public SampleDataObject getSampleDataObject(){return this.sampleDataObject;}
     public String getVariantObjectKey() {return this.variantObjectKey.toString();}
     public int getAlleleNum() {return this.alleleNum;}
     public String getSampleName(){return this.sampleName;}

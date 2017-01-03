@@ -107,8 +107,6 @@ public class ReadOut {
                 //Polyphen Score
                 System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("[\\(\\)]")[1]);
 
-
-
             }
 
 
