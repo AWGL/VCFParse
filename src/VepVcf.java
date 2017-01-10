@@ -154,9 +154,20 @@ public class VepVcf {
 
                         //System.out.println(currentAllele);
 
+                        //Skip everything when genotype could not be called- there will be no metadata associated with it
+                        if (currentAllele.toString().equals(".")){
+                            continue;
+                        }
+
                         int alleleNum = allAlleles.indexOf(currentAllele);
                         int alleleDepth = currentGenotype.getAD()[alleleNum];
                         double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
+
+                        //For homozygotes allele frequency is always 1 and this is not calculated correctly using the
+                        //above method
+                        if (currentGenotype.isHom()){
+                            alleleFrequency = 1;
+                        }
 
                         // Key for variant object- to enable it to be linked up with the sample later
                         GenomeVariant keyForVariant = createAlleleKey(vc,
@@ -229,9 +240,15 @@ public class VepVcf {
     public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
         int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
+            //System.out.println(Alleles);
+            //System.out.println(currentAllele);
+            //Skip everything when genotype could not be called
+            if (currentAllele.toString().equals(".")){
+                continue;
+            }
+            //System.out.println(currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
             locusDepth += (currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
         }
-
         return locusDepth;
     }
 

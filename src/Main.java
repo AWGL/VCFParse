@@ -42,6 +42,8 @@ public class Main {
         path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_37_newann.vcf";
         //path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\gatk_37_newannterss.vcf"; //test readfile error
         path="E:\\SomaticAmpliconVcfs\\AWDRF\\161007_M04557_0008_000000000-AWDRF_15M15332-1A_filtered_meta_annotated.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\AL3C0\\160310_M02641_0089_000000000-AL3C0_15M12209_filtered_meta_annotated.vcf";
+        path="C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\ExampleFiles\\AWDRF\\161007_M04557_0008_000000000-AWDRF_15M15332-5B_filtered_meta_annotated.vcf";
 
         //Creates a new File instance by converting given pathname string into an abstract pathname
         File vcf_file = new File(path);

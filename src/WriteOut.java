@@ -36,33 +36,12 @@ public class WriteOut{
             boolean headers = true;
 
             //Create key array for robust lookup ordering to ensure that there are no issues if order changes
-            List<String> keyArray = new ArrayList<String>();
+            //May need later if rename headers from how they are stored as keys- see code below
+            //List<String> keyArray = new ArrayList<String>();
 
             //Decides which fields from the CSQ object to print out- put what field is named in keyArray in search
-            //Put this in in the order you want them to come out
-            List<String> csqFieldsToPrint = new ArrayList<String>();
-            csqFieldsToPrint.add("Allele");
-            csqFieldsToPrint.add("AFR_MAF");
-            csqFieldsToPrint.add("AMR_MAF");
-            csqFieldsToPrint.add("EAS_MAF");
-            csqFieldsToPrint.add("EUR_MAF");
-            csqFieldsToPrint.add("SAS_MAF");
-            csqFieldsToPrint.add("ExAC_AFR_MAF");
-            csqFieldsToPrint.add("ExAC_AMR_MAF");
-            csqFieldsToPrint.add("ExAC_EAS_MAF");
-            csqFieldsToPrint.add("ExAC_FIN_MAF");
-            csqFieldsToPrint.add("ExAC_NFE_MAF");
-            csqFieldsToPrint.add("ExAC_OTH_MAF");
-            csqFieldsToPrint.add("ExAC_SAS_MAF");
-            csqFieldsToPrint.add("Feature");
-            csqFieldsToPrint.add("SYMBOL");
-            csqFieldsToPrint.add("HGVSc");
-            csqFieldsToPrint.add("HGVSp");
-            csqFieldsToPrint.add("Consequence");
-            csqFieldsToPrint.add("EXON");
-            csqFieldsToPrint.add("INTRON");
-            csqFieldsToPrint.add("SIFT");
-            csqFieldsToPrint.add("PolyPhen");
+            ChooseCsqFields choice = new ChooseCsqFields();
+            List<String> selectedFields = choice.selectedCsqFields();
 
             for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
                 String[] splitKey = sampleVariantHashMapKey.split(",");
@@ -73,7 +52,7 @@ public class WriteOut{
 
                 for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
 
-                    //Write headers which are not from the CSQ object- set the text to what you want to output
+                    //Write headers which are not from the CSQ object- set the text to what want to output
                     if (headers) {
 
                         writer.write("SampleID");
@@ -86,21 +65,22 @@ public class WriteOut{
                         writer.write("\t");
                         writer.write("Quality");
 
+                        /*
+                        //keyArray is all of the headers- not required at present but could be useful if decide to
+                        //rename what headers are called
                         for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
-                            //Populate the keyArray with the headers for later retrieval of data
                             keyArray.add(key); //Could consider linking this with what want to call each field in output
-                            //writer.write("\t"); //No- print only required data
-                            //writer.write(key); //No- print only required data
+                            //writer.write("\t"); //Commented out as only want to write out required data
+                            //writer.write(key); //Commented out as only want to write out required data
                         }
+                        */
 
                         //Write out the headers- temporary workaround
-                        for (String headersKey : csqFieldsToPrint) {
+                        for (String headersKey : selectedFields) {
                             //Populate the keyArray with the headers for later retrieval of data
                             writer.write("\t");
                             writer.write(headersKey);
                         }
-
-
                         headers = false;
                         writer.newLine();
                     }
@@ -117,25 +97,23 @@ public class WriteOut{
                     //System.out.println("g." + (sampleVariantHashMapKey.split(",")[1].split(":")[1]) +
                     //(sampleVariantHashMapKey.split(",")[2]));
 
-                    //Minimise alleles? GenomeVariant class
+                    //Minimise alleles using the GenomeVariant class and write out the variant in this format
                     GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
                         (sampleVariantHashMapKey.split(",")[2]));
-                    //genomeVariant.convertToMinimalRepresentation();
-                    //System.out.println(genomeVariant);
-
+                    genomeVariant.convertToMinimalRepresentation(); //Untested for accuracy
                     writer.write("g." + (genomeVariant));
                     writer.write("\t");
 
                     //Sample allele frequency
-                    //Truncate output
-                    writer.write(String.format("%.2f", sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
+                    //Truncate output to 3dp
+                    writer.write(String.format("%.3f", sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
                     writer.write("\t");
 
                     //Sample quality
                     writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
                     writer.write("\t");
 
-                    for (String keyToPrint : csqFieldsToPrint) {
+                    for (String keyToPrint : selectedFields) {
                         //writer.write(keyToPrint);
                         writer.write(vepAnnObj.getVepEntry(keyToPrint));
                         writer.write("\t");
