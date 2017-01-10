@@ -223,37 +223,23 @@ public class VepVcf {
 
     public double calcAlleleFrequency(int locusDepth, int alleleDepth) {
         double alleleFrequency = (((double)alleleDepth) / ((double)locusDepth));
-        //System.out.println(alleleDepth);
-        //System.out.println(locusDepth);
-        //System.out.println(alleleFrequency);
         return alleleFrequency;
     }
 
     public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
         int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
-            //System.out.println(currentGenotype);
-            //System.out.println(currentAllele);
             locusDepth += (currentGenotype.getAD()[locusAlleles.indexOf(currentAllele)]);
         }
-        //System.out.println(Alleles);
-        //System.out.println(currentGenotype);
-        //System.out.println(locusDepth);
+
         return locusDepth;
     }
 
     public String vepHeaders(VCFFileReader vcfFile)   {
         //Create the VCF Header object
         VCFHeader currentHeader = vcfFile.getFileHeader();
-        //System.out.println(currentHeader);
         VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
-        //System.out.println(vepInfo);
-        //System.out.println(vepInfo.getDescription());
-        //System.out.println(vepInfo.getDescription().split("Format:")[1]);
-
         String vepHeader = vepInfo.getDescription().split("Format:")[1].trim();
-        //String vepHeader = vepInfo.getDescription().split("\\.")[1].split(":")[1].trim();
-        //System.out.println(vepHeader); //prints the header
         return vepHeader; //returns the header
     }
 
