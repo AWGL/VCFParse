@@ -30,7 +30,7 @@ public class SampleVariantDataObject {
         this.alleleFrequency = alleleFrequency;
     }
 
-    public GenomeVariant getVariantObjectKeyAsObject(){return this.variantObjectKey;}
+    public GenomeVariant getVariantObjectKeyAsGenomeVariant(){return this.variantObjectKey;}
     public int getAlleleDepth(){return this.alleleDepth;}
     public String getVariantObjectKey() {return this.variantObjectKey.toString();}
     public int getAlleleNum() {return this.alleleNum;}

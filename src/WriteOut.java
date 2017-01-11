@@ -12,6 +12,8 @@ import java.util.LinkedHashMap;
 
 public class WriteOut{
 
+    //Writes out desired fields to a tab-delimited text file
+
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap;
     private LinkedHashMap<String, VariantDataObject> variantHashMap;
 
@@ -20,8 +22,6 @@ public class WriteOut{
             this.sampleVariantHashMap = sampleVariantHashMap;
             this.variantHashMap = variantHashMap;
         }
-
-    //Create logic to write out variables to a file (tsv)
 
     //Temp write out all vep annotations
     public void writeOutVepAnnotations() throws Exception{

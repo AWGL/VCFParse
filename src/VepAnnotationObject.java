@@ -26,35 +26,12 @@ public class VepAnnotationObject {
 
     public Collection<String> getVepHeaders() { return this.vepAnnotationHashMap.keySet(); }
 
-    public Collection<String> getEntireVepRecordValues() {
-        return this.vepAnnotationHashMap.values();
-        }
-
     public String getAlleleNum(){
         return this.vepAnnotationHashMap.get("ALLELE_NUM");
     } //Note, this is a String
 
-    public LinkedHashMap<String, String> getVepAnnotationHashMap() { return this.vepAnnotationHashMap;}
-
     public String getVepEntry(String key) { return vepAnnotationHashMap.get(key); }
 
-    //public int getAlleleDepth() {return this.vepAnnotationHashMap.get("");}
-
-    public void getVepAnnotationObjectFromAlleleNum(String inp){ //Change from void to correct output
-        //Get the allele number
-
-
-        //Return a collection of every Vep Annotation Object where the allele number matches the input string
-
-
-
-        //If it matches the input inp then append it to some sort of appropriate collection
-        //Note that here will want to replace whatever number CSQ we are on with a new number reflecting only the
-        //CSQs for that allele
-
-
-
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -53,7 +53,7 @@ public class CsqUtilities {
         //headers to data hashmap retrieved
         currentVepAnnotationObject.setVepRecord(vepHashMap);
 
-        return currentVepAnnotationObject; //Change this potentially
+        return currentVepAnnotationObject;
     }
 
     public ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
