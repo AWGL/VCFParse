@@ -90,6 +90,7 @@ public class VepVcf {
 
             variantFiltered = vc.isFiltered();
             variantSite = vc.isVariant();
+            idField = vc.getID();
             variantQuality = vc.getPhredScaledQual();
 
             for (int allele = 0; allele < altAlleles.size(); allele++) {
@@ -102,7 +103,7 @@ public class VepVcf {
 
                 //Key
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
-                System.out.println(variantObject); //for debugging 12/01/17
+                //System.out.println(variantObject); //for debugging 12/01/2017
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
                 ArrayList<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele + 1);

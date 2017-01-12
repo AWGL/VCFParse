@@ -64,6 +64,8 @@ public class WriteOut{
                         writer.write("AlleleFrequency");
                         writer.write("\t");
                         writer.write("Quality");
+                        writer.write("\t");
+                        writer.write("dbSNP");
 
                         /*
                         //keyArray is all of the headers- not required at present but could be useful if decide to
@@ -118,7 +120,13 @@ public class WriteOut{
                     writer.write(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
                     writer.write("\t");
 
+                    //dbSNP
+                    //Truncate output to 3 decimal places
+                    writer.write((variantHashMap.get(forVariantRetrieval).getIdField()));
+                    writer.write("\t");
+
                     for (String keyToPrint : selectedFields) {
+                        //System.out.println(keyToPrint);
                         //writer.write(keyToPrint);
                         writer.write(vepAnnObj.getVepEntry(keyToPrint));
                         writer.write("\t");
