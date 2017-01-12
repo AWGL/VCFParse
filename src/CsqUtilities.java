@@ -43,7 +43,22 @@ public class CsqUtilities {
         String[] headers = variantHeaders.split("\\|");
 
         for (int i=0 ; i < annotations.length; i++) {
-            vepHashMap.put(headers[i],annotations[i]);
+            if (headers[i].equals("EXON") && !annotations[i].isEmpty() ||
+                    headers[i].equals("INTRON") && !annotations[i].isEmpty()) {
+                vepHashMap.put(headers[i], annotations[i].split("/")[0]);
+            }
+            else if (headers[i].equals("HGVSc") && !annotations[i].isEmpty() ||
+                    headers[i].equals("HGVSp") && !annotations[i].isEmpty()) {
+                vepHashMap.put(headers[i], annotations[i].split(":")[1]);
+            }
+            else if (headers[i].matches("^.*\\_MAF$") && !(annotations[i].isEmpty())){
+                //Change formatting of MAF fields to remove leading character and store as double
+                for (String alleles : annotations[i].split("&")) {
+                    System.out.println(alleles);
+                }
+                //vepHashMap.put(headers[i],annotations[i]);
+            }
+            else{vepHashMap.put(headers[i],annotations[i]);}
             //System.out.println(vepHashMap);
         }
 
