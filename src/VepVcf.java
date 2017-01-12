@@ -52,6 +52,7 @@ public class VepVcf {
         boolean variantFiltered = false; //Default setting
         boolean variantSite = false; //Default setting
         String idField = null; //Default setting
+        double variantQuality;
 
         //Obtain VEP Headers- same for the whole VCF file
         String vHeaders = vepHeaders(vcfFile);
@@ -89,10 +90,9 @@ public class VepVcf {
 
             variantFiltered = vc.isFiltered();
             variantSite = vc.isVariant();
-            idField = vc.getID();
+            variantQuality = vc.getPhredScaledQual();
 
             for (int allele = 0; allele < altAlleles.size(); allele++) {
-
                 //Avoid storing an empty object (as there are no Vep annotations) nested within the VariantDataObject
                 //* just denotes an overlapping indel and is not a SNV at that position
                 if (altAlleles.get(allele).toString().equals("*")) {
@@ -106,11 +106,9 @@ public class VepVcf {
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
                 ArrayList<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele + 1);
 
-                //System.out.println(alleleCsq);
-
                 //Data
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
-                        variantFiltered, variantSite, idField);
+                        variantFiltered, variantSite, idField, variantQuality);
 
                 variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
@@ -135,16 +133,6 @@ public class VepVcf {
 
                     //Zygosity
                     String zygosity = obtainZygosity(currentGenotype);
-
-                    //Creation of SampleData object- the data associated once with each sample
-                    //(rather than with each specific allele in the sample)
-                    //This object will be encapsulated within the object which incorporates the variant-specific
-                    //sample information- called SampleVariantDataObject
-                    //SampleDataObject currentSampleDataObject =
-                    //new SampleDataObject(currentGenotype.getSampleName(),
-                    //currentGenotype.isFiltered(), currentGenotype.isMixed(),
-                    //currentGenotype.getPloidy(), zygosity, currentGenotype.getGQ());
-
 
                     //Obtain depth of both alleles at the locus
                     int locusDepth = calcLocusDepth(currentGenotypeAlleles, allAlleles, currentGenotype);

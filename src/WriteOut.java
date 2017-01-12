@@ -105,12 +105,17 @@ public class WriteOut{
                     writer.write("\t");
 
                     //Sample allele frequency
-                    //Truncate output to 3dp
+                    //Truncate output to 3 decimal places
                     writer.write(String.format("%.3f", sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
                     writer.write("\t");
 
-                    //Sample quality
-                    writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
+                    //Sample quality (genotype) - not required 12/01/17
+                    //writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
+                    //writer.write("\t");
+
+                    //Variant quality
+                    //Truncate output to 3 decimal places
+                    writer.write(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
                     writer.write("\t");
 
                     for (String keyToPrint : selectedFields) {
