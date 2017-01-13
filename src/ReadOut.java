@@ -20,8 +20,17 @@ public class ReadOut {
 
         for (String sampleVariantHashMapKey : sampleVariants.keySet()) {
 
-            //Skip hom ref sites, which we don't want to readout- or should we vaoid storing them
+            //Attempt to retrieve allele number directly
+            System.out.println(sampleVariantHashMapKey);
+            System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum());
 
+            int alleleN = sampleVariants.get(sampleVariantHashMapKey).getAlleleNum();
+
+            for (String position : variants.keySet()){
+                //Note this shouldn't be nested as it is all the variants not just the one at this position
+                System.out.println(position);
+                System.out.println();
+            }
 
             //System.out.println(test);
             //System.out.println(sampleVariantHashMap.get(test));
