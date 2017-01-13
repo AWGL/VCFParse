@@ -94,22 +94,17 @@ public class ReadOut {
                 System.out.println(vepAnnObj.getVepEntry("Intron")); //Either or with Exon
                 */
 
-                if (vepAnnObj.getVepEntry("SIFT").equals("") && vepAnnObj.getVepEntry("PolyPhen").equals("")){
-                    continue; //Need to skip where it is empty or the [1] index won't work
+                if (!(vepAnnObj.getVepEntry("SIFT").equals(""))) {
+                    //SIFT Result
+                    System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[0]);
+                    //SIFT Score
+                    System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[1]);
+                } else if (!(vepAnnObj.getVepEntry("PolyPhen").equals(""))) {
+                    //Polyphen Result
+                    System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("\\(")[0]);
+                    //Polyphen Score
+                    System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("[\\(\\)]")[1]);
                 }
-
-                System.out.println(vepAnnObj.getVepEntry("SIFT"));
-                System.out.println(vepAnnObj.getVepEntry("PolyPhen"));
-
-                //SIFT Result
-                System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[0]);
-                //SIFT Score
-                System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[1]);
-                //Polyphen Result
-                System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("\\(")[0]);
-                //Polyphen Score
-                System.out.println(vepAnnObj.getVepEntry("PolyPhen").split("[\\(\\)]")[1]);
-
             }
 
 
