@@ -50,24 +50,23 @@ public class CsqUtilities {
                 //System.out.println(annotations[i]);
                 currentCsqAllele = annotations[i];
                 vepHashMap.put(headers[i],annotations[i]);
-            }
-            else if (headers[i].equals("EXON") && !annotations[i].isEmpty() ||
+            // To handle cases where formatting in CSQ field is not as desired in output
+            } else if (headers[i].equals("EXON") && !annotations[i].isEmpty() ||
                     headers[i].equals("INTRON") && !annotations[i].isEmpty()) {
                 vepHashMap.put(headers[i], annotations[i].split("/")[0]);
-            }
-            else if (headers[i].equals("HGVSc") && !annotations[i].isEmpty() ||
+            } else if (headers[i].equals("HGVSc") && !annotations[i].isEmpty() ||
                     headers[i].equals("HGVSp") && !annotations[i].isEmpty()) {
                 vepHashMap.put(headers[i], annotations[i].split(":")[1]);
-            }
-            else if (headers[i].matches("^.*\\_MAF$") && !(annotations[i].isEmpty())){
+            } else if (headers[i].matches("^.*\\_MAF$") && !(annotations[i].isEmpty())){
                 //Change formatting of MAF fields to remove leading character and store as double
                 for (String alleles : annotations[i].split("&")) {
-                    //System.out.println(currentCsqAllele);
-                    //System.out.println(alleles);
-                    //System.out.println(alleles.split(":")[0]);
                     String mafAllele = alleles.split(":")[0];
                     if (mafAllele.equals(currentCsqAllele)) {
-                        //System.out.println(alleles.split(":")[1]);
+                        /*
+                        Note that if it is required to change this to a double, the hashmap used will need to change
+                        For database write, I recommend being more explicit anyway in the model- flexibility is
+                        not an option when writing to a database
+                        */
                         vepHashMap.put(headers[i], alleles.split(":")[1]);
                     }
                     //Handles case where there is a MAF entry but not for the current allele
@@ -78,6 +77,7 @@ public class CsqUtilities {
                 }
                 //vepHashMap.put(headers[i],annotations[i]);
             }
+            //Usual behaviour for the not-special cases
             else{vepHashMap.put(headers[i],annotations[i]);}
         }
         //System.out.println(vepHashMap);

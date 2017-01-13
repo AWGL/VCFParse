@@ -64,12 +64,12 @@ public class Main {
         //System.out.println(variantHashMap);
 
         //TESTING READOUT
-        //ReadOut retrieveData = new ReadOut(sampleVariantHashMap, variantHashMap);
-        //retrieveData.readOutTest();
+        ReadOut retrieveData = new ReadOut(sampleVariantHashMap, variantHashMap);
+        retrieveData.readOutTest();
 
         //TESTING WRITEOUT
-        WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
-        writeData.writeOutVepAnnotations();
+        //WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
+        //writeData.writeOutVepAnnotations();
 
         }
 }

@@ -98,6 +98,9 @@ public class ReadOut {
                     continue; //Need to skip where it is empty or the [1] index won't work
                 }
 
+                System.out.println(vepAnnObj.getVepEntry("SIFT"));
+                System.out.println(vepAnnObj.getVepEntry("PolyPhen"));
+
                 //SIFT Result
                 System.out.println(vepAnnObj.getVepEntry("SIFT").split("[\\(\\)]")[0]);
                 //SIFT Score
