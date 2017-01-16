@@ -68,8 +68,8 @@ public class Main {
         //retrieveData.readOutTest();
 
         //TESTING WRITEOUT
-        //WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
-        //writeData.writeOutVepAnnotations();
+        WriteOut writeData = new WriteOut(sampleVariantHashMap, variantHashMap);
+        writeData.writeOutVepAnnotations();
 
         }
 }

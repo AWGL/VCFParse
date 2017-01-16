@@ -33,6 +33,7 @@ public class ChooseCsqFields {
         csqFieldsToPrint.add("INTRON");
         csqFieldsToPrint.add("SIFT");
         csqFieldsToPrint.add("PolyPhen");
+        csqFieldsToPrint.add("Existing_variation");
         return csqFieldsToPrint;
     }
 

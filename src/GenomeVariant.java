@@ -3,6 +3,7 @@
  * Class manually copied until I work out how to import the NHS framework authored by Matt
  * AlleleNum added for flexibility
  */
+
 public class GenomeVariant {
 
     private String contig, ref, alt;
