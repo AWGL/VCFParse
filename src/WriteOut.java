@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedHashMap;
 
@@ -24,9 +23,10 @@ public class WriteOut{
         }
 
     //Temp write out all vep annotations
-    //Set file path to deisred location
+    //Set file path to desired location
     public void writeOutVepAnnotations() throws Exception{
-        final File outputFile = new File("C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt");
+        String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt";
+        final File outputFile = new File(outputPath);
         //outputFile.createNewFile();
 
         //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream
@@ -48,7 +48,7 @@ public class WriteOut{
                 String[] splitKey = sampleVariantHashMapKey.split(",");
                 String forVariantRetrieval = splitKey[1] + splitKey[2];
 
-                //Retrieve id field which contains dbSNP identifier (if applicable)
+                //Retrieve all csq fields associated with the variant in the current iteration
                 VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
 
                 for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
@@ -66,7 +66,7 @@ public class WriteOut{
                         writer.write("\t");
                         writer.write("Quality");
                         writer.write("\t");
-                        writer.write("dbSNP");
+                        writer.write("ID");
 
                         /*
                         //keyArray is all of the headers- not required at present but could be useful if decide to
