@@ -78,7 +78,7 @@ public class WriteOut{
                         }
                         */
 
-                        //Write out the headers- temporary workaround
+                        //Write out the headers from the csq fields
                         for (String headersKey : selectedFields) {
                             //Populate the keyArray with the headers for later retrieval of data
                             writer.write("\t");
@@ -122,7 +122,6 @@ public class WriteOut{
                     writer.write("\t");
 
                     //dbSNP
-                    //Truncate output to 3 decimal places
                     writer.write((variantHashMap.get(forVariantRetrieval).getIdField()));
                     writer.write("\t");
 
