@@ -101,8 +101,12 @@ public class VepVcf {
                     continue;
                 }
 
+                System.out.print("variant " + allAlleles.indexOf(altAlleles.get(allele)) + " ");
+                System.out.println(altAlleles.get(allele));
+
                 //Key
-                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString());
+                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(),
+                        allAlleles.indexOf(altAlleles.get(allele)));
                 //System.out.println(variantObject); //for debugging 12/01/2017
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
@@ -153,6 +157,9 @@ public class VepVcf {
                         int alleleDepth = currentGenotype.getAD()[alleleNum];
                         double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
 
+                        System.out.print(alleleNum + " ");
+                        System.out.println(currentAllele);
+
                         //For homozygotes allele frequency is always 1 and this is not calculated correctly using the
                         //above method
                         if (currentGenotype.isHom()){
@@ -161,12 +168,12 @@ public class VepVcf {
 
                         // Key for variant object- to enable it to be linked up with the sample later
                         GenomeVariant keyForVariant = createAlleleKey(vc,
-                                currentAllele.toString().replaceAll("\\*", ""));
+                                currentAllele.toString().replaceAll("\\*", ""), alleleNum);
 
                         // Key for sample variant object- stores variant and allele data which is sample specific
                         SampleVariant currentSampleVariant = new SampleVariant(currentGenotype.getSampleName(),
                                 vc.getContig(), vc.getStart(), currentGenotypeAlleles, currentAllele,
-                                vc.getReference());
+                                vc.getReference(), alleleNum);
 
                         // Skip reference allele and where there is an overlapping deletion (don't store it)
                         // This won't create a problem for allele depth as locus depth is calculated above
@@ -200,12 +207,12 @@ public class VepVcf {
         //System.out.println(variantHashMap);
 
 
-    public GenomeVariant createAlleleKey(VariantContext vc, String altAllele) { //LinkedHashMap
+    public GenomeVariant createAlleleKey(VariantContext vc, String altAllele, int alleleNum) { //LinkedHashMap
         //Log.log(Level.INFO, "Parsing Alleles");
         //Requires String for GenomeVariant class
         //This is intended as the key to the hashmap
         return new GenomeVariant(vc.getContig(), vc.getStart(),
-                vc.getReference().toString().replaceAll("\\*", ""), altAllele);
+                vc.getReference().toString().replaceAll("\\*", ""), altAllele, alleleNum);
     }
 
 

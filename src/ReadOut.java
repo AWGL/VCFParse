@@ -21,6 +21,7 @@ public class ReadOut {
         for (String sampleVariantHashMapKey : sampleVariants.keySet()) {
 
             //Attempt to retrieve allele number directly
+            /*
             System.out.println(sampleVariantHashMapKey);
             System.out.println(sampleVariants.get(sampleVariantHashMapKey).getAlleleNum());
 
@@ -31,6 +32,7 @@ public class ReadOut {
                 System.out.println(position);
                 System.out.println();
             }
+            */
 
             //System.out.println(test);
             //System.out.println(sampleVariantHashMap.get(test));

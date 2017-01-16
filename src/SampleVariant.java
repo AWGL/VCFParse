@@ -12,17 +12,18 @@ public class SampleVariant {
     private int position;
     private List<Allele> alleleList;
     private Allele allele;
+    private int alleleNum;
     private Allele refAllele;
 
     public SampleVariant(String sampleName, String contig, int position, List<Allele> alleleList, Allele allele,
-                         Allele refAllele){
+                         Allele refAllele, int alleleNum){
         this.sampleName = sampleName;
         this.contig = contig;
         this.position = position;
         this.alleleList = alleleList;
         this.allele = allele;
         this.refAllele = refAllele;
-
+        this.alleleNum = alleleNum;
     }
 
     public String getSampleName() {return this.sampleName;}
@@ -31,6 +32,7 @@ public class SampleVariant {
     private List<Allele> getAlleleList() {return this.alleleList;}
     private Allele getAllele() {return this.allele;}
     private Allele getRefAllele() {return this.refAllele;}
+    private int getAlleleNum() {return this.alleleNum;}
 
     @Override
     public String toString() {
