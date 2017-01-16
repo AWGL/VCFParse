@@ -101,9 +101,6 @@ public class VepVcf {
                     continue;
                 }
 
-                System.out.print("variant " + allAlleles.indexOf(altAlleles.get(allele)) + " ");
-                System.out.println(altAlleles.get(allele));
-
                 //Key
                 GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(),
                         allAlleles.indexOf(altAlleles.get(allele)));
@@ -115,8 +112,6 @@ public class VepVcf {
                 //Data
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
                         variantFiltered, variantSite, idField, variantQuality);
-
-                System.out.println("CSQ allelenum " + currentVariantDataObject.getCsqObject().get(0).getAlleleNum());
 
                 variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
@@ -158,9 +153,6 @@ public class VepVcf {
                         int alleleNum = allAlleles.indexOf(currentAllele);
                         int alleleDepth = currentGenotype.getAD()[alleleNum];
                         double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
-
-                        System.out.print(alleleNum + " ");
-                        System.out.println(currentAllele);
 
                         //For homozygotes allele frequency is always 1 and this is not calculated correctly using the
                         //above method
