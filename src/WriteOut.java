@@ -24,6 +24,7 @@ public class WriteOut{
         }
 
     //Temp write out all vep annotations
+    //Set file path to deisred location
     public void writeOutVepAnnotations() throws Exception{
         final File outputFile = new File("C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt");
         //outputFile.createNewFile();
