@@ -116,6 +116,8 @@ public class VepVcf {
                 VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
                         variantFiltered, variantSite, idField, variantQuality);
 
+                System.out.println("CSQ allelenum " + currentVariantDataObject.getCsqObject().get(0).getAlleleNum());
+
                 variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
             }
