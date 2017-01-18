@@ -161,7 +161,7 @@ public class WriteOut {
 
     public void splitMultisample(File inputMultisample) throws Exception {
         try (BufferedReader multisample = new BufferedReader(new FileReader(inputMultisample))) {
-            ArrayListMultimap<String,String> samplesData = ArrayListMultimap.create();
+            ArrayListMultimap<String, String> samplesData = ArrayListMultimap.create();
 
             //Assign data to specific samples
             String headers = multisample.readLine(); //headers line- needed for every sample
@@ -183,114 +183,6 @@ public class WriteOut {
                     }
                 }
             }
-
-
-
-
-
-
-            /*
-            //Obtain unique set of sample ids in file
-            while ((line = multisample.readLine()) != null) {
-                System.out.println(line);
-                System.out.println(line.split("\t", -1)[0]);
-                samples.add((line.split("\t", -1)[0]));
-            }
-
-            TreeSet<String> samplesSet = new TreeSet<String>(samples);
-            System.out.println(samplesSet);
-
-            while ((line = multisample.readLine()) != null) {
-                if (line.split("\t", -1)[0]).
-
-            }
-
-
-
-
-                ArrayList<String> splitColumn =  new ArrayList<String>(); //new ArrayList<String>(Arrays.asList(line.split("\\t")));
-                Collections.addAll(splitColumn, (line.split("\\t")));
-                data.add(splitColumn);
-            }
-
-            //Order data based on sample id rather than on variant
-            Comparator<ArrayList<String>> comparator = new Comparator<ArrayList<String>>() {
-                public int compare(ArrayList<String> dataLine1, ArrayList<String> dataLine2) {
-                    return (dataLine1.get(0)).compareTo(dataLine2.get(0));
-                }
-            };
-
-            Collections.sort(data, comparator);
-
-
-            //Collections.sort(data, (ArrayList<String> dataLine1, ArrayList<String> dataLine2) ->
-                    //(dataLine1.get(0)).compareTo(dataLine2.get(0)));
-
-            //split up sorted file into separate files based named by sample id
-            Multisample multisample_test = new Multisample(data);
-            multisample_test.splitSorted();
-
-            for (int i = 0; i < (data.size() - 1); i++) {
-                String outPath = " C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\";
-                //String outputFile = outPath + sampleName;
-
-                //try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                //new FileOutputStream(outputFile), true, "utf-8"))) {
-                // }
-
-            }
-
-
-
-
-            /*
-            System.out.println(data.get(0).get(0));
-            for (ArrayList<String> entry : data) {
-                System.out.print(entry.get(0));
-                System.out.print("\t");
-                System.out.print(entry.get(1));
-                System.out.print("\t");
-                System.out.println(entry.get(2));
-            }
-            */
-
         }
     }
 }
-
-/*
-    public void splitMultisample(File inputMultisample) throws Exception{
-        try(BufferedReader multisample = new BufferedReader(new FileReader(inputMultisample))){
-            String headers = multisample.readLine(); //headers line- needed for every sample
-            String line;
-            List<String> samples = new ArrayList<String>();
-            List<String> data = new ArrayList<String>();
-            while ((line = multisample.readLine()) != null) {
-                samples.add(line.split("\\t")[0]);
-                data.add(line);
-            }
-            //Consider re-implementing this pretty awful solution with a better one (Comparator?) to sort data array
-            TreeSet<String> samplesSet = new TreeSet<String>(samples);
-
-            for (String dataLine : data){
-
-                for (String sample : samplesSet){
-                    if (dataLine.split("\\t")[0].equals(sample)) {
-                        String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\" + sample + ".txt";
-                        final File outputFile = new File(outputPath);
-                        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                                new FileOutputStream(outputFile), "utf-8"))) {
-                            writer.write(headers);
-                            writer.newLine();
-                            writer.write(dataLine);
-                            writer.newLine();
-                        }
-                    }
-                }
-
-            }
-
-        }
-
-    }
-*/
