@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.io.BufferedReader;
+import java.util.ArrayList;
 
 
 /**
@@ -26,12 +27,14 @@ public class WriteOut {
         this.variantHashMap = variantHashMap;
     }
 
-    //Temp write out all vep annotations
+    //Write out required data
     //Set file path to desired location
     public void writeOutVepAnnotations() throws Exception {
         String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt";
         final File outputFile = new File(outputPath);
         //outputFile.createNewFile();
+
+        ArrayList<ArrayList<String>> toWriteOut = new ArrayList<ArrayList<String>>();
 
         //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream on exception
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
@@ -45,11 +48,18 @@ public class WriteOut {
 
             //Decides which fields from the CSQ object to print out- put what field is named in keyArray in search
             ChooseCsqFields choice = new ChooseCsqFields();
-            List<String> selectedFields = choice.selectedCsqFields();
+            List<String> selectedFields = choice.debuggingCsqFields();
 
             for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
                 String[] splitKey = sampleVariantHashMapKey.split(",");
                 String forVariantRetrieval = splitKey[1] + splitKey[2];
+
+                //Create header ArrayList<String> to append headers too (could also just use outputRows,
+                // but then need to clear it when headers is set to null
+                ArrayList<String> headerRows = new ArrayList<String>();
+
+                //Create inner ArrayList<String> to append each 'row' of the final output file
+                ArrayList<String> outputRows = new ArrayList<String>();
 
                 //Retrieve all csq fields associated with the variant in the current iteration
                 VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
@@ -57,65 +67,44 @@ public class WriteOut {
                 for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
 
                     //Write headers which are not from the CSQ object- set the text to what want to output
+                    //Come up with a better solution depending on how want to specify fields to appear in the output
                     if (headers) {
 
-                        writer.write("SampleID");
-                        writer.write("\t");
-                        writer.write("Chromosome");
-                        writer.write("\t");
-                        writer.write("Variant");
-                        writer.write("\t");
-                        writer.write("AlleleFrequency");
-                        writer.write("\t");
-                        writer.write("Quality");
-                        writer.write("\t");
-                        writer.write("ID");
-
-                        /*
-                        //keyArray is all of the headers- not required at present but could be useful if decide to
-                        //rename what headers are called
-                        for (String key : vepAnnObj.getVepAnnotationHashMap().keySet()) {
-                            keyArray.add(key); //Could consider linking this with what want to call each field in output
-                            //writer.write("\t"); //Commented out as only want to write out required data
-                            //writer.write(key); //Commented out as only want to write out required data
-                        }
-                        */
+                        headerRows.add("SampleID");
+                        headerRows.add("Chromosome");
+                        headerRows.add("Variant");
+                        headerRows.add("AlleleFrequency");
+                        headerRows.add("Quality");
+                        headerRows.add("ID");
 
                         //Write out the headers from the csq fields
                         for (String headersKey : selectedFields) {
                             //Populate the keyArray with the headers for later retrieval of data
-                            writer.write("\t");
-                            writer.write(headersKey);
+                            headerRows.add(headersKey);
                         }
                         headers = false;
-                        writer.newLine();
+                        toWriteOut.add(headerRows);
                     }
 
                     //Sample name
-                    writer.write(sampleVariantHashMapKey.split(",")[0]);
-                    writer.write("\t");
-                    //Create list of sample names (saves iterating again later)
+                    outputRows.add(sampleVariantHashMapKey.split(",")[0]);
+
+                    //Create list of sample names (saves iterating again later)- ?? (18/01/17- needed?)
 
 
                     //Sample chromosome
-                    writer.write(sampleVariantHashMapKey.split(",")[1].split(":")[0]);
-                    writer.write("\t");
-
-                    //Sample variant as g.posref>alt
-                    //System.out.println("g." + (sampleVariantHashMapKey.split(",")[1].split(":")[1]) +
-                    //(sampleVariantHashMapKey.split(",")[2]));
+                    outputRows.add(sampleVariantHashMapKey.split(",")[1].split(":")[0]);
 
                     //Minimise alleles using the GenomeVariant class and write out the variant in this format
                     GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
                             (sampleVariantHashMapKey.split(",")[2]));
                     genomeVariant.convertToMinimalRepresentation(); //Untested for accuracy
-                    writer.write("g." + (genomeVariant));
-                    writer.write("\t");
+                    outputRows.add("g." + (genomeVariant));
 
                     //Sample allele frequency
                     //Truncate output to 3 decimal places
-                    writer.write(String.format("%.3f", sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
-                    writer.write("\t");
+                    outputRows.add(String.format("%.3f",
+                            sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
 
                     //Sample quality (genotype) - not required 12/01/17
                     //writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
@@ -123,19 +112,13 @@ public class WriteOut {
 
                     //Variant quality
                     //Truncate output to 3 decimal places
-                    writer.write(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
-                    writer.write("\t");
+                    outputRows.add(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
 
                     //dbSNP
-                    writer.write((variantHashMap.get(forVariantRetrieval).getIdField()));
-                    writer.write("\t");
+                    outputRows.add((variantHashMap.get(forVariantRetrieval).getIdField()));
 
                     for (String keyToPrint : selectedFields) {
-                        //System.out.println(keyToPrint);
-                        //writer.write(keyToPrint);
-                        writer.write(vepAnnObj.getVepEntry(keyToPrint));
-                        writer.write("\t");
-                        //writer.write(vepAnnObj.getVepEntry(keyArray.get(keyArray.indexOf(keyToPrint))));
+                        outputRows.add(vepAnnObj.getVepEntry(keyToPrint));
                     }
 
                     /*
@@ -144,12 +127,21 @@ public class WriteOut {
                         writer.write("\t");
                     }
                     */
-
-                    writer.newLine();
                 }
+
+                toWriteOut.add(outputRows);
+            }
+            //Workaround to remove apparent duplicates (because all fields from the CSQ are not written out)
+            //System.out.println(toWriteOut);
+            for (ArrayList<String>dataRow : toWriteOut) {
+                for (String dataEntry : dataRow){
+                    writer.write(dataEntry);
+                    writer.write("\t");
+                }
+                writer.newLine();
             }
         }
-        splitMultisample(outputFile);
+        //split Multisample(outputFile); //To split out the multisample vcf into separate file names
     }
 
     public void splitMultisample(File inputMultisample) throws Exception {
@@ -175,6 +167,7 @@ public class WriteOut {
                         writer.newLine();
                     }
                 }
+                break; //First sample only for ease of testing
             }
         }
     }
