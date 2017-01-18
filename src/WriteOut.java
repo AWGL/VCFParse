@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.LinkedHashMap;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -131,8 +133,10 @@ public class WriteOut {
                 }
 
             }
-            //Workaround to remove apparent duplicates (because all fields from the CSQ are not written out)
-            //System.out.println(toWriteOut);
+            //Workaround to remove apparent duplicates (which occurs because all fields from the CSQ are not written out)
+            Set<String> dataSetRow = new TreeSet<String>(toWriteOut);
+
+            //Writeout duplicate removed data
             for (ArrayList<String>dataRow : toWriteOut) {
                 for (String dataEntry : dataRow){
                     writer.write(dataEntry);
