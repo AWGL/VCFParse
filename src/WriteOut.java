@@ -1,3 +1,5 @@
+import com.google.common.collect.ArrayListMultimap;
+
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -159,12 +161,53 @@ public class WriteOut {
 
     public void splitMultisample(File inputMultisample) throws Exception {
         try (BufferedReader multisample = new BufferedReader(new FileReader(inputMultisample))) {
-            ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+            ArrayListMultimap<String,String> samplesData = ArrayListMultimap.create();
 
+            //Assign data to specific samples
             String headers = multisample.readLine(); //headers line- needed for every sample
             String line;
+            while ((line = multisample.readLine()) != null) {
+                samplesData.put(line.split("\\t")[0], line);
+            }
+
+            for (String key : samplesData.keySet()) {
+                String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\";
+                String outputSampleName = key;
+                File outputFile = new File(outputPath + outputSampleName + ".txt");
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+                    writer.write(headers);
+                    writer.newLine();
+                    for (String data : samplesData.get(key)) {
+                        writer.write(data);
+                        writer.newLine();
+                    }
+                }
+            }
+
+
+
+
+
+
+            /*
+            //Obtain unique set of sample ids in file
+            while ((line = multisample.readLine()) != null) {
+                System.out.println(line);
+                System.out.println(line.split("\t", -1)[0]);
+                samples.add((line.split("\t", -1)[0]));
+            }
+
+            TreeSet<String> samplesSet = new TreeSet<String>(samples);
+            System.out.println(samplesSet);
 
             while ((line = multisample.readLine()) != null) {
+                if (line.split("\t", -1)[0]).
+
+            }
+
+
+
+
                 ArrayList<String> splitColumn =  new ArrayList<String>(); //new ArrayList<String>(Arrays.asList(line.split("\\t")));
                 Collections.addAll(splitColumn, (line.split("\\t")));
                 data.add(splitColumn);
