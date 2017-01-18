@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.LinkedHashMap;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sara on 07-Nov-16.
