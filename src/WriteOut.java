@@ -127,9 +127,9 @@ public class WriteOut {
                         writer.write("\t");
                     }
                     */
+                    toWriteOut.add(outputRows);
                 }
 
-                toWriteOut.add(outputRows);
             }
             //Workaround to remove apparent duplicates (because all fields from the CSQ are not written out)
             //System.out.println(toWriteOut);
