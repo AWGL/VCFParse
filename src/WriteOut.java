@@ -1,6 +1,7 @@
 import java.io.FileReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
@@ -38,8 +39,7 @@ public class WriteOut {
         //outputFile.createNewFile();
 
         //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream on exception
-        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(outputFile), "utf-8"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
 
             //Set variable to write headers only once at the beginning of the output file
             boolean headers = true;
