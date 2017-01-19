@@ -49,8 +49,8 @@ public class WriteOut {
             //List<String> keyArray = new ArrayList<String>();
 
             //Decides which fields from the CSQ object to print out- put what field is named in keyArray in search
-            ChooseCsqFields choice = new ChooseCsqFields();
-            List<String> selectedFields = choice.debuggingCsqFields();
+            ChooseCsqFields csqFieldSelection = new ChooseCsqFields();
+            List<String> selectedFields = csqFieldSelection.selectedCsqFields();
 
             for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
                 String[] splitKey = sampleVariantHashMapKey.split(",");
@@ -60,13 +60,13 @@ public class WriteOut {
                 // but then need to clear it when headers is set to null
                 ArrayList<String> headerRows = new ArrayList<String>();
 
-                //Create inner ArrayList<String> to append each 'row' of the final output file
-                ArrayList<String> outputRows = new ArrayList<String>();
-
                 //Retrieve all csq fields associated with the variant in the current iteration
                 VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
 
                 for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
+
+                    //Create inner ArrayList<String> to represent each 'row' of the final output file
+                    ArrayList<String> outputRows = new ArrayList<String>();
 
                     //Write headers which are not from the CSQ object- set the text to what want to output
                     //Come up with a better solution depending on how want to specify fields to appear in the output
