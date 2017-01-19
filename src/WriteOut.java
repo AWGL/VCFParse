@@ -38,98 +38,95 @@ public class WriteOut {
 
         ArrayList<ArrayList<String>> toWriteOutMutable = new ArrayList<ArrayList<String>>();
 
-        //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream on exception
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+        //Set variable to write headers only once at the beginning of the output file
+        boolean headers = true;
 
-            //Set variable to write headers only once at the beginning of the output file
-            boolean headers = true;
+        //Create key array for robust lookup ordering to ensure that there are no issues if order changes
+        //May need later if rename headers from how they are stored as keys- see code below
+        //List<String> keyArray = new ArrayList<String>();
 
-            //Create key array for robust lookup ordering to ensure that there are no issues if order changes
-            //May need later if rename headers from how they are stored as keys- see code below
-            //List<String> keyArray = new ArrayList<String>();
+        //Decides which fields from the CSQ object to print out- put what field is named in keyArray in search
+        ChooseCsqFields csqFieldSelection = new ChooseCsqFields();
+        List<String> selectedFields = csqFieldSelection.selectedCsqFields();
 
-            //Decides which fields from the CSQ object to print out- put what field is named in keyArray in search
-            ChooseCsqFields csqFieldSelection = new ChooseCsqFields();
-            List<String> selectedFields = csqFieldSelection.selectedCsqFields();
+        for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
+            String[] splitKey = sampleVariantHashMapKey.split(",");
+            String forVariantRetrieval = splitKey[1] + splitKey[2];
 
-            for (String sampleVariantHashMapKey : sampleVariantHashMap.keySet()) {
-                String[] splitKey = sampleVariantHashMapKey.split(",");
-                String forVariantRetrieval = splitKey[1] + splitKey[2];
+            //Create header ArrayList<String> to append headers too (could also just use outputRows,
+            // but then need to clear it when headers is set to null
+            ArrayList<String> headerRows = new ArrayList<String>();
 
-                //Create header ArrayList<String> to append headers too (could also just use outputRows,
-                // but then need to clear it when headers is set to null
-                ArrayList<String> headerRows = new ArrayList<String>();
+            //Retrieve all csq fields associated with the variant in the current iteration
+            VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
 
-                //Retrieve all csq fields associated with the variant in the current iteration
-                VariantDataObject variantDataObject = variantHashMap.get(forVariantRetrieval);
+            for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
 
-                for (VepAnnotationObject vepAnnObj : variantDataObject.getCsqObject()) {
+                //Create inner ArrayList<String> to represent each 'row' of the final output file
+                ArrayList<String> outputRows = new ArrayList<String>();
 
-                    //Create inner ArrayList<String> to represent each 'row' of the final output file
-                    ArrayList<String> outputRows = new ArrayList<String>();
+                //Write headers which are not from the CSQ object- set the text to what want to output
+                //Come up with a better solution depending on how want to specify fields to appear in the output
+                if (headers) {
 
-                    //Write headers which are not from the CSQ object- set the text to what want to output
-                    //Come up with a better solution depending on how want to specify fields to appear in the output
-                    if (headers) {
+                    headerRows.add("SampleID");
+                    headerRows.add("Chromosome");
+                    headerRows.add("Variant");
+                    headerRows.add("AlleleFrequency");
+                    headerRows.add("Quality");
+                    headerRows.add("ID");
 
-                        headerRows.add("SampleID");
-                        headerRows.add("Chromosome");
-                        headerRows.add("Variant");
-                        headerRows.add("AlleleFrequency");
-                        headerRows.add("Quality");
-                        headerRows.add("ID");
-
-                        //Write out the headers from the csq fields
-                        for (String headersKey : selectedFields) {
-                            //Populate the keyArray with the headers for later retrieval of data
-                            headerRows.add(headersKey);
-                        }
-                        headers = false;
-                        toWriteOutMutable.add(headerRows);
+                    //Write out the headers from the csq fields
+                    for (String headersKey : selectedFields) {
+                        //Populate the keyArray with the headers for later retrieval of data
+                        headerRows.add(headersKey);
                     }
+                    headers = false;
+                    toWriteOutMutable.add(headerRows);
+                }
 
-                    //Sample name
-                    outputRows.add(sampleVariantHashMapKey.split(",")[0]);
+                //Sample name
+                outputRows.add(sampleVariantHashMapKey.split(",")[0]);
 
-                    //Create list of sample names (saves iterating again later)- ?? (18/01/17- needed?)
+                //Create list of sample names (saves iterating again later)- ?? (18/01/17- needed?)
 
 
-                    //Sample chromosome
-                    outputRows.add(sampleVariantHashMapKey.split(",")[1].split(":")[0]);
+                //Sample chromosome
+                outputRows.add(sampleVariantHashMapKey.split(",")[1].split(":")[0]);
 
-                    //Minimise alleles using the GenomeVariant class and write out the variant in this format
-                    GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
-                            (sampleVariantHashMapKey.split(",")[2]));
-                    genomeVariant.convertToMinimalRepresentation(); //Untested for accuracy
-                    outputRows.add("g." + (genomeVariant));
+                //Minimise alleles using the GenomeVariant class and write out the variant in this format
+                GenomeVariant genomeVariant = new GenomeVariant((sampleVariantHashMapKey.split(",")[1]) +
+                        (sampleVariantHashMapKey.split(",")[2]));
+                genomeVariant.convertToMinimalRepresentation(); //Untested for accuracy
+                outputRows.add("g." + (genomeVariant));
 
-                    //Sample allele frequency
-                    //Truncate output to 3 decimal places
-                    outputRows.add(String.format("%.3f",
-                            sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
+                //Sample allele frequency
+                //Truncate output to 3 decimal places
+                outputRows.add(String.format("%.3f",
+                        sampleVariantHashMap.get(sampleVariantHashMapKey).getAlleleFrequency()));
 
-                    //Sample quality (genotype) - not required 12/01/17
-                    //writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
-                    //writer.write("\t");
+                //Sample quality (genotype) - not required 12/01/17
+                //writer.write(Integer.toString(sampleVariantHashMap.get(sampleVariantHashMapKey).getGenotypeQuality()));
+                //writer.write("\t");
 
-                    //Variant quality
-                    //Truncate output to 3 decimal places
-                    outputRows.add(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
+                //Variant quality
+                //Truncate output to 3 decimal places
+                outputRows.add(String.format("%.3f", variantHashMap.get(forVariantRetrieval).getVariantQuality()));
 
-                    //dbSNP
-                    outputRows.add((variantHashMap.get(forVariantRetrieval).getIdField()));
+                //dbSNP
+                outputRows.add((variantHashMap.get(forVariantRetrieval).getIdField()));
 
-                    for (String keyToPrint : selectedFields) {
-                        outputRows.add(vepAnnObj.getVepEntry(keyToPrint));
-                    }
+                for (String keyToPrint : selectedFields) {
+                    outputRows.add(vepAnnObj.getVepEntry(keyToPrint));
+                }
 
-                    /*
-                    for (String key : keyArray){
-                        writer.write(vepAnnObj.getVepEntry(key));
-                        writer.write("\t");
-                    }
-                    */
-                    toWriteOutMutable.add(outputRows);
+                /*
+                for (String key : keyArray){
+                    writer.write(vepAnnObj.getVepEntry(key));
+                    writer.write("\t");
+                }
+                */
+                toWriteOutMutable.add(outputRows);
                 }
 
             }
@@ -146,14 +143,16 @@ public class WriteOut {
 
             Set<String> setToWriteOut = new LinkedHashSet<String>(toWriteOut);
 
-            //Writeout duplicate removed data
-            for (String dataRow : setToWriteOut) {
-                writer.write(dataRow);
-                writer.newLine();
+            //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream on exception
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+                //Writeout duplicate removed data
+                for (String dataRow : setToWriteOut) {
+                    writer.write(dataRow);
+                    writer.newLine();
             }
 
         }
-        //split Multisample(outputFile); //To split out the multisample vcf into separate file names
+        splitMultisample(outputFile); //To split out the multisample vcf into separate file names
     }
 
     public void splitMultisample(File inputMultisample) throws Exception {
