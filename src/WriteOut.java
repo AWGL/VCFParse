@@ -178,7 +178,7 @@ public class WriteOut {
                         writer.newLine();
                     }
                 }
-                break; //First sample only for ease of testing
+                //break; //First sample only for ease of testing
             }
         }
     }
