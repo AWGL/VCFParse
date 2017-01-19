@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.LinkedHashSet;
 
 
 /**
@@ -36,7 +36,7 @@ public class WriteOut {
         final File outputFile = new File(outputPath);
         //outputFile.createNewFile();
 
-        ArrayList<ArrayList<String>> toWriteOut = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> toWriteOutMutable = new ArrayList<ArrayList<String>>();
 
         //Use bufferedwriter (syntax for Java 7 and above)- try automatically closes the stream on exception
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
@@ -85,7 +85,7 @@ public class WriteOut {
                             headerRows.add(headersKey);
                         }
                         headers = false;
-                        toWriteOut.add(headerRows);
+                        toWriteOutMutable.add(headerRows);
                     }
 
                     //Sample name
@@ -129,21 +129,29 @@ public class WriteOut {
                         writer.write("\t");
                     }
                     */
-                    toWriteOut.add(outputRows);
+                    toWriteOutMutable.add(outputRows);
                 }
 
             }
-            //Workaround to remove apparent duplicates (which occurs because all fields from the CSQ are not written out)
-            Set<String> dataSetRow = new TreeSet<String>(toWriteOut);
+            //Workaround to remove apparent duplicates(which occurs because all fields from the CSQ are not written out)
+            //Concatenate nested ArrayList of Strings to a long String to facilitate setting
+            ArrayList<String> toWriteOut = new ArrayList<String>();
+            for (ArrayList<String> dataRow : toWriteOutMutable) {
+                String dataRowString = String.join("\t", dataRow);
+                toWriteOut.add(dataRowString);
+                //System.out.println(toWriteOut);
+                //break;
+            }
+
+
+            Set<String> setToWriteOut = new LinkedHashSet<String>(toWriteOut);
 
             //Writeout duplicate removed data
-            for (ArrayList<String>dataRow : toWriteOut) {
-                for (String dataEntry : dataRow){
-                    writer.write(dataEntry);
-                    writer.write("\t");
-                }
+            for (String dataRow : setToWriteOut) {
+                writer.write(dataRow);
                 writer.newLine();
             }
+
         }
         //split Multisample(outputFile); //To split out the multisample vcf into separate file names
     }
