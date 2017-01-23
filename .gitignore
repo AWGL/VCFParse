@@ -1,0 +1,6 @@
+#intellij
+.idea/
+src/htsjdk.iml
+*.iml
+*.ipr
+*.iws
