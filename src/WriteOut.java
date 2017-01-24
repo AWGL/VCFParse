@@ -20,12 +20,10 @@ public class WriteOut {
 
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap;
     private LinkedHashMap<String, VariantDataObject> variantHashMap;
-    private File outputFile;
 
-    public WriteOut(LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap, LinkedHashMap<String, VariantDataObject> variantHashMap, File outputFile) {
+    public WriteOut(LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap, LinkedHashMap<String, VariantDataObject> variantHashMap) {
         this.sampleVariantHashMap = sampleVariantHashMap;
         this.variantHashMap = variantHashMap;
-        this.outputFile = outputFile;
     }
 
     public void writeOutVepAnnotations() throws IOException {
@@ -146,7 +144,7 @@ public class WriteOut {
 
         }
 
-        splitMultisample(outputFile); //To split out the multisample vcf into separate file names
+        //splitMultisample(outputFile); //To split out the multisample vcf into separate file names
     }
 
     private void splitMultisample(File inputMultisample) throws IOException {
@@ -161,7 +159,7 @@ public class WriteOut {
             }
 
             for (String key : samplesData.keySet()) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFile, key + ".txt")))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(key + ".txt")))) {
                     writer.write(headers);
                     writer.newLine();
                     for (String data : samplesData.get(key)) {

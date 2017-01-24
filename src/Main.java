@@ -28,12 +28,13 @@ public class Main {
         Options options = new Options();
 
         options.addOption("V", "Variant", true, "Path to input VCF file");
-        options.addOption("T", "Text", true, "Path to output Text file");
+        options.addOption("T", "Transcript", true, "Path to preferred transcript list");
+        options.addOption("C", "Classification", true, "Path to VCF with classifications");
 
         try {
             commandLine = commandLineParser.parse(options, args);
 
-            if (!commandLine.hasOption("V") | !commandLine.hasOption("T")) throw new NullPointerException("Incorrect arguments");
+            if (!commandLine.hasOption("V")) throw new NullPointerException("Incorrect arguments");
 
         } catch (ParseException | NullPointerException e){
             formatter.printHelp(program + " " + version, options);
@@ -52,7 +53,7 @@ public class Main {
 
         //write to file
         try {
-            WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap, new File(commandLine.getOptionValue("V")));
+            WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap);
             writeOut.writeOutVepAnnotations();
         } catch (IOException e){
             log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
