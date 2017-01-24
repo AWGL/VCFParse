@@ -161,7 +161,7 @@ public class WriteOut {
             }
 
             for (String key : samplesData.keySet()) {
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFile, key)))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFile, key + ".txt")))) {
                     writer.write(headers);
                     writer.newLine();
                     for (String data : samplesData.get(key)) {
