@@ -38,7 +38,7 @@ public class CsqUtilities {
     }
 
 
-    public static VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
+    private static VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
 
         //Creating a HashMap of objects
         LinkedHashMap<String, String> vepHashMap = new LinkedHashMap<String, String>();

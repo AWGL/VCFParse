@@ -2,14 +2,13 @@ package nhs.genetics.cardiff;
 
 import org.apache.commons.cli.*;
 
-import javax.imageio.IIOException;
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Program for writing VCF file to text output
+ * Program for writing VCF file to text output. VCF should be annotated with VEP v86 (RefSeq)
  *
  * @author  Sara Rey
  * @since   2016-11-07

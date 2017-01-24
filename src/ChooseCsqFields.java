@@ -45,7 +45,7 @@ public class ChooseCsqFields {
     }
     public List<String> debuggingCsqFields() {
         //Put this in in the order you want them to come out
-        List<String> csqFieldsToPrint = new ArrayList<>(Arrays.asList("Allele","Consequence","IMPACT","SYMBOL",
+        return new ArrayList<>(Arrays.asList("Allele","Consequence","IMPACT","SYMBOL",
                 "Gene","Feature_type","Feature","BIOTYPE","EXON","INTRON","HGVSc","HGVSp","cDNA_position",
                 "CDS_position","Protein_position","Amino_acids","Codons","Existing_variation","ALLELE_NUM","DISTANCE",
                 "STRAND","FLAGS","VARIANT_CLASS","SYMBOL_SOURCE","HGNC_ID","CANONICAL","TSL","APPRIS","CCDS","ENSP",
@@ -54,8 +54,6 @@ public class ChooseCsqFields {
                 "ExAC_AFR_MAF","ExAC_AMR_MAF","ExAC_EAS_MAF","ExAC_FIN_MAF","ExAC_NFE_MAF","ExAC_OTH_MAF",
                 "ExAC_SAS_MAF","CLIN_SIG","SOMATIC","PHENO","PUBMED","MOTIF_NAME","MOTIF_POS","HIGH_INF_POS",
                 "MOTIF_SCORE_CHANGE"));
-
-        return csqFieldsToPrint;
 
     }
 
