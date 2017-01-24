@@ -10,8 +10,7 @@ import com.google.common.collect.ImmutableSet;
 
 public class CsqUtilities {
 
-    public ArrayListMultimap<Integer,VepAnnotationObject>
-        createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
+    public static ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecordOfVepAnnObjects(String variantHeaders, ArrayList<String> csqRec) {
 
         ArrayList<VepAnnotationObject> csqArray = new ArrayList<VepAnnotationObject>();
 
@@ -36,7 +35,8 @@ public class CsqUtilities {
     }
 
 
-    public VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
+    public static VepAnnotationObject createVepAnnotationObject(String variantHeaders, String vepAnnotation){
+
         //Creating a HashMap of objects
         LinkedHashMap<String, String> vepHashMap = new LinkedHashMap<String, String>();
 
@@ -93,7 +93,7 @@ public class CsqUtilities {
         return currentVepAnnotationObject;
     }
 
-    public ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
+    public static ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
 
         ArrayListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
