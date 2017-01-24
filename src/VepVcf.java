@@ -1,7 +1,4 @@
-//Dependencies htsjdk library 2.7.0
-/*
-Comment here
- */
+package nhs.genetics.cardiff;
 
 import java.io.*;
 import java.util.*;
@@ -11,18 +8,19 @@ import htsjdk.variant.variantcontext.*;
 import htsjdk.variant.vcf.*;
 import com.google.common.collect.ArrayListMultimap;
 
-
 /**
- * Created by Sara on 08-Nov-16.
+ * class for reading VEP output from VCF INFO field
+ * Requires HTSJDK v2.8.1
+ *
+ * @author  Sara Rey
+ * @since   2016-11-08
  */
 
 public class VepVcf {
 
     private static final Logger Log = Logger.getLogger(VepVcf.class.getName());
-    //private File vcfFilePath;
-
-    //Maybe move this inside the method
-    //private LinkedHashMap<GenomeVariant, CsqObject> variantHashMap =  new LinkedHashMap<GenomeVariant, CsqObject>(); //Linked hash map preserves order
+    private VCFFileReader vcfFileReader;
+    private String vHeaders;
 
     //HashMap containing per-variant and allele information
     private LinkedHashMap<String, VariantDataObject> variantHashMap = new LinkedHashMap<String, VariantDataObject>();
@@ -30,32 +28,19 @@ public class VepVcf {
     //HashMap containing per sample, per position (and contig), (and including alternate allele information)
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = new LinkedHashMap<String, SampleVariantDataObject>();
 
-
-
-    public VCFFileReader openFiles(File vcfFilePath) { //throws IOException  {
-        Log.log(Level.INFO, "Opening VEP VCF file");
-        //Read in the file
-        try {
-            final VCFFileReader vcfFile = new VCFFileReader(vcfFilePath, false);
-            return vcfFile;
-        } catch (Exception e) {
-            Log.log(Level.SEVERE, "Could not read VCF file: " + e.getMessage());
-            System.exit(-1); //return -1 indicating error
-        }
-        return null; //This is what it returns if the try catch block fails- needed for compilation but should never happen
+    public VepVcf(File vcfFilePath) {
+        this.vcfFileReader = new VCFFileReader(vcfFilePath, false);
     }
 
-    public void parseVepVcf(VCFFileReader vcfFile) {
+    public void parseVepVcf() {
         Log.log(Level.INFO, "Parsing VEP VCF file");
+
         //For the alternate alleles
         //Required for code execution as otherwise variable is initialised only in else clause
         boolean variantFiltered = false; //Default setting
         boolean variantSite = false; //Default setting
         String idField = null; //Default setting
         double variantQuality;
-
-        //Obtain VEP Headers- same for the whole VCF file
-        String vHeaders = vepHeaders(vcfFile);
 
         for (final VariantContext vc : vcfFile) {
 
@@ -201,7 +186,7 @@ public class VepVcf {
         //System.out.println(variantHashMap);
 
 
-    public GenomeVariant createAlleleKey(VariantContext vc, String altAllele, int alleleNum) { //LinkedHashMap
+    private GenomeVariant createAlleleKey(VariantContext vc, String altAllele, int alleleNum) { //LinkedHashMap
         //Log.log(Level.INFO, "Parsing Alleles");
         //Requires String for GenomeVariant class
         //This is intended as the key to the hashmap
@@ -209,8 +194,7 @@ public class VepVcf {
                 vc.getReference().toString().replaceAll("\\*", ""), altAllele, alleleNum);
     }
 
-
-    public String obtainZygosity(Genotype currentGenotype){
+    private String obtainZygosity(Genotype currentGenotype){
 
         String zygosity = "UNDETERMINED";
 
@@ -223,12 +207,11 @@ public class VepVcf {
         return zygosity;
     }
 
-    public double calcAlleleFrequency(int locusDepth, int alleleDepth) {
-        double alleleFrequency = (((double)alleleDepth) / ((double)locusDepth));
-        return alleleFrequency;
+    private double calcAlleleFrequency(int locusDepth, int alleleDepth) {
+        return (((double)alleleDepth) / ((double)locusDepth));
     }
 
-    public int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
+    private int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
         int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
             //System.out.println(Alleles);
@@ -243,17 +226,12 @@ public class VepVcf {
         return locusDepth;
     }
 
-    public String vepHeaders(VCFFileReader vcfFile)   {
-        //Create the VCF Header object
-        VCFHeader currentHeader = vcfFile.getFileHeader();
-        VCFInfoHeaderLine vepInfo = currentHeader.getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
-        String vepHeader = vepInfo.getDescription().split("Format:")[1].trim();
-        return vepHeader; //returns the header
+    private String setVepHeaders() {
+        VCFInfoHeaderLine vcfCsqInfoHeaderLine = vcfFileReader.getFileHeader().getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
+        this.vHeaders = vcfCsqInfoHeaderLine.getDescription().split("Format:")[1].trim();
     }
 
-
     public LinkedHashMap<String, VariantDataObject> getVariantHashMap() {return this.variantHashMap;}
-
     public LinkedHashMap<String, SampleVariantDataObject> getSampleVariantHashMap() {return this.sampleVariantHashMap;}
 
 }

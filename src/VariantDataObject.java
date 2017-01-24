@@ -1,3 +1,5 @@
+package nhs.genetics.cardiff;
+
 import java.util.Collection;
 import java.util.ArrayList;
 import com.google.common.collect.ImmutableList;

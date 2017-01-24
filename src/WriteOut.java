@@ -1,3 +1,5 @@
+package nhs.genetics.cardiff;
+
 import com.google.common.collect.ArrayListMultimap;
 
 import java.io.FileReader;

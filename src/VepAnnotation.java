@@ -1,3 +1,5 @@
+package nhs.genetics.cardiff;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap; //Replaced hash map as was easier for debugging (SR 21/11/2016)
 
