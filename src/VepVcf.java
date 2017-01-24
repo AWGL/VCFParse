@@ -9,8 +9,7 @@ import htsjdk.variant.vcf.*;
 import com.google.common.collect.ArrayListMultimap;
 
 /**
- * class for reading VEP output from VCF INFO field
- * Requires HTSJDK v2.8.1
+ * Class for reading VEP output from VCF INFO field
  *
  * @author  Sara Rey
  * @since   2016-11-08
@@ -42,10 +41,10 @@ public class VepVcf {
         String idField = null; //Default setting
         double variantQuality;
 
-        for (final VariantContext vc : vcfFile) {
+        for (final VariantContext vc : vcfFileReader) {
 
-            //Each allele is associated with its allelenum (in case ordering is changed later on and so that the
-            //genotyping part of the code has access to this information)
+            /* Each allele is associated with its allelenum (in case ordering is changed later on and so that the
+            genotyping part of the code has access to this information) */
 
             //Create an object to store the alleles- preferably immutable (allelenum is dependent on order)
             List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
