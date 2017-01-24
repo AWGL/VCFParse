@@ -28,11 +28,12 @@ public class Main {
         Options options = new Options();
 
         options.addOption("V", "Variant", true, "Path to input VCF file");
+        options.addOption("T", "Text", true, "Path to output Text file");
 
         try {
             commandLine = commandLineParser.parse(options, args);
 
-            if (!commandLine.hasOption("V")) throw new NullPointerException("Incorrect arguments");
+            if (!commandLine.hasOption("V") | !commandLine.hasOption("T")) throw new NullPointerException("Incorrect arguments");
 
         } catch (ParseException | NullPointerException e){
             formatter.printHelp(program + " " + version, options);
@@ -46,10 +47,10 @@ public class Main {
         //Open the file and parse the opened file
         vepVcf.parseVepVcf();
 
-        LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = retrieveVepVcfData.getSampleVariantHashMap();
-        LinkedHashMap<String, VariantDataObject> variantHashMap = retrieveVepVcfData.getVariantHashMap();
+        LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = vepVcf.getSampleVariantHashMap();
+        LinkedHashMap<String, VariantDataObject> variantHashMap = vepVcf.getVariantHashMap();
 
-        WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap);
+        WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap, new File(commandLine.getOptionValue("V")));
         writeOut.writeOutVepAnnotations();
 
     }

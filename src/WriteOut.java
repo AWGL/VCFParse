@@ -15,7 +15,7 @@ import java.util.LinkedHashSet;
 
 
 /**
- * Class for writing out to text file
+ * Writes out desired fields to a tab-delimited text file
  *
  * @author  Sara Rey
  * @since   2016-12-08
@@ -23,24 +23,17 @@ import java.util.LinkedHashSet;
 
 public class WriteOut {
 
-    //Writes out desired fields to a tab-delimited text file
-
     private LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap;
     private LinkedHashMap<String, VariantDataObject> variantHashMap;
+    private File outputFile;
 
-    public WriteOut(LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap,
-                    LinkedHashMap<String, VariantDataObject> variantHashMap) {
+    public WriteOut(LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap, LinkedHashMap<String, VariantDataObject> variantHashMap, File outputFile) {
         this.sampleVariantHashMap = sampleVariantHashMap;
         this.variantHashMap = variantHashMap;
+        this.outputFile = outputFile;
     }
 
-    //Write out required data
-    //Set file path to desired location
     public void writeOutVepAnnotations() throws Exception {
-        String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\VEP.txt";
-        final File outputFile = new File(outputPath);
-        //outputFile.createNewFile();
-
         ArrayList<ArrayList<String>> toWriteOutMutable = new ArrayList<ArrayList<String>>();
 
         //Set variable to write headers only once at the beginning of the output file
