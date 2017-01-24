@@ -1,12 +1,15 @@
 package nhs.genetics.cardiff;
 
-import java.util.ArrayList;
 import java.util.List;
 import htsjdk.variant.variantcontext.Allele;
 
 /**
- * Created by Sara on 06-Dec-16.
+ * Class for storing alleles associated with a sample
+ *
+ * @author  Sara Rey
+ * @since   2016-12-06
  */
+
 public class SampleVariant {
 
     private String sampleName;

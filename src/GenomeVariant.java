@@ -1,9 +1,10 @@
 package nhs.genetics.cardiff;
 
 /**
- * Created by Sara on 14-Nov-16.
  * Class manually copied until I work out how to import the NHS framework authored by Matt
  * AlleleNum added for flexibility
+ * @author  Sara Rey
+ * @since   2016-11-14
  */
 
 public class GenomeVariant {

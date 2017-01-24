@@ -1,17 +1,17 @@
 package nhs.genetics.cardiff;
 
-import java.util.Collection;
 import java.util.ArrayList;
-import com.google.common.collect.ImmutableList;
 
 /**
- * Created by Sara on 05-Dec-16.
+ * Class for storing variant and annotation objects
+ *
+ * @author  Sara Rey
+ * @since   2016-12-05
  */
 
-//http://stackoverflow.com/questions/4956844/hashmap-with-multiple-values-under-the-same-key
-
-
 public class VariantDataObject {
+
+    //http://stackoverflow.com/questions/4956844/hashmap-with-multiple-values-under-the-same-key
 
     private ArrayList<VepAnnotationObject> vepAnnotationObjects;
     private boolean variantFiltered;

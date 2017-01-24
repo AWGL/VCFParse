@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Arrays;
 
 /**
- * Created by Sara on 10-Jan-17.
+ *
+ *
+ * @author  Sara Rey
+ * @since   2017-01-10
  */
+
 public class ChooseCsqFields {
 
     public ChooseCsqFields(){}

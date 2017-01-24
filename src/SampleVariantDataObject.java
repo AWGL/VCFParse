@@ -1,8 +1,12 @@
 package nhs.genetics.cardiff;
 
 /**
- * Created by Sara on 06-Dec-16.
+ * Class for storing sample & variant data
+ *
+ * @author  Sara Rey
+ * @since   2016-12-06
  */
+
 public class SampleVariantDataObject {
 
     private GenomeVariant variantObjectKey;

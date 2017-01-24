@@ -39,9 +39,6 @@ public class VepVcf {
             /* Each allele is associated with its allelenum (in case ordering is changed later on and so that the
             genotyping part of the code has access to this information) */
 
-            //Obtain keys for each transcript entry (header in vcf file)
-            CsqUtilities currentCsqRecord = new CsqUtilities();
-
             List attribute = vc.getAttributeAsList("CSQ");
 
             ArrayList<String> attributeArr = new ArrayList<String>(); // ArrayLists are ordered and can be indexed into
@@ -52,7 +49,7 @@ public class VepVcf {
                 attributeArr.add(attribute.get(i).toString());
             }
 
-            ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(csqHeaders, attributeArr);
+            ArrayListMultimap<Integer, VepAnnotationObject> csq = CsqUtilities.createCsqRecordOfVepAnnObjects(csqHeaders, attributeArr);
 
             //Create a CsqObject (optional step)- could leave as hashmap if desired
             CsqObject currentCsqObject = new CsqObject(csq);

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap; //Replaced hash map as was easier for debugging (SR 21/11/2016)
 
 /**
- * Created by Sara on 17-Nov-16.
+ *
+ *
+ * @author  Sara Rey
+ * @since   2016-11-17
  */
 
 class VepAnnotation {
@@ -12,7 +15,9 @@ class VepAnnotation {
     private String variantHeaders;
     private String variantAnnPerCSQ;
 
-    public VepAnnotation(){}
+    public VepAnnotation(){
+
+    }
 
     public void setVepAnnotation(String variantHeaders, String variantAnnPerCSQ){
         this.variantHeaders = variantHeaders;

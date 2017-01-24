@@ -15,7 +15,10 @@ import java.util.LinkedHashSet;
 
 
 /**
- * Created by Sara on 08-Dec-16.
+ * Class for writing out to text file
+ *
+ * @author  Sara Rey
+ * @since   2016-12-08
  */
 
 public class WriteOut {

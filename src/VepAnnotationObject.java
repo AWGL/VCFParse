@@ -1,12 +1,13 @@
 package nhs.genetics.cardiff;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
- * Created by Sara on 16-Nov-16.
+ *
+ *
+ * @author  Sara Rey
+ * @since   2016-12-05
  */
 
 public class VepAnnotationObject {

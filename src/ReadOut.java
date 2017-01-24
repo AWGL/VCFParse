@@ -3,8 +3,12 @@ package nhs.genetics.cardiff;
 import java.util.LinkedHashMap;
 
 /**
- * Created by Sara on 08-Dec-16.
+ * Class for printing outputs to console for debugging purposes
+ *
+ * @author  Sara Rey
+ * @since   2016-12-08
  */
+
 public class ReadOut {
 
     private LinkedHashMap<String, VariantDataObject> variants;

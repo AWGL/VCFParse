@@ -5,7 +5,10 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Created by Sara on 15-Nov-16.
+ * Class for extracting VCF genotype and VEP information using htsjdk
+ *
+ * @author  Sara Rey
+ * @since   2016-11-15
  */
 
 public class CsqUtilities {
@@ -93,7 +96,7 @@ public class CsqUtilities {
         return currentVepAnnotationObject;
     }
 
-    public static ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
+    private static ArrayListMultimap<Integer,VepAnnotationObject> createCsqRecord(ArrayList<VepAnnotationObject> vepAnnList){
 
         ArrayListMultimap<Integer,VepAnnotationObject> csqMap = ArrayListMultimap.create(); //HashMultimap.create()
 
