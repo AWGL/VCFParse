@@ -9,7 +9,7 @@ import htsjdk.variant.vcf.*;
 import com.google.common.collect.ArrayListMultimap;
 
 /**
- * Class for reading VEP output from VCF INFO field
+ * Class for extracting VCF genotype and VEP information using htsjdk
  *
  * @author  Sara Rey
  * @since   2016-11-08
@@ -19,7 +19,7 @@ public class VepVcf {
 
     private static final Logger Log = Logger.getLogger(VepVcf.class.getName());
     private VCFFileReader vcfFileReader;
-    private String vHeaders;
+    private String csqHeaders;
 
     //HashMap containing per-variant and allele information
     private LinkedHashMap<String, VariantDataObject> variantHashMap = new LinkedHashMap<String, VariantDataObject>();
@@ -33,13 +33,6 @@ public class VepVcf {
 
     public void parseVepVcf() {
         Log.log(Level.INFO, "Parsing VEP VCF file");
-
-        //For the alternate alleles
-        //Required for code execution as otherwise variable is initialised only in else clause
-        boolean variantFiltered = false; //Default setting
-        boolean variantSite = false; //Default setting
-        String idField = null; //Default setting
-        double variantQuality;
 
         for (final VariantContext vc : vcfFileReader) {
 
@@ -65,37 +58,28 @@ public class VepVcf {
                 attributeArr.add(attribute.get(i).toString());
             }
 
-            ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(
-                    vHeaders, attributeArr);
+            ArrayListMultimap<Integer, VepAnnotationObject> csq = currentCsqRecord.createCsqRecordOfVepAnnObjects(csqHeaders, attributeArr);
 
             //Create a CsqObject (optional step)- could leave as hashmap if desired
-            CsqObject currentCsqObject = new CsqObject();
-            currentCsqObject.setCsqObject(csq);
-
-            variantFiltered = vc.isFiltered();
-            variantSite = vc.isVariant();
-            idField = vc.getID();
-            variantQuality = vc.getPhredScaledQual();
+            CsqObject currentCsqObject = new CsqObject(csq);
 
             for (int allele = 0; allele < altAlleles.size(); allele++) {
-                //Avoid storing an empty object (as there are no Vep annotations) nested within the VariantDataObject
-                //* just denotes an overlapping indel and is not a SNV at that position
+
+                /* Avoid storing an empty object (as there are no Vep annotations) nested within the VariantDataObject
+                just denotes an overlapping indel and is not a SNV at that position */
+
                 if (altAlleles.get(allele).toString().equals("*")) {
-                    //Break out of for loop and start next iteration
-                    continue;
+                    continue; //Break out of for loop and start next iteration
                 }
 
                 //Key
-                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(),
-                        allAlleles.indexOf(altAlleles.get(allele)));
-                //System.out.println(variantObject); //for debugging 12/01/2017
+                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(), allAlleles.indexOf(altAlleles.get(allele)));
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
                 ArrayList<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele + 1);
 
                 //Data
-                VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq,
-                        variantFiltered, variantSite, idField, variantQuality);
+                VariantDataObject currentVariantDataObject = new VariantDataObject(alleleCsq, vc.isFiltered(), vc.isVariant(), vc.getID(), vc.getPhredScaledQual());
 
                 variantHashMap.put(variantObject.toString(), currentVariantDataObject);
 
@@ -175,42 +159,28 @@ public class VepVcf {
 
             }
 
-            //break; //first allele only for ease of testing
-
         }
     }
 
-        //Test hash map is working correctly
-        //System.out.println(sampleVariantHashMap);
-        //System.out.println(variantHashMap);
-
-
-    private GenomeVariant createAlleleKey(VariantContext vc, String altAllele, int alleleNum) { //LinkedHashMap
-        //Log.log(Level.INFO, "Parsing Alleles");
+    private static GenomeVariant createAlleleKey(VariantContext vc, String altAllele, int alleleNum) { //LinkedHashMap
+        Log.log(Level.FINE, "Parsing Alleles");
         //Requires String for GenomeVariant class
         //This is intended as the key to the hashmap
-        return new GenomeVariant(vc.getContig(), vc.getStart(),
-                vc.getReference().toString().replaceAll("\\*", ""), altAllele, alleleNum);
+        return new GenomeVariant(vc.getContig(), vc.getStart(), vc.getReference().toString().replaceAll("\\*", ""), altAllele, alleleNum);
     }
-
-    private String obtainZygosity(Genotype currentGenotype){
-
-        String zygosity = "UNDETERMINED";
-
-        if (currentGenotype.isHom()) {
-            zygosity = "HOM";
-        } else if (currentGenotype.isHet()) {
-            zygosity = "HET";
+    private static String obtainZygosity(Genotype genotype){
+        if (genotype.isHom()) {
+            return "HOM";
+        } else if (genotype.isHet()) {
+            return "HET";
+        } else {
+            throw new IllegalArgumentException("Could not determine the genotype");
         }
-
-        return zygosity;
     }
-
-    private double calcAlleleFrequency(int locusDepth, int alleleDepth) {
+    private static double calcAlleleFrequency(int locusDepth, int alleleDepth) {
         return (((double)alleleDepth) / ((double)locusDepth));
     }
-
-    private int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
+    private static int calcLocusDepth(List<Allele> Alleles, List<Allele> locusAlleles, Genotype currentGenotype){
         int locusDepth = 0;
         for (Allele currentAllele : Alleles) {
             //System.out.println(Alleles);
@@ -225,11 +195,10 @@ public class VepVcf {
         return locusDepth;
     }
 
-    private String setVepHeaders() {
+    private void setVepHeaders() {
         VCFInfoHeaderLine vcfCsqInfoHeaderLine = vcfFileReader.getFileHeader().getInfoHeaderLine("CSQ"); //This is null if no annotation has been performed
-        this.vHeaders = vcfCsqInfoHeaderLine.getDescription().split("Format:")[1].trim();
+        this.csqHeaders = vcfCsqInfoHeaderLine.getDescription().split("Format:")[1].trim();
     }
-
     public LinkedHashMap<String, VariantDataObject> getVariantHashMap() {return this.variantHashMap;}
     public LinkedHashMap<String, SampleVariantDataObject> getSampleVariantHashMap() {return this.sampleVariantHashMap;}
 
