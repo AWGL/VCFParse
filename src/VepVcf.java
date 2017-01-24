@@ -39,9 +39,6 @@ public class VepVcf {
             /* Each allele is associated with its allelenum (in case ordering is changed later on and so that the
             genotyping part of the code has access to this information) */
 
-            //Store the alleles that are not the reference allele
-            List<Allele> altAlleles = vc.getAlternateAlleles();
-
             //Obtain keys for each transcript entry (header in vcf file)
             CsqUtilities currentCsqRecord = new CsqUtilities();
 
@@ -60,17 +57,17 @@ public class VepVcf {
             //Create a CsqObject (optional step)- could leave as hashmap if desired
             CsqObject currentCsqObject = new CsqObject(csq);
 
-            for (int allele = 0; allele < altAlleles.size(); allele++) {
+            for (int allele = 0; allele < vc.getAlternateAlleles().size(); allele++) {
 
                 /* Avoid storing an empty object (as there are no Vep annotations) nested within the VariantDataObject
                 just denotes an overlapping indel and is not a SNV at that position */
 
-                if (altAlleles.get(allele).toString().equals("*")) {
+                if (vc.getAlternateAlleles().get(allele).toString().equals("*")) {
                     continue; //Break out of for loop and start next iteration
                 }
 
                 //Key
-                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(), vc.getAlleles().indexOf(altAlleles.get(allele)));
+                GenomeVariant variantObject = createAlleleKey(vc, vc.getAlternateAlleles().get(allele).toString(), vc.getAlleles().indexOf(vc.getAlternateAlleles().get(allele)));
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
                 ArrayList<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele + 1);
