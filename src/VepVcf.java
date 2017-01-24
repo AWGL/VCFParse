@@ -39,9 +39,6 @@ public class VepVcf {
             /* Each allele is associated with its allelenum (in case ordering is changed later on and so that the
             genotyping part of the code has access to this information) */
 
-            //Create an object to store the alleles- preferably immutable (allelenum is dependent on order)
-            List<Allele> allAlleles = Collections.unmodifiableList(vc.getAlleles());
-
             //Store the alleles that are not the reference allele
             List<Allele> altAlleles = vc.getAlternateAlleles();
 
@@ -73,7 +70,7 @@ public class VepVcf {
                 }
 
                 //Key
-                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(), allAlleles.indexOf(altAlleles.get(allele)));
+                GenomeVariant variantObject = createAlleleKey(vc, altAlleles.get(allele).toString(), vc.getAlleles().indexOf(altAlleles.get(allele)));
 
                 //Allele num starts at 1 for the altAlleles, as 0 is the reference allele
                 ArrayList<VepAnnotationObject> alleleCsq = currentCsqObject.getSpecificVepAnnObjects(allele + 1);
@@ -106,7 +103,7 @@ public class VepVcf {
                     String zygosity = obtainZygosity(currentGenotype);
 
                     //Obtain depth of both alleles at the locus
-                    int locusDepth = calcLocusDepth(currentGenotypeAlleles, allAlleles, currentGenotype);
+                    int locusDepth = calcLocusDepth(currentGenotypeAlleles, vc.getAlleles(), currentGenotype);
 
                     // Iterate through the max of two alleles in the current Genotype (there may be one if deletion ?)
                     for (Allele currentAllele : currentGenotypeAlleles) {
@@ -118,7 +115,7 @@ public class VepVcf {
                             continue;
                         }
 
-                        int alleleNum = allAlleles.indexOf(currentAllele);
+                        int alleleNum = vc.getAlleles().indexOf(currentAllele);
                         int alleleDepth = currentGenotype.getAD()[alleleNum];
                         double alleleFrequency = calcAlleleFrequency(locusDepth, alleleDepth);
 
