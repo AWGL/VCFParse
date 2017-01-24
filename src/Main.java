@@ -2,6 +2,7 @@ package nhs.genetics.cardiff;
 
 import org.apache.commons.cli.*;
 
+import javax.imageio.IIOException;
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
@@ -50,8 +51,14 @@ public class Main {
         LinkedHashMap<String, SampleVariantDataObject> sampleVariantHashMap = vepVcf.getSampleVariantHashMap();
         LinkedHashMap<String, VariantDataObject> variantHashMap = vepVcf.getVariantHashMap();
 
-        WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap, new File(commandLine.getOptionValue("V")));
-        writeOut.writeOutVepAnnotations();
+        //write to file
+        try {
+            WriteOut writeOut = new WriteOut(sampleVariantHashMap, variantHashMap, new File(commandLine.getOptionValue("V")));
+            writeOut.writeOutVepAnnotations();
+        } catch (IOException e){
+            log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
+            System.exit(-1);
+        }
 
     }
 }

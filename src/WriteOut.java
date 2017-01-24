@@ -2,17 +2,12 @@ package nhs.genetics.cardiff;
 
 import com.google.common.collect.ArrayListMultimap;
 
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.List;
 import java.util.LinkedHashMap;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.LinkedHashSet;
-
 
 /**
  * Writes out desired fields to a tab-delimited text file
@@ -33,7 +28,7 @@ public class WriteOut {
         this.outputFile = outputFile;
     }
 
-    public void writeOutVepAnnotations() throws Exception {
+    public void writeOutVepAnnotations() throws IOException {
         ArrayList<ArrayList<String>> toWriteOutMutable = new ArrayList<ArrayList<String>>();
 
         //Set variable to write headers only once at the beginning of the output file
@@ -150,10 +145,11 @@ public class WriteOut {
             }
 
         }
+
         splitMultisample(outputFile); //To split out the multisample vcf into separate file names
     }
 
-    public void splitMultisample(File inputMultisample) throws Exception {
+    private static void splitMultisample(File inputMultisample) throws IOException {
         try (BufferedReader multisample = new BufferedReader(new FileReader(inputMultisample))) {
             ArrayListMultimap<String, String> samplesData = ArrayListMultimap.create();
 
