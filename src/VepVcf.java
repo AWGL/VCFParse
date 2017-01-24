@@ -34,6 +34,9 @@ public class VepVcf {
     public void parseVepVcf() {
         Log.log(Level.INFO, "Parsing VEP VCF file");
 
+        //Obtain VEP Headers- same for the whole VCF file
+        this.setVepHeaders();
+
         for (final VariantContext vc : vcfFileReader) {
 
             /* Each allele is associated with its allelenum (in case ordering is changed later on and so that the

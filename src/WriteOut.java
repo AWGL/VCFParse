@@ -149,7 +149,7 @@ public class WriteOut {
         splitMultisample(outputFile); //To split out the multisample vcf into separate file names
     }
 
-    private static void splitMultisample(File inputMultisample) throws IOException {
+    private void splitMultisample(File inputMultisample) throws IOException {
         try (BufferedReader multisample = new BufferedReader(new FileReader(inputMultisample))) {
             ArrayListMultimap<String, String> samplesData = ArrayListMultimap.create();
 
@@ -161,10 +161,7 @@ public class WriteOut {
             }
 
             for (String key : samplesData.keySet()) {
-                String outputPath = "C:\\Users\\Sara\\Documents\\Work\\VCFtoTab\\OutputFiles\\";
-                String outputSampleName = key;
-                File outputFile = new File(outputPath + outputSampleName + ".txt");
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFile, key)))) {
                     writer.write(headers);
                     writer.newLine();
                     for (String data : samplesData.get(key)) {
@@ -172,7 +169,7 @@ public class WriteOut {
                         writer.newLine();
                     }
                 }
-                //break; //First sample only for ease of testing
+
             }
         }
     }
