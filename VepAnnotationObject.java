@@ -64,7 +64,7 @@ public class VepAnnotationObject {
     private String hgvsp;
 
     @JsonProperty("cDNA_position")
-    private Integer cdnaPosition;
+    private String cdnaPosition;
 
     @JsonProperty("CDS_position")
     private Integer cdsPosition;
@@ -334,6 +334,9 @@ public class VepAnnotationObject {
     public String getAllele() {
         return allele;
     }
+    public String getCdnaPosition() {
+        return cdnaPosition;
+    }
     public String[] getConsequence() {
         return consequence;
     }
@@ -366,9 +369,6 @@ public class VepAnnotationObject {
     }
     public String getHgvsp() {
         return hgvsp;
-    }
-    public Integer getCdnaPosition() {
-        return cdnaPosition;
     }
     public Integer getCdsPosition() {
         return cdsPosition;
