@@ -48,11 +48,11 @@ public class VepAnnotationObject {
     private String biotype;
 
     @JsonProperty("EXON")
-    @JsonDeserialize(using = StringDeserializer.class)
+    @JsonDeserialize(using = ExonIntronDeserializer.class)
     private String exon;
 
     @JsonProperty("INTRON")
-    @JsonDeserialize(using = StringDeserializer.class)
+    @JsonDeserialize(using = ExonIntronDeserializer.class)
     private String intron;
 
     @JsonProperty("HGVSc")
