@@ -26,7 +26,7 @@ public class WriteOut {
 
         //write header lines
         for (String sampleId : vepVcf.getSampleNames()){
-            try (PrintWriter writer = new PrintWriter(sampleId + "_VariantReport.txt")){
+            try (PrintWriter writer = new PrintWriter(vepVcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_VariantReport.txt")){
                 writer.println("SampleID\tVariant\tFrequency\tDepth\tGenotype\tQuality\tClassification\tPreferredTranscript\tdbSNP\tCosmic\tHGMD\tExAC_AFR\tExAC_AMR\tExAC_EAS\tExAC_FIN\tExAC_NFE\tExAC_SAS\tExAC_OTH\t1KG_African\t1KG_American\t1KG_EastAsian\t1KG_European\t1KG_SouthAsian\tGene\tTranscript\tHGVSc\tHGVSp\tConsequence\tIntron\tExon\tSIFT\tPolyPhen");
             }
         }
@@ -38,7 +38,7 @@ public class WriteOut {
             for (Pair<Genotype, Double> genotype : variantGenotypeEntry.getValue()){
 
                 //write to variant report
-                try (FileWriter fileWriter = new FileWriter(genotype.getLeft().getSampleName() + "_VariantReport.txt", true);
+                try (FileWriter fileWriter = new FileWriter(vepVcf.getSampleMetaDataHashMap().get(genotype.getLeft().getSampleName()).getSeqId() + "_" + genotype.getLeft().getSampleName() + "_VariantReport.txt", true);
                      BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                      PrintWriter printWriter = new PrintWriter(bufferedWriter)) {
 

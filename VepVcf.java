@@ -6,6 +6,7 @@ import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.vcf.VCFFileReader;
 import nhs.genetics.cardiff.framework.GenomeVariant;
 import nhs.genetics.cardiff.framework.Pair;
+import nhs.genetics.cardiff.framework.SampleMetaData;
 import nhs.genetics.cardiff.framework.vep.VepAnnotationObject;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class VepVcf {
     private LinkedHashMap<GenomeVariant, ArrayList<Pair<Genotype, Double>>> sampleVariants = new LinkedHashMap<>();
     private ArrayList<String> sampleNames;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private HashMap<String, SampleMetaData> sampleMetaDataHashMap = new HashMap<>();
 
     public VepVcf(File vcfFilePath) {
         this.vcfFilePath = vcfFilePath;
@@ -46,6 +48,13 @@ public class VepVcf {
 
         //get VEP version
         vepVersion = Integer.parseInt(vcfFileReader.getFileHeader().getOtherHeaderLine("VEP").getValue().split(" ")[0].split("v")[1]);
+
+        //get vcf metadata
+        try {
+            setSampleMetaData(vcfFileReader.getFileHeader().getMetaDataLine("SAMPLE").getValue());
+        } catch (NullPointerException e){
+            log.log(Level.SEVERE, "Could not read metadata from SAMPLE tag. Check metadata has been applied to VCF file.");
+        }
 
         //extract VEP headers
         vepHeaders = vcfFileReader.getFileHeader().getInfoHeaderLine("CSQ").getDescription().split("Format:")[1].trim().split("\\|");
@@ -165,6 +174,15 @@ public class VepVcf {
 
         return objectMapper.convertValue(hashMap, VepAnnotationObject.class);
     }
+    private void setSampleMetaData(String sampleHeaderLine){
+        HashMap<String, String> temp = new HashMap<>();
+
+        for (String keyValue : sampleHeaderLine.substring(1, sampleHeaderLine.length() - 1).split(",")){
+            temp.put(keyValue.split("=")[0], keyValue.split("=")[1]);
+        }
+
+        sampleMetaDataHashMap.put(temp.get("ID"), objectMapper.convertValue(temp, SampleMetaData.class));
+    }
 
     public Integer getVepVersion() {
         return vepVersion;
@@ -180,5 +198,8 @@ public class VepVcf {
     }
     public ArrayList<String> getSampleNames() {
         return sampleNames;
+    }
+    public HashMap<String, SampleMetaData> getSampleMetaDataHashMap() {
+        return sampleMetaDataHashMap;
     }
 }

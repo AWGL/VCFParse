@@ -62,7 +62,7 @@ public class Main {
                 String line;
 
                 while ((line = bufferedReader.readLine()) != null) {
-                    preferredTranscripts.add(line);
+                    preferredTranscripts.add(line.split("\t")[1]);
                 }
 
             } catch (IOException e) {
