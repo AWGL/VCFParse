@@ -67,10 +67,10 @@ public class VepAnnotationObject {
     private String cdnaPosition;
 
     @JsonProperty("CDS_position")
-    private Integer cdsPosition;
+    private String cdsPosition;
 
     @JsonProperty("Protein_position")
-    private Integer proteinPosition;
+    private String proteinPosition;
 
     @JsonProperty("Amino_acids")
     @JsonDeserialize(using = StringDeserializer.class)
@@ -370,12 +370,14 @@ public class VepAnnotationObject {
     public String getHgvsp() {
         return hgvsp;
     }
-    public Integer getCdsPosition() {
+    public String getCdsPosition() {
         return cdsPosition;
     }
-    public Integer getProteinPosition() {
+
+    public String getProteinPosition() {
         return proteinPosition;
     }
+
     public String getAminoAcids() {
         return aminoAcids;
     }
