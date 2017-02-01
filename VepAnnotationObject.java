@@ -299,8 +299,8 @@ public class VepAnnotationObject {
         stringBuilder.append(getMafAsPercentage(sasMaf, allele)); stringBuilder.append("\t");
 
         //transcript level annotations
-        if (feature != null) stringBuilder.append(feature); stringBuilder.append("\t");
         if (symbol != null) stringBuilder.append(symbol); stringBuilder.append("\t");
+        if (feature != null) stringBuilder.append(feature); stringBuilder.append("\t");
         if (hgvsc != null) stringBuilder.append(hgvsc); stringBuilder.append("\t");
         if (hgvsp != null) stringBuilder.append(hgvsp); stringBuilder.append("\t");
         if (consequence != null) stringBuilder.append(Arrays.stream(consequence).collect(Collectors.joining(","))); stringBuilder.append("\t");
