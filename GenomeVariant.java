@@ -1,24 +1,22 @@
-package nhs.genetics.cardiff;
+package nhs.genetics.cardiff.framework;
 
 /**
- * Class manually copied until I work out how to import the NHS framework authored by Matt
- * AlleleNum added for flexibility
- * @author  Sara Rey
- * @since   2016-11-14
+ * A class for chromosomal changes.
+ *
+ * @author  Matt Lyon
+ * @version 1.0
+ * @since   2016-05-09
  */
-
 public class GenomeVariant {
 
     private String contig, ref, alt;
     private int pos;
-    private int alleleNum;
 
-    public GenomeVariant(String contig, int pos, String ref, String alt, int alleleNum){
+    public GenomeVariant(String contig, int pos, String ref, String alt){
         this.contig = contig;
         this.pos = pos;
         this.ref = ref;
         this.alt = alt;
-        this.alleleNum = alleleNum;
     }
 
     public GenomeVariant(String s){ //use 1:111000A>T
@@ -89,7 +87,6 @@ public class GenomeVariant {
     public boolean isIndel(){
         return (ref.length() != 1 || alt.length() != 1);
     }
-    public int getAlleleNum() { return this.alleleNum; }
 
     @Override
     public boolean equals(Object o) {
