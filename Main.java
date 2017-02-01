@@ -90,7 +90,7 @@ public class Main {
                             genomeVariant.convertToMinimalRepresentation();
 
                             //get classification
-                            classifiedVariants.put(genomeVariant, (Integer) variantContext.getAttribute("Classification"));
+                            classifiedVariants.put(genomeVariant, Integer.parseInt((String) variantContext.getAttribute("Classification")));
 
                         }
 
