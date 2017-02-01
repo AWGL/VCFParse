@@ -59,9 +59,9 @@ public class Main {
 
         if (commandLine.hasOption("T")){
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(commandLine.getOptionValue("T")))) {
-                String line = bufferedReader.readLine();
+                String line;
 
-                while (line != null) {
+                while ((line = bufferedReader.readLine()) != null) {
                     preferredTranscripts.add(line);
                 }
 
