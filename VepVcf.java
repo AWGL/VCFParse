@@ -29,7 +29,7 @@ public class VepVcf {
     private static final Logger log = Logger.getLogger(VepVcf.class.getName());
     private File vcfFilePath;
     private String[] vepHeaders;
-    private Integer vepVersion = null;
+    private Integer vepVersion;
     private LinkedHashMap<GenomeVariant, ArrayList<VepAnnotationObject>> annotatedVariants = new LinkedHashMap<>();
     private LinkedHashMap<GenomeVariant, ArrayList<Pair<Genotype, Double>>> sampleVariants = new LinkedHashMap<>();
     private ArrayList<String> sampleNames;
@@ -47,17 +47,26 @@ public class VepVcf {
         VCFFileReader vcfFileReader = new VCFFileReader(vcfFilePath);
 
         //get VEP version
-        vepVersion = Integer.parseInt(vcfFileReader.getFileHeader().getOtherHeaderLine("VEP").getValue().split(" ")[0].split("v")[1]);
+        try {
+            vepVersion = Integer.parseInt(vcfFileReader.getFileHeader().getOtherHeaderLine("VEP").getValue().split(" ")[0].split("v")[1]);
+        } catch (NullPointerException e){
+            log.log(Level.WARNING, "Could not determine VEP version");
+        }
 
         //get vcf metadata
         try {
             setSampleMetaData(vcfFileReader.getFileHeader().getMetaDataLine("SAMPLE").getValue());
         } catch (NullPointerException e){
             log.log(Level.SEVERE, "Could not read metadata from SAMPLE tag. Check metadata has been applied to VCF file.");
+            throw e;
         }
 
         //extract VEP headers
-        vepHeaders = vcfFileReader.getFileHeader().getInfoHeaderLine("CSQ").getDescription().split("Format:")[1].trim().split("\\|");
+        try {
+            vepHeaders = vcfFileReader.getFileHeader().getInfoHeaderLine("CSQ").getDescription().split("Format:")[1].trim().split("\\|");
+        } catch (NullPointerException e){
+            log.log(Level.WARNING, "Could not find VEP header. Assuming VCF has not been annotated");
+        }
 
         //get sample list
         sampleNames = vcfFileReader.getFileHeader().getSampleNamesInOrder();
