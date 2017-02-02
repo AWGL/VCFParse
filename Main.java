@@ -58,6 +58,7 @@ public class Main {
         HashSet<String> preferredTranscripts = new HashSet<>();
 
         if (commandLine.hasOption("T")){
+            log.log(Level.INFO, "Parsing preferred transcript list");
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(commandLine.getOptionValue("T")))) {
                 String line;
 
@@ -75,6 +76,7 @@ public class Main {
         HashMap<GenomeVariant, Integer> classifiedVariants = new HashMap<>();
 
         if (commandLine.hasOption("C")){
+            log.log(Level.INFO, "Parsing classified variants");
             VCFFileReader vcfFileReader = new VCFFileReader(new File(commandLine.getOptionValue("C")));
 
             //read VCF line by line

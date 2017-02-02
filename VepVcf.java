@@ -70,32 +70,35 @@ public class VepVcf {
                 .forEach(variantContext -> {
 
                     //split site level annotations and pair with headers
-                    HashSet<VepAnnotationObject> annotations = new HashSet<>();
-                    try {
-                        annotations.add(deserialiseVepAnnotation((String) variantContext.getAttribute("CSQ")));
-                    } catch (ClassCastException e) {
-                        for (String field : (ArrayList<String>) variantContext.getAttribute("CSQ")) {
-                            annotations.add(deserialiseVepAnnotation(field));
-                        }
-                    }
+                    if (variantContext.hasAttribute("CSQ")){
+                        HashSet<VepAnnotationObject> annotations = new HashSet<>();
 
-                    //loop over alternative alleles, create genomeVariants and associate with allele num
-                    for (int i=0; i < variantContext.getAlternateAlleles().size(); i++){
-
-                        //create genome variant & convert to minimal representation
-                        GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).getBaseString());
-                        genomeVariant.convertToMinimalRepresentation();
-
-                        //prep annotated variants map
-                        annotatedVariants.put(genomeVariant, new ArrayList<>());
-
-                        //find annotation associated with this allele_num
-                        for (VepAnnotationObject vepAnnotation : annotations){
-                            if (vepAnnotation.getAlleleNum() == (i+1)){
-                                annotatedVariants.get(genomeVariant).add(vepAnnotation);
+                        try {
+                            annotations.add(deserialiseVepAnnotation((String) variantContext.getAttribute("CSQ")));
+                        } catch (ClassCastException e) {
+                            for (String field : (ArrayList<String>) variantContext.getAttribute("CSQ")) {
+                                annotations.add(deserialiseVepAnnotation(field));
                             }
                         }
 
+                        //loop over alternative alleles, create genomeVariants and associate with allele num
+                        for (int i=0; i < variantContext.getAlternateAlleles().size(); i++){
+
+                            //create genome variant & convert to minimal representation
+                            GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).getBaseString());
+                            genomeVariant.convertToMinimalRepresentation();
+
+                            //prep annotated variants map
+                            annotatedVariants.put(genomeVariant, new ArrayList<>());
+
+                            //find annotation associated with this allele_num
+                            for (VepAnnotationObject vepAnnotation : annotations){
+                                if (vepAnnotation.getAlleleNum() == (i+1)){
+                                    annotatedVariants.get(genomeVariant).add(vepAnnotation);
+                                }
+                            }
+
+                        }
                     }
 
                     //loop over genotypes
