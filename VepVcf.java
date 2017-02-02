@@ -44,7 +44,8 @@ public class VepVcf {
         log.log(Level.INFO, "Parsing VEP annotated VCF file");
 
         //open VCF file
-        VCFFileReader vcfFileReader = new VCFFileReader(vcfFilePath);
+        //Wrap in a try-catch block- or code fails at the next step//
+        VCFFileReader vcfFileReader = new VCFFileReader(vcfFilePath, false); //Do we require index?
 
         //get VEP version
         try {
