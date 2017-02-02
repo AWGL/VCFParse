@@ -55,6 +55,8 @@ public class VepVcf {
         }
 
         //get vcf metadata
+        //Need to change the SampleMetaData class to support output from the Germline Enrichment pipeline
+        //Doesn't trip the catch block below, gives a key not found error
         try {
             setSampleMetaData(vcfFileReader.getFileHeader().getMetaDataLine("SAMPLE").getValue());
         } catch (NullPointerException e){
