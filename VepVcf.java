@@ -127,7 +127,7 @@ public class VepVcf {
                                     throw new UnsupportedOperationException("Allele " + genotype.getAlleles().toString() + " is not diploid.");
                                 }
 
-                                if (genotype.getAlleles().get(0).getBaseString().equals("*") || genotype.getAlleles().get(1).getBaseString().equals("*")) {
+                                if (genotype.getAlleles().get(0).getBaseString().equals("*") || genotype.getAlleles().get(1).getBaseString().equals("*")){
                                     return;
                                 }
 
@@ -182,8 +182,6 @@ public class VepVcf {
         //pair headers with fields
         for (int i=0 ; i < annotations.length; i++) {
             hashMap.put(vepHeaders[i].trim(), annotations[i].trim());
-            System.out.println(vepHeaders[i]);
-            System.out.println(annotations[i]);
         }
 
         return objectMapper.convertValue(hashMap, VepAnnotationObject.class);
