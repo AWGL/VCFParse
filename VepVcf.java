@@ -44,7 +44,6 @@ public class VepVcf {
         log.log(Level.INFO, "Parsing VEP annotated VCF file");
 
         //open VCF file
-        //Wrap in a try-catch block- or code fails at the next step//
         VCFFileReader vcfFileReader = new VCFFileReader(vcfFilePath, false); //Do we require index?
 
         //get VEP version
@@ -55,8 +54,6 @@ public class VepVcf {
         }
 
         //get vcf metadata
-        //Need to change the SampleMetaData class to support output from the Germline Enrichment pipeline
-        //Doesn't trip the catch block below, gives a key not found error
         try {
             setSampleMetaData(vcfFileReader.getFileHeader().getMetaDataLine("SAMPLE").getValue());
         } catch (NullPointerException e){
@@ -73,6 +70,7 @@ public class VepVcf {
 
         //get sample list
         sampleNames = vcfFileReader.getFileHeader().getSampleNamesInOrder();
+        System.out.println(sampleNames);
 
         //read VCF line by line
         vcfFileReader.iterator()
