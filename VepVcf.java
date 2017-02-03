@@ -70,7 +70,6 @@ public class VepVcf {
 
         //get sample list
         sampleNames = vcfFileReader.getFileHeader().getSampleNamesInOrder();
-        System.out.println(sampleNames);
 
         //read VCF line by line
         vcfFileReader.iterator()
@@ -178,11 +177,13 @@ public class VepVcf {
         HashMap<String, String> hashMap = new HashMap<String, String>();
 
         //split annotation fields
-        String[] annotations = csqField.split("\\|"); //-1 stops this removing empty trailing spaces
+        String[] annotations = csqField.split("\\|", -1); //-1 stops this removing empty trailing spaces
 
         //pair headers with fields
         for (int i=0 ; i < annotations.length; i++) {
             hashMap.put(vepHeaders[i].trim(), annotations[i].trim());
+            System.out.println(vepHeaders[i]);
+            System.out.println(annotations[i]);
         }
 
         return objectMapper.convertValue(hashMap, VepAnnotationObject.class);
