@@ -2,6 +2,7 @@ package nhs.genetics.cardiff;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import htsjdk.variant.variantcontext.Genotype;
+import htsjdk.variant.variantcontext.GenotypeBuilder;
 import htsjdk.variant.variantcontext.VariantContext;
 import htsjdk.variant.vcf.VCFFileReader;
 import nhs.genetics.cardiff.framework.GenomeVariant;
@@ -129,6 +130,14 @@ public class VepVcf {
 
                                 if (genotype.getAlleles().get(0).getBaseString().equals("*") || genotype.getAlleles().get(1).getBaseString().equals("*")) {
                                     return;
+                                }
+
+                                //add DP to genotype if missing and only 1 sample
+                                if (!genotype.hasDP() && variantContext.getNSamples() == 1){
+                                    GenotypeBuilder genotypeBuilder = new GenotypeBuilder();
+                                    genotypeBuilder.copy(genotype);
+                                    genotypeBuilder.DP(variantContext.getAttributeAsInt("DP", -1));
+                                    genotype = genotypeBuilder.make();
                                 }
 
                                 //store genotype

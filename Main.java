@@ -23,7 +23,7 @@ public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class.getName());
     private static final String program = "VCFParse";
-    private static final String version = "pre-release";
+    private static final String version = "1.0.0";
 
     public static void main(String[] args) {
 
