@@ -1,6 +1,7 @@
 package nhs.genetics.cardiff;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import htsjdk.variant.variantcontext.Allele;
 import htsjdk.variant.variantcontext.Genotype;
 import htsjdk.variant.variantcontext.GenotypeBuilder;
 import htsjdk.variant.variantcontext.VariantContext;
@@ -25,9 +26,9 @@ import java.util.logging.Logger;
  * @since   2016-11-08
  */
 
-public class VepVcf {
+public class Vcf {
 
-    private static final Logger log = Logger.getLogger(VepVcf.class.getName());
+    private static final Logger log = Logger.getLogger(Vcf.class.getName());
     private File vcfFilePath;
     private String[] vepHeaders;
     private Integer vepVersion;
@@ -37,11 +38,11 @@ public class VepVcf {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private HashMap<String, SampleMetaData> sampleMetaDataHashMap = new HashMap<>();
 
-    public VepVcf(File vcfFilePath) {
+    public Vcf(File vcfFilePath) {
         this.vcfFilePath = vcfFilePath;
     }
 
-    public void parseVepVcf() {
+    public void parseVcf() {
         log.log(Level.INFO, "Parsing VEP annotated VCF file");
 
         //open VCF file
@@ -179,6 +180,33 @@ public class VepVcf {
                             });
 
                 });
+    }
+    public static HashMap<GenomeVariant, Integer> getClassifications(File file){
+        log.log(Level.INFO, "Parsing classified variants");
+
+        HashMap<GenomeVariant, Integer> classifiedVariants = new HashMap<>();
+        VCFFileReader vcfFileReader = new VCFFileReader(file);
+
+        //read VCF line by line
+        vcfFileReader.iterator()
+                .stream()
+                .forEach(variantContext -> {
+
+                    //create genome variants
+                    for (Allele alternativeAllele : variantContext.getAlternateAlleles()){
+
+                        //create genome variant & convert to minimal representation
+                        GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), alternativeAllele.getBaseString());
+                        genomeVariant.convertToMinimalRepresentation();
+
+                        //get classification
+                        classifiedVariants.put(genomeVariant, Integer.parseInt((String) variantContext.getAttribute("Classification")));
+
+                    }
+
+                });
+
+        return classifiedVariants;
     }
 
     private VepAnnotationObject deserialiseVepAnnotation(String csqField){

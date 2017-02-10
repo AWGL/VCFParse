@@ -1,8 +1,7 @@
 package nhs.genetics.cardiff;
 
-import htsjdk.variant.variantcontext.Allele;
-import htsjdk.variant.vcf.VCFFileReader;
 import nhs.genetics.cardiff.framework.GenomeVariant;
+import nhs.genetics.cardiff.framework.ListReader;
 import org.apache.commons.cli.*;
 
 import java.io.*;
@@ -23,7 +22,7 @@ public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class.getName());
     private static final String program = "VCFParse";
-    private static final String version = "1.0.0";
+    private static final String version = "1.1.0";
 
     public static void main(String[] args) {
 
@@ -55,57 +54,25 @@ public class Main {
         boolean onlyReportKnownRefSeq = commandLine.hasOption("K");
 
         //parse preferred transcripts list
-        HashSet<String> preferredTranscripts = new HashSet<>();
-
+        HashSet<String> preferredTranscripts = null;
         if (commandLine.hasOption("T")){
-            log.log(Level.INFO, "Parsing preferred transcript list");
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(commandLine.getOptionValue("T")))) {
-                String line;
-
-                while ((line = bufferedReader.readLine()) != null) {
-                    preferredTranscripts.add(line.split("\t")[1]);
-                }
-
-            } catch (IOException e) {
-                log.log(Level.SEVERE, "Could not read transcript list: " + e.getMessage());
-                System.exit(-1);
-            }
+            ListReader listReader = new ListReader(new File(commandLine.getOptionValue("T")));
+            preferredTranscripts = listReader.getUniqueElements();
         }
 
         //parse classification VCF
-        HashMap<GenomeVariant, Integer> classifiedVariants = new HashMap<>();
-
+        HashMap<GenomeVariant, Integer> classifiedVariants = null;
         if (commandLine.hasOption("C")){
-            log.log(Level.INFO, "Parsing classified variants");
-            VCFFileReader vcfFileReader = new VCFFileReader(new File(commandLine.getOptionValue("C")));
-
-            //read VCF line by line
-            vcfFileReader.iterator()
-                    .stream()
-                    .forEach(variantContext -> {
-
-                        //create genome variants
-                        for (Allele alternativeAllele : variantContext.getAlternateAlleles()){
-
-                            //create genome variant & convert to minimal representation
-                            GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), alternativeAllele.getBaseString());
-                            genomeVariant.convertToMinimalRepresentation();
-
-                            //get classification
-                            classifiedVariants.put(genomeVariant, Integer.parseInt((String) variantContext.getAttribute("Classification")));
-
-                        }
-
-                    });
+            classifiedVariants = Vcf.getClassifications(new File(commandLine.getOptionValue("C")));
         }
 
         //parse VEP annotated VCF file
-        VepVcf vepVcf = new VepVcf(new File(commandLine.getOptionValue("V")));
-        vepVcf.parseVepVcf();
+        Vcf vcf = new Vcf(new File(commandLine.getOptionValue("V")));
+        vcf.parseVcf();
 
         //write to file
         try {
-            WriteOut.writeToTable(vepVcf, preferredTranscripts, classifiedVariants, onlyReportKnownRefSeq);
+            WriteOut.writeToTable(vcf, preferredTranscripts, classifiedVariants, onlyReportKnownRefSeq);
         } catch (IOException e){
             log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
             System.exit(-1);

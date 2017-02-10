@@ -14,6 +14,8 @@ import java.io.File;
 @JsonIgnoreProperties({"ID"})
 public class SampleMetaData {
 
+    /*Global*/
+
     @JsonProperty("Tissue")
     private String tissue;
 
@@ -56,6 +58,23 @@ public class SampleMetaData {
     @JsonProperty("RemoteVcfFilePath")
     private File remoteVcfFilePath;
 
+    /*Enrichment specific*/
+
+    @JsonProperty("GenotypicGender")
+    private Gender genotypicGender;
+
+    @JsonProperty("MeanInsertSize")
+    private Double meanInsertSize;
+
+    @JsonProperty("SDInsertSize")
+    private Double stdevInsertSize;
+
+    @JsonProperty("DuplicationRate")
+    private Double duplicationRate;
+
+    @JsonProperty("EstimatedContamination")
+    private Double estimatedContamination;
+
     public SampleMetaData(){
 
     }
@@ -63,57 +82,59 @@ public class SampleMetaData {
     public String getTissue() {
         return tissue;
     }
-
     public String getWorklistId() {
         return worklistId;
     }
-
     public String getSeqId() {
         return seqId;
     }
-
     public String getAssay() {
         return assay;
     }
-
     public String getPipelineName() {
         return pipelineName;
     }
-
     public String getPipelineVersion() {
         return pipelineVersion;
     }
-
     public String getRawSequenceQuality() {
         return rawSequenceQuality;
     }
-
     public Long getTotalReads() {
         return totalReads;
     }
-
     public Double getPctSelectedBases() {
         return pctSelectedBases;
     }
-
     public Double getMeanOnTargetCoverage() {
         return meanOnTargetCoverage;
     }
-
     public Double getPctTargetBasesCt() {
         return pctTargetBasesCt;
     }
-
     public Long getTotalTargetedUsableBases() {
         return totalTargetedUsableBases;
     }
-
     public File getRemoteBamFilePath() {
         return remoteBamFilePath;
     }
-
     public File getRemoteVcfFilePath() {
         return remoteVcfFilePath;
+    }
+    public Gender getGenotypicGender() {
+        return genotypicGender;
+    }
+    public Double getMeanInsertSize() {
+        return meanInsertSize;
+    }
+    public Double getStdevInsertSize() {
+        return stdevInsertSize;
+    }
+    public Double getDuplicationRate() {
+        return duplicationRate;
+    }
+    public Double getEstimatedContamination() {
+        return estimatedContamination;
     }
 
     @Override
@@ -143,7 +164,16 @@ public class SampleMetaData {
             return false;
         if (remoteBamFilePath != null ? !remoteBamFilePath.equals(that.remoteBamFilePath) : that.remoteBamFilePath != null)
             return false;
-        return remoteVcfFilePath != null ? remoteVcfFilePath.equals(that.remoteVcfFilePath) : that.remoteVcfFilePath == null;
+        if (remoteVcfFilePath != null ? !remoteVcfFilePath.equals(that.remoteVcfFilePath) : that.remoteVcfFilePath != null)
+            return false;
+        if (genotypicGender != that.genotypicGender) return false;
+        if (meanInsertSize != null ? !meanInsertSize.equals(that.meanInsertSize) : that.meanInsertSize != null)
+            return false;
+        if (stdevInsertSize != null ? !stdevInsertSize.equals(that.stdevInsertSize) : that.stdevInsertSize != null)
+            return false;
+        if (duplicationRate != null ? !duplicationRate.equals(that.duplicationRate) : that.duplicationRate != null)
+            return false;
+        return estimatedContamination != null ? estimatedContamination.equals(that.estimatedContamination) : that.estimatedContamination == null;
 
     }
 
@@ -163,6 +193,11 @@ public class SampleMetaData {
         result = 31 * result + (totalTargetedUsableBases != null ? totalTargetedUsableBases.hashCode() : 0);
         result = 31 * result + (remoteBamFilePath != null ? remoteBamFilePath.hashCode() : 0);
         result = 31 * result + (remoteVcfFilePath != null ? remoteVcfFilePath.hashCode() : 0);
+        result = 31 * result + (genotypicGender != null ? genotypicGender.hashCode() : 0);
+        result = 31 * result + (meanInsertSize != null ? meanInsertSize.hashCode() : 0);
+        result = 31 * result + (stdevInsertSize != null ? stdevInsertSize.hashCode() : 0);
+        result = 31 * result + (duplicationRate != null ? duplicationRate.hashCode() : 0);
+        result = 31 * result + (estimatedContamination != null ? estimatedContamination.hashCode() : 0);
         return result;
     }
 }
