@@ -32,7 +32,7 @@ public class WriteOut {
         //write header lines & create new file
         for (String sampleId : vcf.getSampleNames()){
             try (PrintWriter writer = new PrintWriter(vcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_VariantReport.txt")){
-                writer.println("SampleID\tVariant\tFrequency\tDepth\tGenotype\tQuality\tClassification\tPreferredTranscript\tdbSNP\tCosmic\tHGMD\tExAC_AFR\tExAC_AMR\tExAC_EAS\tExAC_FIN\tExAC_NFE\tExAC_SAS\tExAC_OTH\t1KG_African\t1KG_American\t1KG_EastAsian\t1KG_European\t1KG_SouthAsian\tGene\tTranscript\tHGVSc\tHGVSp\tConsequence\tIntron\tExon\tSIFT\tPolyPhen");
+                writer.println("SampleID\tVariant\tAltFrequency\tDepth\tGenotype\tQuality\tClassification\tPreferredTranscript\tdbSNP\tCosmic\tHGMD\tExAC_AFR\tExAC_AMR\tExAC_EAS\tExAC_FIN\tExAC_NFE\tExAC_SAS\tExAC_OTH\t1KG_African\t1KG_American\t1KG_EastAsian\t1KG_European\t1KG_SouthAsian\tGene\tTranscript\tHGVSc\tHGVSp\tConsequence\tIntron\tExon\tSIFT\tPolyPhen");
             }
         }
 
@@ -44,7 +44,6 @@ public class WriteOut {
 
                 //write to variant report & append to header file
                 try (FileWriter fileWriter = new FileWriter(vcf.getSampleMetaDataHashMap().get(genotype.getLeft().getSampleName()).getSeqId() + "_" + genotype.getLeft().getSampleName() + "_VariantReport.txt", true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter); PrintWriter printWriter = new PrintWriter(bufferedWriter)) {
-
                     boolean printed = false;
 
                     //check VEP annotation exists and print

@@ -105,7 +105,7 @@ public class Vcf {
                                 genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).getBaseString());
                                 genomeVariant.convertToMinimalRepresentation();
                             } else {
-                                genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).toString());
+                                genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getEnd() + variantContext.getAlternateAlleles().get(i).toString());
                             }
 
                             //prep annotated variants map
@@ -159,7 +159,7 @@ public class Vcf {
                                         genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
                                         genomeVariant.convertToMinimalRepresentation();
                                     } else {
-                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).toString());
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getEnd() + genotype.getAlleles().get(1).toString());
                                     }
 
                                     if (!sampleVariants.containsKey(genomeVariant)){
@@ -174,7 +174,7 @@ public class Vcf {
                                         genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
                                         genomeVariant.convertToMinimalRepresentation();
                                     } else {
-                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).toString());
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getEnd() + genotype.getAlleles().get(1).toString());
                                     }
 
                                     if (!sampleVariants.containsKey(genomeVariant)){
@@ -189,7 +189,7 @@ public class Vcf {
                                             genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(0).getBaseString());
                                             genomeVariant.convertToMinimalRepresentation();
                                         } else {
-                                            genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(0).toString());
+                                            genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getEnd() + genotype.getAlleles().get(0).toString());
                                         }
 
                                         if (!sampleVariants.containsKey(genomeVariant)){
