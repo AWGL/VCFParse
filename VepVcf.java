@@ -99,8 +99,14 @@ public class Vcf {
                         for (int i=0; i < variantContext.getAlternateAlleles().size(); i++){
 
                             //create genome variant & convert to minimal representation
-                            GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).getBaseString());
-                            genomeVariant.convertToMinimalRepresentation();
+                            GenomeVariant genomeVariant = null;
+
+                            if (!variantContext.getAlternateAlleles().get(i).isSymbolic()){
+                                genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).getBaseString());
+                                genomeVariant.convertToMinimalRepresentation();
+                            } else {
+                                genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), variantContext.getAlternateAlleles().get(i).toString());
+                            }
 
                             //prep annotated variants map
                             annotatedVariants.put(genomeVariant, new ArrayList<>());
@@ -122,6 +128,8 @@ public class Vcf {
                             .filter(genotype -> !genotype.isHomRef())
                             .filter(genotype -> !genotype.isFiltered())
                             .forEach(genotype -> {
+
+                                GenomeVariant genomeVariant = null;
 
                                 //check genotype validity
                                 if (genotype.isMixed()) {
@@ -146,8 +154,13 @@ public class Vcf {
 
                                 //store genotype
                                 if (genotype.isHom()){
-                                    GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
-                                    genomeVariant.convertToMinimalRepresentation();
+
+                                    if (!genotype.getAlleles().get(1).isSymbolic()){
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
+                                        genomeVariant.convertToMinimalRepresentation();
+                                    } else {
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).toString());
+                                    }
 
                                     if (!sampleVariants.containsKey(genomeVariant)){
                                         sampleVariants.put(genomeVariant, new ArrayList<>());
@@ -156,8 +169,14 @@ public class Vcf {
                                     sampleVariants.get(genomeVariant).add(new Pair<>(genotype, variantContext.getPhredScaledQual()));
 
                                 } else if (genotype.isHet()){
-                                    GenomeVariant genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
-                                    genomeVariant.convertToMinimalRepresentation();
+
+                                    if (!genotype.getAlleles().get(1).isSymbolic()){
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).getBaseString());
+                                        genomeVariant.convertToMinimalRepresentation();
+                                    } else {
+                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).toString());
+                                        System.out.println(genomeVariant);
+                                    }
 
                                     if (!sampleVariants.containsKey(genomeVariant)){
                                         sampleVariants.put(genomeVariant, new ArrayList<>());
@@ -166,8 +185,13 @@ public class Vcf {
                                     sampleVariants.get(genomeVariant).add(new Pair<>(genotype, variantContext.getPhredScaledQual()));
 
                                     if (genotype.isHetNonRef()){
-                                        genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(0).getBaseString());
-                                        genomeVariant.convertToMinimalRepresentation();
+
+                                        if (!genotype.getAlleles().get(0).isSymbolic()){
+                                            genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(0).getBaseString());
+                                            genomeVariant.convertToMinimalRepresentation();
+                                        } else {
+                                            genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(0).toString());
+                                        }
 
                                         if (!sampleVariants.containsKey(genomeVariant)){
                                             sampleVariants.put(genomeVariant, new ArrayList<>());
