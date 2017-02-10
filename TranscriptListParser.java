@@ -4,52 +4,49 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Helper class for reading lists
+ * Helper class for transcripts
  *
  * @author  Matt Lyon
- * @version 1.1
- * @since   2015-02-26
+ * @since   2015-02-10
  */
 
-public class ListReader {
+public class TranscriptListParser {
+
+    private static final Logger log = Logger.getLogger(TranscriptListParser.class.getName());
 
     private File filePath;
-    private ArrayList<String> elements = new ArrayList<>();
+    private HashSet<String> transcripts = new HashSet<>();
 
-    public ListReader(File filePath){
+    public TranscriptListParser(File filePath){
         this.filePath = filePath;
     }
 
     public void parseListReader() throws IOException {
+        log.log(Level.INFO, "Parsing transcript list");
         String line;
 
         try (BufferedReader bufferedReader = new BufferedReader (new FileReader(filePath))){
             while ((line = bufferedReader.readLine()) != null) {
-                elements.add(line);
+                String[] fields = line.split("\t");
+                System.out.println(line);
+                transcripts.add(fields[1]);
             }
         }
 
     }
 
-    public ArrayList<String> getElements() {
-        return elements;
-    }
     public File getFilePath() {
         return filePath;
     }
     public String getFileName(){
         return filePath.getName();
     }
-    public HashSet<String> getUniqueElements() {
-        HashSet<String> hashSet = new HashSet<>();
-        for (String s : elements){
-            hashSet.add(s);
-        }
-        return hashSet;
+    public HashSet<String> getTranscripts() {
+        return transcripts;
     }
-
 }

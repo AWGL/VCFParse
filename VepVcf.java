@@ -42,7 +42,7 @@ public class Vcf {
         this.vcfFilePath = vcfFilePath;
     }
 
-    public void parseVcf() {
+    public void parseAnnotatedVepVcf() {
         log.log(Level.INFO, "Parsing VEP annotated VCF file");
 
         //open VCF file
@@ -57,7 +57,10 @@ public class Vcf {
 
         //get vcf metadata
         try {
-            setSampleMetaData(vcfFileReader.getFileHeader().getMetaDataLine("SAMPLE").getValue());
+            vcfFileReader.getFileHeader().getMetaDataInInputOrder()
+                    .stream()
+                    .filter(vcfInfoHeaderLine -> vcfInfoHeaderLine.getKey().equals("SAMPLE"))
+                    .forEach(vcfHeaderLine -> setSampleMetaData(vcfHeaderLine.getValue()));
         } catch (NullPointerException e){
             log.log(Level.SEVERE, "Could not read metadata from SAMPLE tag. Check metadata has been applied to VCF file.");
             throw e;

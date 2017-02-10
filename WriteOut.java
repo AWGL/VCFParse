@@ -29,6 +29,10 @@ public class WriteOut {
     public static void writeToTable(Vcf vcf, HashSet<String> preferredTranscripts, HashMap<GenomeVariant, Integer> classifiedVariants, Boolean onlyReportKnownRefSeq) throws IOException {
         log.log(Level.INFO, "Writing results to table");
 
+        for (String s : preferredTranscripts){
+            System.out.println(s);
+        }
+
         //write header lines & create new file
         for (String sampleId : vcf.getSampleNames()){
             try (PrintWriter writer = new PrintWriter(vcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_VariantReport.txt")){
@@ -67,7 +71,7 @@ public class WriteOut {
                             printWriter.print("\t");
                             printWriter.print(genotype.getLeft().getType());
                             printWriter.print("\t");
-                            printWriter.print(genotype.getRight());
+                            printWriter.print(String.format("%.2f",genotype.getRight()));
                             printWriter.print("\t");
                             if (classifiedVariants != null && classifiedVariants.containsKey(variantGenotypeEntry.getKey())){
                                 printWriter.print(classifiedVariants.get(variantGenotypeEntry.getKey()));
@@ -98,7 +102,7 @@ public class WriteOut {
                         printWriter.print("\t");
                         printWriter.print(genotype.getLeft().getType());
                         printWriter.print("\t");
-                        printWriter.print(genotype.getRight());
+                        printWriter.print(String.format("%.2f",genotype.getRight()));
                         printWriter.print("\t");
 
                         if (classifiedVariants != null && classifiedVariants.containsKey(variantGenotypeEntry.getKey())){

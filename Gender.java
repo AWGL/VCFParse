@@ -8,5 +8,5 @@ package nhs.genetics.cardiff.framework;
  */
 
 public enum Gender {
-    MALE, FEMALE
+    MALE, FEMALE, UNKNOWN
 }

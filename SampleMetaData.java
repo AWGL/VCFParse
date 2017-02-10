@@ -2,6 +2,8 @@ package nhs.genetics.cardiff.framework;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 
@@ -77,6 +79,15 @@ public class SampleMetaData {
 
     public SampleMetaData(){
 
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e){
+            return "{}";
+        }
     }
 
     public String getTissue() {

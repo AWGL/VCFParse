@@ -1,7 +1,7 @@
 package nhs.genetics.cardiff;
 
 import nhs.genetics.cardiff.framework.GenomeVariant;
-import nhs.genetics.cardiff.framework.ListReader;
+import nhs.genetics.cardiff.framework.TranscriptListParser;
 import org.apache.commons.cli.*;
 
 import java.io.*;
@@ -22,7 +22,7 @@ public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class.getName());
     private static final String program = "VCFParse";
-    private static final String version = "1.1.0";
+    private static final String version = "1.1.1";
 
     public static void main(String[] args) {
 
@@ -54,10 +54,17 @@ public class Main {
         boolean onlyReportKnownRefSeq = commandLine.hasOption("K");
 
         //parse preferred transcripts list
-        HashSet<String> preferredTranscripts = null;
+        HashSet<String> transcripts = null;
         if (commandLine.hasOption("T")){
-            ListReader listReader = new ListReader(new File(commandLine.getOptionValue("T")));
-            preferredTranscripts = listReader.getUniqueElements();
+            try {
+                TranscriptListParser transcriptListParser = new TranscriptListParser(new File(commandLine.getOptionValue("T")));
+                transcriptListParser.parseListReader();
+
+                transcripts = transcriptListParser.getTranscripts();
+            } catch (IOException e){
+                log.log(Level.SEVERE, e.getMessage());
+                System.exit(-1);
+            }
         }
 
         //parse classification VCF
@@ -68,11 +75,11 @@ public class Main {
 
         //parse VEP annotated VCF file
         Vcf vcf = new Vcf(new File(commandLine.getOptionValue("V")));
-        vcf.parseVcf();
+        vcf.parseAnnotatedVepVcf();
 
         //write to file
         try {
-            WriteOut.writeToTable(vcf, preferredTranscripts, classifiedVariants, onlyReportKnownRefSeq);
+            WriteOut.writeToTable(vcf, transcripts, classifiedVariants, onlyReportKnownRefSeq);
         } catch (IOException e){
             log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
             System.exit(-1);
