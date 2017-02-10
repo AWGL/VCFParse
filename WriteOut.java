@@ -61,9 +61,9 @@ public class WriteOut {
                             printWriter.print("\t");
                             printWriter.print(variantGenotypeEntry.getKey());
                             printWriter.print("\t");
-                            printWriter.print(String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%");
+                            printWriter.print(genotype.getLeft().hasDP() && genotype.getLeft().hasAD() ? String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%" : null);
                             printWriter.print("\t");
-                            printWriter.print(genotype.getLeft().getDP());
+                            printWriter.print(genotype.getLeft().hasDP() ? genotype.getLeft().getDP() : null);
                             printWriter.print("\t");
                             printWriter.print(genotype.getLeft().getType());
                             printWriter.print("\t");
@@ -92,9 +92,9 @@ public class WriteOut {
                         printWriter.print("\t");
                         printWriter.print(variantGenotypeEntry.getKey());
                         printWriter.print("\t");
-                        printWriter.print(String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%");
+                        printWriter.print(genotype.getLeft().hasDP() && genotype.getLeft().hasAD() ? String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%" : null);
                         printWriter.print("\t");
-                        printWriter.print(genotype.getLeft().getDP());
+                        printWriter.print(genotype.getLeft().hasDP() ? genotype.getLeft().getDP() : null);
                         printWriter.print("\t");
                         printWriter.print(genotype.getLeft().getType());
                         printWriter.print("\t");
@@ -105,7 +105,8 @@ public class WriteOut {
                             printWriter.print(classifiedVariants.get(variantGenotypeEntry.getKey()));
                         }
 
-                        printWriter.println();
+                        printWriter.print("\t");
+                        printWriter.println(false);
                     }
 
                 }

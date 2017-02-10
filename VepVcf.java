@@ -136,7 +136,7 @@ public class Vcf {
                                     return;
                                 }
 
-                                //add DP to genotype if missing and only 1 sample
+                                //FIX: add DP to genotype if missing and only 1 sample
                                 if (!genotype.hasDP() && variantContext.getNSamples() == 1){
                                     GenotypeBuilder genotypeBuilder = new GenotypeBuilder();
                                     genotypeBuilder.copy(genotype);
