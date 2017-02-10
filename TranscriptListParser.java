@@ -33,7 +33,6 @@ public class TranscriptListParser {
         try (BufferedReader bufferedReader = new BufferedReader (new FileReader(filePath))){
             while ((line = bufferedReader.readLine()) != null) {
                 String[] fields = line.split("\t");
-                System.out.println(line);
                 transcripts.add(fields[1]);
             }
         }
