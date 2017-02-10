@@ -175,7 +175,6 @@ public class Vcf {
                                         genomeVariant.convertToMinimalRepresentation();
                                     } else {
                                         genomeVariant = new GenomeVariant(variantContext.getContig(), variantContext.getStart(), variantContext.getReference().getBaseString(), genotype.getAlleles().get(1).toString());
-                                        System.out.println(genomeVariant);
                                     }
 
                                     if (!sampleVariants.containsKey(genomeVariant)){
