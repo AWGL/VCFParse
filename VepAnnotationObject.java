@@ -269,7 +269,7 @@ public class VepAnnotationObject {
         try {
             return String.format("%.2f", maf.get(allele) * 100) + "%";
         } catch (NullPointerException e){
-            return "";
+            return "0%";
         }
     }
 
