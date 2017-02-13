@@ -12,10 +12,7 @@ import nhs.genetics.cardiff.framework.SampleMetaData;
 import nhs.genetics.cardiff.framework.vep.VepAnnotationObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -247,7 +244,13 @@ public class Vcf {
             hashMap.put(vepHeaders[i].trim(), annotations[i].trim());
         }
 
-        return objectMapper.convertValue(hashMap, VepAnnotationObject.class);
+        try {
+            return objectMapper.convertValue(hashMap, VepAnnotationObject.class);
+        } catch (IllegalArgumentException e){
+            log.log(Level.WARNING, "Could not find deserialize record: " + Arrays.toString(vepHeaders) + "\n" + Arrays.toString(annotations));
+            throw e;
+        }
+
     }
     private void setSampleMetaData(String sampleHeaderLine){
         HashMap<String, String> temp = new HashMap<>();

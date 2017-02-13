@@ -9,11 +9,12 @@ import nhs.genetics.cardiff.Main;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MafDeserializer extends StdDeserializer<HashMap<String, Double>> {
 
-    private static final Logger log = Logger.getLogger(Main.class.getName());
+    private static final Logger log = Logger.getLogger(MafDeserializer.class.getName());
 
     public MafDeserializer() {
         this(null);
@@ -40,7 +41,13 @@ public class MafDeserializer extends StdDeserializer<HashMap<String, Double>> {
 
         for (String field : value.split("&")){
             String[] subFields = field.trim().split(":");
-            maf.put(subFields[0], Double.parseDouble(subFields[1]));
+
+            try {
+                maf.put(subFields[0], Double.parseDouble(subFields[1]));
+            } catch (ArrayIndexOutOfBoundsException e){
+                log.log(Level.FINE, "Could not parse maf fields: " + value);
+            }
+
         }
 
         return maf;
