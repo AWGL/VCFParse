@@ -373,11 +373,9 @@ public class VepAnnotationObject {
     public String getCdsPosition() {
         return cdsPosition;
     }
-
     public String getProteinPosition() {
         return proteinPosition;
     }
-
     public String getAminoAcids() {
         return aminoAcids;
     }

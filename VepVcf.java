@@ -49,7 +49,7 @@ public class Vcf {
         try {
             vepVersion = Integer.parseInt(vcfFileReader.getFileHeader().getOtherHeaderLine("VEP").getValue().split(" ")[0].split("v")[1]);
         } catch (NullPointerException e){
-            log.log(Level.WARNING, "Could not determine VEP version");
+            log.log(Level.WARNING, "Could not determine VEP version. Continuing without it.");
         }
 
         //get vcf metadata
@@ -141,7 +141,7 @@ public class Vcf {
                                     return;
                                 }
 
-                                //FIX: add DP to genotype if missing and only 1 sample
+                                //FIX: add DP to genotype if missing and only 1 sample TODO remove & add DP to genotype field
                                 if (!genotype.hasDP() && variantContext.getNSamples() == 1){
                                     GenotypeBuilder genotypeBuilder = new GenotypeBuilder();
                                     genotypeBuilder.copy(genotype);
