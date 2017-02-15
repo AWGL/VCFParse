@@ -36,6 +36,7 @@ public class Main {
         options.addOption("T", "Transcript", true, "Path to preferred transcript list");
         options.addOption("C", "Classification", true, "Path to VCF with classifications");
         options.addOption("K", "KnownRefSeq", false, "Report only known RefSeq transcripts (NM)");
+        options.addOption("O", "Output", true, "Add suffix to output filename");
 
         try {
             commandLine = commandLineParser.parse(options, args);
@@ -52,6 +53,7 @@ public class Main {
 
         //get opts
         boolean onlyReportKnownRefSeq = commandLine.hasOption("K");
+        String outputFilenameSuffix = commandLine.getOptionValue("O");
 
         //parse preferred transcripts list
         HashSet<String> transcripts = null;
@@ -79,7 +81,7 @@ public class Main {
 
         //write to file
         try {
-            WriteOut.writeToTable(vcf, transcripts, classifiedVariants, onlyReportKnownRefSeq);
+            WriteOut.writeToTable(vcf, transcripts, classifiedVariants, onlyReportKnownRefSeq, outputFilenameSuffix);
         } catch (IOException e){
             log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
             System.exit(-1);

@@ -26,12 +26,16 @@ import java.util.logging.Logger;
 public class WriteOut {
     private static final Logger log = Logger.getLogger(WriteOut.class.getName());
 
-    public static void writeToTable(Vcf vcf, HashSet<String> preferredTranscripts, HashMap<GenomeVariant, Integer> classifiedVariants, Boolean onlyReportKnownRefSeq) throws IOException {
+    public static void writeToTable(Vcf vcf, HashSet<String> preferredTranscripts, HashMap<GenomeVariant, Integer> classifiedVariants, Boolean onlyReportKnownRefSeq, String outputFilenameSuffix) throws IOException {
         log.log(Level.INFO, "Writing results to table");
 
         //write header lines & create new file
         for (String sampleId : vcf.getSampleNames()){
-            try (PrintWriter writer = new PrintWriter(vcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_VariantReport.txt")){
+            try (PrintWriter writer = new PrintWriter(
+
+                    outputFilenameSuffix != null ?
+                            vcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_" + outputFilenameSuffix + "_VariantReport.txt" :
+                            vcf.getSampleMetaDataHashMap().get(sampleId).getSeqId() + "_" + sampleId + "_VariantReport.txt")){
                 writer.println("SampleID\tVariant\tAltFrequency\tDepth\tGenotype\tQuality\tClassification\tPreferredTranscript\tdbSNP\tCosmic\tHGMD\tExAC_AFR\tExAC_AMR\tExAC_EAS\tExAC_FIN\tExAC_NFE\tExAC_SAS\tExAC_OTH\t1KG_African\t1KG_American\t1KG_EastAsian\t1KG_European\t1KG_SouthAsian\tGene\tTranscript\tHGVSc\tHGVSp\tConsequence\tIntron\tExon\tSIFT\tPolyPhen");
             }
         }
@@ -43,7 +47,12 @@ public class WriteOut {
             for (Pair<Genotype, Double> genotype : variantGenotypeEntry.getValue()){
 
                 //write to variant report & append to header file
-                try (FileWriter fileWriter = new FileWriter(vcf.getSampleMetaDataHashMap().get(genotype.getLeft().getSampleName()).getSeqId() + "_" + genotype.getLeft().getSampleName() + "_VariantReport.txt", true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter); PrintWriter printWriter = new PrintWriter(bufferedWriter)) {
+                try (FileWriter fileWriter = new FileWriter(
+                        outputFilenameSuffix != null ?
+                                vcf.getSampleMetaDataHashMap().get(genotype.getLeft().getSampleName()).getSeqId() + "_" + genotype.getLeft().getSampleName() + "_" + outputFilenameSuffix + "_VariantReport.txt" :
+                                vcf.getSampleMetaDataHashMap().get(genotype.getLeft().getSampleName()).getSeqId() + "_" + genotype.getLeft().getSampleName() + "_VariantReport.txt"
+                        , true);
+                     BufferedWriter bufferedWriter = new BufferedWriter(fileWriter); PrintWriter printWriter = new PrintWriter(bufferedWriter)) {
                     boolean printed = false;
 
                     //check VEP annotation exists and print
