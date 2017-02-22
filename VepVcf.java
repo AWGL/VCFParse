@@ -237,7 +237,7 @@ public class Vcf {
         HashMap<String, String> hashMap = new HashMap<String, String>();
 
         //split annotation fields
-        String[] annotations = csqField.split("\\|"); //-1 stops this removing empty trailing spaces
+        String[] annotations = csqField.split("\\|");
 
         //pair headers with fields
         for (int i=0 ; i < annotations.length; i++) {

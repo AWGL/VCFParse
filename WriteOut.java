@@ -69,7 +69,7 @@ public class WriteOut {
                             printWriter.print("\t");
                             printWriter.print(variantGenotypeEntry.getKey());
                             printWriter.print("\t");
-                            printWriter.print(genotype.getLeft().hasDP() && genotype.getLeft().hasAD() ? String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%" : null);
+                            printWriter.print(genotype.getLeft().getAnyAttribute("VF"));
                             printWriter.print("\t");
                             printWriter.print(genotype.getLeft().hasDP() ? genotype.getLeft().getDP() : null);
                             printWriter.print("\t");
@@ -100,7 +100,7 @@ public class WriteOut {
                         printWriter.print("\t");
                         printWriter.print(variantGenotypeEntry.getKey());
                         printWriter.print("\t");
-                        printWriter.print(genotype.getLeft().hasDP() && genotype.getLeft().hasAD() ? String.format("%.2f", calcAllelePercent(genotype.getLeft().getDP(), genotype.getLeft().getAD()[1])) + "%" : null);
+                        printWriter.print(genotype.getLeft().getAnyAttribute8("VF"));
                         printWriter.print("\t");
                         printWriter.print(genotype.getLeft().hasDP() ? genotype.getLeft().getDP() : null);
                         printWriter.print("\t");
@@ -125,9 +125,6 @@ public class WriteOut {
 
     }
 
-    private static double calcAllelePercent(Integer totalDP, Integer altDP){
-        return ((double) altDP / totalDP) * 100;
-    }
 }
 
 
