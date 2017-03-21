@@ -52,7 +52,7 @@ public class Vcf {
             log.log(Level.WARNING, "Could not determine VEP version. Continuing without it.");
         }
 
-        //get vcf metadata
+        /*get vcf metadata
         try {
             vcfFileReader.getFileHeader().getMetaDataInInputOrder()
                     .stream()
@@ -61,7 +61,7 @@ public class Vcf {
         } catch (NullPointerException e){
             log.log(Level.SEVERE, "Could not read metadata from SAMPLE tag. Check metadata has been applied to VCF file.");
             throw e;
-        }
+        }*/
 
         //extract VEP headers
         try {

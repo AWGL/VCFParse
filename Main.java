@@ -22,7 +22,7 @@ public class Main {
 
     private static final Logger log = Logger.getLogger(Main.class.getName());
     private static final String program = "VCFParse";
-    private static final String version = "1.2.2";
+    private static final String version = "1.2.3";
 
     public static void main(String[] args) {
 
@@ -36,7 +36,7 @@ public class Main {
         options.addOption("T", "Transcript", true, "Path to preferred transcript list");
         options.addOption("C", "Classification", true, "Path to VCF with classifications");
         options.addOption("K", "KnownRefSeq", false, "Report only known RefSeq transcripts (NM)");
-        options.addOption("O", "Output", true, "Add suffix to output filename");
+        options.addOption("O", "Output", true, "Add prefix to output filename");
 
         try {
             commandLine = commandLineParser.parse(options, args);
@@ -53,7 +53,7 @@ public class Main {
 
         //get opts
         boolean onlyReportKnownRefSeq = commandLine.hasOption("K");
-        String outputFilenameSuffix = commandLine.getOptionValue("O");
+        String outputFilenamePrefix = commandLine.getOptionValue("O");
 
         //parse preferred transcripts list
         HashSet<String> transcripts = null;
@@ -81,7 +81,7 @@ public class Main {
 
         //write to file
         try {
-            WriteOut.writeToTable(vcf, transcripts, classifiedVariants, onlyReportKnownRefSeq, outputFilenameSuffix);
+            WriteOut.writeToTable(vcf, transcripts, classifiedVariants, onlyReportKnownRefSeq, outputFilenamePrefix);
         } catch (IOException e){
             log.log(Level.SEVERE, "Could not write to file:" + e.getMessage());
             System.exit(-1);
