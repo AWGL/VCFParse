@@ -39,6 +39,7 @@ public class GenomeVariant {
         } else {
             int i = ref.length(), j = alt.length();
 
+            //trim shared suffix sequence
             while (i > 1 && j > 1){
 
                 if (ref.charAt(i - 1) != alt.charAt(j - 1)){
@@ -50,10 +51,11 @@ public class GenomeVariant {
 
             ref = ref.substring(0, i);
             alt = alt.substring(0, j);
-
+            
+            //trim shared prefix sequence
             i = 1; j = 1;
 
-            while (ref.length() > 1 && alt.length() > 1){
+            while (i < ref.length() && j < alt.length()){
 
                 if (ref.charAt(i - 1) != alt.charAt(j - 1)){
                     break;
